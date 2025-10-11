@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Loss functions and regression models | Statistical and Causal Inference</title>
+  <meta name="description" content="3 Loss functions and regression models | Statistical and Causal Inference" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Loss functions and regression models | Statistical and Causal Inference" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Loss functions and regression models | Statistical and Causal Inference" />
+  
+  
+  
+
+<meta name="author" content="Johannes Textor" />
+
+
+<meta name="date" content="2025-10-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="linear-regression.html"/>
+<link rel="next" href="extending-linear-regression-models.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#generative-ai-disclosure"><i class="fa fa-check"></i>Generative AI disclosure</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="scientific-inference.html"><a href="scientific-inference.html"><i class="fa fa-check"></i><b>1</b> Scientific inference</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="scientific-inference.html"><a href="scientific-inference.html#greetings-and-introduction"><i class="fa fa-check"></i><b>1.1</b> Greetings and introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="scientific-inference.html"><a href="scientific-inference.html#the-setup-of-the-course"><i class="fa fa-check"></i><b>1.2</b> The setup of the course</a></li>
+<li class="chapter" data-level="1.3" data-path="scientific-inference.html"><a href="scientific-inference.html#philosophy-of-science"><i class="fa fa-check"></i><b>1.3</b> Philosophy of science</a></li>
+<li class="chapter" data-level="1.4" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-inference-1"><i class="fa fa-check"></i><b>1.4</b> Scientific inference</a></li>
+<li class="chapter" data-level="1.5" data-path="scientific-inference.html"><a href="scientific-inference.html#karl-popper-and-falsificationism"><i class="fa fa-check"></i><b>1.5</b> Karl Popper and falsificationism</a></li>
+<li class="chapter" data-level="1.6" data-path="scientific-inference.html"><a href="scientific-inference.html#introducing-portfolio-item-5"><i class="fa fa-check"></i><b>1.6</b> Introducing portfolio item 5</a></li>
+<li class="chapter" data-level="1.7" data-path="scientific-inference.html"><a href="scientific-inference.html#statistical-versus-causal-inference"><i class="fa fa-check"></i><b>1.7</b> Statistical versus causal inference</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="scientific-inference.html"><a href="scientific-inference.html#description"><i class="fa fa-check"></i><b>1.7.1</b> Description</a></li>
+<li class="chapter" data-level="1.7.2" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction"><i class="fa fa-check"></i><b>1.7.2</b> Prediction</a></li>
+<li class="chapter" data-level="1.7.3" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-description"><i class="fa fa-check"></i><b>1.7.3</b> Techniques used for description</a></li>
+<li class="chapter" data-level="1.7.4" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-prediction"><i class="fa fa-check"></i><b>1.7.4</b> Techniques used for prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction-versus-causal-inference"><i class="fa fa-check"></i><b>1.8</b> Prediction versus causal inference</a></li>
+<li class="chapter" data-level="1.9" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-versus-statistical-inference"><i class="fa fa-check"></i><b>1.9</b> Scientific versus statistical inference</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="scientific-inference.html"><a href="scientific-inference.html#hypothesis-testing"><i class="fa fa-check"></i><b>1.9.1</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="1.9.2" data-path="scientific-inference.html"><a href="scientific-inference.html#parameter-estimation"><i class="fa fa-check"></i><b>1.9.2</b> Parameter estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="scientific-inference.html"><a href="scientific-inference.html#frequentist-versus-bayesian-statistics"><i class="fa fa-check"></i><b>1.10</b> Frequentist versus Bayesian statistics</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="scientific-inference.html"><a href="scientific-inference.html#bayes-rule-likelihood-and-posterior-probability"><i class="fa fa-check"></i><b>1.10.1</b> Bayes’ rule, likelihood, and posterior probability</a></li>
+<li class="chapter" data-level="1.10.2" data-path="scientific-inference.html"><a href="scientific-inference.html#epistemic-and-aleatorial-probability"><i class="fa fa-check"></i><b>1.10.2</b> Epistemic and aleatorial probability</a></li>
+<li class="chapter" data-level="1.10.3" data-path="scientific-inference.html"><a href="scientific-inference.html#constrasting-bayesian-and-frequentist-statistics"><i class="fa fa-check"></i><b>1.10.3</b> Constrasting Bayesian and frequentist statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="scientific-inference.html"><a href="scientific-inference.html#test-your-understanding"><i class="fa fa-check"></i><b>1.11</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#on-the-difference-between-this-course-and-others-in-the-master"><i class="fa fa-check"></i><b>2.1</b> On the difference between this course and others in the Master</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-1"><i class="fa fa-check"></i><b>2.2</b> Linear regression</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#how-is-a-linear-regression-model-mathematically-defined"><i class="fa fa-check"></i><b>2.3</b> How is a linear regression model mathematically defined?</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#recap-on-probability-distributions"><i class="fa fa-check"></i><b>2.4</b> Recap on probability distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distribution"><i class="fa fa-check"></i><b>2.5</b> Some example normal distribution</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#conditional-probability-distributions"><i class="fa fa-check"></i><b>2.6</b> Conditional probability distributions</a></li>
+<li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#generative-versus-discriminative-models"><i class="fa fa-check"></i><b>2.7</b> Generative versus discriminative models</a></li>
+<li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#defining-linear-regression-as-a-conditional-probability-model"><i class="fa fa-check"></i><b>2.8</b> Defining linear regression as a conditional probability model</a></li>
+<li class="chapter" data-level="2.9" data-path="linear-regression.html"><a href="linear-regression.html#additional-background-on-probability-distributions"><i class="fa fa-check"></i><b>2.9</b> Additional background on probability distributions</a></li>
+<li class="chapter" data-level="2.10" data-path="linear-regression.html"><a href="linear-regression.html#the-regression-model"><i class="fa fa-check"></i><b>2.10</b> “The regression model”</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-conditional-expectation"><i class="fa fa-check"></i><b>2.10.1</b> Linear regression as conditional expectation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="linear-regression.html"><a href="linear-regression.html#loss-functions"><i class="fa fa-check"></i><b>2.11</b> Loss functions</a></li>
+<li class="chapter" data-level="2.12" data-path="linear-regression.html"><a href="linear-regression.html#square-loss-verus-absolute-loss"><i class="fa fa-check"></i><b>2.12</b> Square loss verus absolute loss</a></li>
+<li class="chapter" data-level="2.13" data-path="linear-regression.html"><a href="linear-regression.html#test-your-understanding-1"><i class="fa fa-check"></i><b>2.13</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html"><i class="fa fa-check"></i><b>3</b> Loss functions and regression models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#considerations-for-choosing-different-loss-functions"><i class="fa fa-check"></i><b>3.1</b> Considerations for choosing different loss functions</a></li>
+<li class="chapter" data-level="3.2" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#linear-regression-and-the-effect-of-outliers"><i class="fa fa-check"></i><b>3.2</b> Linear regression and the effect of outliers</a></li>
+<li class="chapter" data-level="3.3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#recap-expectation-mean-and-squared-error"><i class="fa fa-check"></i><b>3.3</b> Recap: Expectation, mean, and squared error</a></li>
+<li class="chapter" data-level="3.4" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#example-linear-regression-for-the-air-quality-data"><i class="fa fa-check"></i><b>3.4</b> Example: Linear regression for the air quality data</a></li>
+<li class="chapter" data-level="3.5" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#implementing-your-own-regression-model-versus-using-a-pre-packaged-solution"><i class="fa fa-check"></i><b>3.5</b> Implementing your own regression model versus using a pre-packaged solution</a></li>
+<li class="chapter" data-level="3.6" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#the-huber-loss"><i class="fa fa-check"></i><b>3.6</b> The Huber loss</a></li>
+<li class="chapter" data-level="3.7" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#test-your-understanding-2"><i class="fa fa-check"></i><b>3.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html"><i class="fa fa-check"></i><b>4</b> Extending linear regression models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#example-basic-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Example: Basic linear regression</a></li>
+<li class="chapter" data-level="4.2" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#transforming-variables"><i class="fa fa-check"></i><b>4.2</b> Transforming variables</a></li>
+<li class="chapter" data-level="4.3" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#using-binary-variables-as-predictors"><i class="fa fa-check"></i><b>4.3</b> Using binary variables as predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#regression-with-multiple-predictors"><i class="fa fa-check"></i><b>4.4</b> Regression with multiple predictors</a></li>
+<li class="chapter" data-level="4.5" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>4.5</b> Interaction terms</a></li>
+<li class="chapter" data-level="4.6" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#test-your-understanding-3"><i class="fa fa-check"></i><b>4.6</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="non-linear-models.html"><a href="non-linear-models.html"><i class="fa fa-check"></i><b>5</b> Non-linear models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#portfolio-contributions"><i class="fa fa-check"></i><b>5.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="non-linear-models.html"><a href="non-linear-models.html#the-box-cox-transformation"><i class="fa fa-check"></i><b>5.1.1</b> The Box-Cox transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#introduction-1"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="non-linear-models.html"><a href="non-linear-models.html#recap"><i class="fa fa-check"></i><b>5.2.1</b> Recap</a></li>
+<li class="chapter" data-level="5.2.2" data-path="non-linear-models.html"><a href="non-linear-models.html#the-motivation-for-non-linear-models"><i class="fa fa-check"></i><b>5.2.2</b> The motivation for non-linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="non-linear-models.html"><a href="non-linear-models.html#a-model-of-population-growth-in-biology"><i class="fa fa-check"></i><b>5.3</b> A model of population growth in biology</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="non-linear-models.html"><a href="non-linear-models.html#algae-growth"><i class="fa fa-check"></i><b>5.3.1</b> Algae growth</a></li>
+<li class="chapter" data-level="5.3.2" data-path="non-linear-models.html"><a href="non-linear-models.html#initialization-of-the-numerical-optimizer"><i class="fa fa-check"></i><b>5.3.2</b> Initialization of the numerical optimizer</a></li>
+<li class="chapter" data-level="5.3.3" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-linear-log-model"><i class="fa fa-check"></i><b>5.3.3</b> Fitting a linear-log model</a></li>
+<li class="chapter" data-level="5.3.4" data-path="non-linear-models.html"><a href="non-linear-models.html#model-falsification-revisited"><i class="fa fa-check"></i><b>5.3.4</b> Model falsification revisited</a></li>
+<li class="chapter" data-level="5.3.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-growth-model"><i class="fa fa-check"></i><b>5.3.5</b> The logistic growth model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="non-linear-models.html"><a href="non-linear-models.html#maximum-likelihood-fitting-of-probability-models"><i class="fa fa-check"></i><b>5.4</b> Maximum likelihood fitting of probability models</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-the-linear-regression-model-with-gaussian-errors"><i class="fa fa-check"></i><b>5.4.1</b> Fitting the linear regression model with Gaussian errors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-regression-model"><i class="fa fa-check"></i><b>5.5</b> The logistic regression model</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-logistic-regression-model"><i class="fa fa-check"></i><b>5.5.1</b> Fitting a logistic regression model</a></li>
+<li class="chapter" data-level="5.5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#interpretation-of-logistic-regression-results"><i class="fa fa-check"></i><b>5.5.2</b> Interpretation of logistic regression results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="non-linear-models.html"><a href="non-linear-models.html#the-cox-proportional-hazards-model-for-time-to-event-data"><i class="fa fa-check"></i><b>5.6</b> The Cox proportional hazards model for time-to-event data</a></li>
+<li class="chapter" data-level="5.7" data-path="non-linear-models.html"><a href="non-linear-models.html#test-your-understanding-4"><i class="fa fa-check"></i><b>5.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html"><i class="fa fa-check"></i><b>6</b> Model parameter estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#portfolio-contributions-1"><i class="fa fa-check"></i><b>6.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-dummy-variable-trap"><i class="fa fa-check"></i><b>6.1.1</b> The dummy variable trap</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#introduction-2"><i class="fa fa-check"></i><b>6.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#todays-goal-quantifying-uncertainty"><i class="fa fa-check"></i><b>6.2.1</b> Today’s goal: quantifying uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-1-estimating-the-standard-deviation"><i class="fa fa-check"></i><b>6.3</b> Running example 1: estimating the standard deviation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#intuition-uncertainty-is-related-to-the-curvature-of-the-loss-function"><i class="fa fa-check"></i><b>6.3.1</b> Intuition: uncertainty is related to the curvature of the loss function</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-2-estimating-the-lifetime-of-white-blood-cells"><i class="fa fa-check"></i><b>6.4</b> Running example 2: estimating the lifetime of white blood cells</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#fitting-the-labelling-model"><i class="fa fa-check"></i><b>6.4.1</b> Fitting the labelling model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#bootstrapping"><i class="fa fa-check"></i><b>6.5</b> Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#implementing-bootstrapping"><i class="fa fa-check"></i><b>6.5.1</b> Implementing bootstrapping</a></li>
+<li class="chapter" data-level="6.5.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#prelude-bootstrapping-and-model-selection"><i class="fa fa-check"></i><b>6.5.2</b> Prelude: Bootstrapping and model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-wald-test"><i class="fa fa-check"></i><b>6.6</b> The Wald test</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#toy-example"><i class="fa fa-check"></i><b>6.6.1</b> Toy example</a></li>
+<li class="chapter" data-level="6.6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#wald-test-for-the-labeling-data"><i class="fa fa-check"></i><b>6.6.2</b> Wald test for the labeling data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimation"><i class="fa fa-check"></i><b>6.7</b> Sandwich estimation</a></li>
+<li class="chapter" data-level="6.8" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood"><i class="fa fa-check"></i><b>6.8</b> Sandwich estimator for maximum likelihood</a></li>
+<li class="chapter" data-level="6.9" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#recap-1"><i class="fa fa-check"></i><b>6.9</b> Recap</a></li>
+<li class="chapter" data-level="6.10" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#test-your-knowledge"><i class="fa fa-check"></i><b>6.10</b> Test your knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="selecting-models.html"><a href="selecting-models.html"><i class="fa fa-check"></i><b>7</b> Selecting models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="selecting-models.html"><a href="selecting-models.html#course-logistics"><i class="fa fa-check"></i><b>7.1</b> Course logistics</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="selecting-models.html"><a href="selecting-models.html#cancelling-portfolio-item-2"><i class="fa fa-check"></i><b>7.1.1</b> Cancelling portfolio item 2</a></li>
+<li class="chapter" data-level="7.1.2" data-path="selecting-models.html"><a href="selecting-models.html#explanation-item-11-publication-quality-figure"><i class="fa fa-check"></i><b>7.1.2</b> Explanation item 11 (publication-quality figure)</a></li>
+<li class="chapter" data-level="7.1.3" data-path="selecting-models.html"><a href="selecting-models.html#items-67-and-8"><i class="fa fa-check"></i><b>7.1.3</b> Items 6,7, and 8</a></li>
+<li class="chapter" data-level="7.1.4" data-path="selecting-models.html"><a href="selecting-models.html#difference-to-the-other-items"><i class="fa fa-check"></i><b>7.1.4</b> Difference to the other items</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="selecting-models.html"><a href="selecting-models.html#introduction-to-model-comparison"><i class="fa fa-check"></i><b>7.2</b> Introduction to model comparison</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-and-accurate-model"><i class="fa fa-check"></i><b>7.2.1</b> A correct and accurate model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-but-not-accurate-model"><i class="fa fa-check"></i><b>7.2.2</b> A correct but not accurate model</a></li>
+<li class="chapter" data-level="7.2.3" data-path="selecting-models.html"><a href="selecting-models.html#an-incorrect-but-accurate-model"><i class="fa fa-check"></i><b>7.2.3</b> An incorrect but accurate model</a></li>
+<li class="chapter" data-level="7.2.4" data-path="selecting-models.html"><a href="selecting-models.html#quantifying-model-accuracy"><i class="fa fa-check"></i><b>7.2.4</b> Quantifying model accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="selecting-models.html"><a href="selecting-models.html#statistical-approaches-to-model-falsification"><i class="fa fa-check"></i><b>7.3</b> Statistical approaches to model falsification</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="selecting-models.html"><a href="selecting-models.html#the-wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>7.3.1</b> The Wald-Wolfowitz runs test</a></li>
+<li class="chapter" data-level="7.3.2" data-path="selecting-models.html"><a href="selecting-models.html#model-extensions-can-be-unnecessary-but-not-wrong"><i class="fa fa-check"></i><b>7.3.2</b> Model extensions can be unnecessary but not wrong</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="selecting-models.html"><a href="selecting-models.html#model-selection-by-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Model selection by confidence intervals</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="selecting-models.html"><a href="selecting-models.html#more-complex-models-are-more-accurate-on-the-training-data"><i class="fa fa-check"></i><b>7.4.1</b> More complex models are more accurate on the training data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="selecting-models.html"><a href="selecting-models.html#non-nested-models"><i class="fa fa-check"></i><b>7.4.2</b> Non-nested models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="selecting-models.html"><a href="selecting-models.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.5</b> Leave-one-out cross-validation</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-linear-regression"><i class="fa fa-check"></i><b>7.5.1</b> LOO-CV for linear regression</a></li>
+<li class="chapter" data-level="7.5.2" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-logistic-regression"><i class="fa fa-check"></i><b>7.5.2</b> LOO-CV for logistic regression</a></li>
+<li class="chapter" data-level="7.5.3" data-path="selecting-models.html"><a href="selecting-models.html#the-area-under-the-roc-curve-auc"><i class="fa fa-check"></i><b>7.5.3</b> The area under the ROC curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="selecting-models.html"><a href="selecting-models.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>7.6</b> Akaike’s information criterion (AIC)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="selecting-models.html"><a href="selecting-models.html#interpretation-of-aic-differences"><i class="fa fa-check"></i><b>7.6.1</b> Interpretation of AIC differences</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="selecting-models.html"><a href="selecting-models.html#the-connection-between-cross-validation-and-complexity-penalties"><i class="fa fa-check"></i><b>7.7</b> The connection between cross-validation and complexity penalties</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="selecting-models.html"><a href="selecting-models.html#how-the-amount-of-held-out-data-for-cross-validation-determines-complexity"><i class="fa fa-check"></i><b>7.7.1</b> How the amount of held-out data for cross-validation determines complexity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="selecting-models.html"><a href="selecting-models.html#test-your-understanding-5"><i class="fa fa-check"></i><b>7.8</b> Test your understanding</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical and Causal Inference</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="loss-functions-and-regression-models" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Loss functions and regression models<a href="loss-functions-and-regression-models.html#loss-functions-and-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>I started this lecture with a few generic discussion items that I won’t repeat here:</p>
+<ul>
+<li>Some general remarks on the logistics (e.g., transcripts versus notes on Brightspace).</li>
+<li>Some remarks on earlier courses that covered some materials on probability distributions in our computing science Bachelor programme, which are not relevant for many students.</li>
+<li>I then repeated the part on absolute versus squared loss that I had messed up on my first attempt in lecture 2. I have already worked that part in to the transcript of lecture 2.</li>
+</ul>
+<div id="considerations-for-choosing-different-loss-functions" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Considerations for choosing different loss functions<a href="loss-functions-and-regression-models.html#considerations-for-choosing-different-loss-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s recall two loss functions we discussed previously. Suppose we have a prediction <span class="math inline">\(\mu\)</span> and an observation <span class="math inline">\(x\)</span>, then we defined:</p>
+<ul>
+<li>The absolute loss <span class="math display">\[L_1(x,\mu) = |x - \mu | \]</span></li>
+<li>The squared loss <span class="math display">\[L_2(x,\mu) = (x - \mu)^2 \]</span></li>
+</ul>
+<p>The squared loss is very common, but why is that actually the case? There often isn’t a scientific justification. It may have more to do with</p>
+<ol style="list-style-type: decimal">
+<li>The distribution of the data at hand</li>
+<li>Technical convenience</li>
+</ol>
+<p>Regarding 1., the quadratic loss “punishes” outliers severely. If, for example, we have a large dataset that may contain errors (e.g. data entry errors; somebody might just have accidentally
+typed a few extra zeros too much or maybe a Dutch decimal comma was wrongly interpreted as a thousand’s separator) and we can’t easily correct those, we may not want to use the quadratic loss, as the outlier might influence the fit too much. In that case, e.g. the absolute loss might be a better choice. Hence, this consideration depends on the domain and is based on your understanding of the data.</p>
+<p>Regarding 2., the quadratic loss is often analytically tractable, and it is usually smooth (twice differentiable everywhere) which helps with numerical optimization. It can sometimes be harder to numerically optimize the absolute loss, especially if you don’t use a high-quality optimizer such as <code>nlm</code> in R.</p>
+</div>
+<div id="linear-regression-and-the-effect-of-outliers" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Linear regression and the effect of outliers<a href="loss-functions-and-regression-models.html#linear-regression-and-the-effect-of-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This property of the squared loss – that severely punishes large errors – is important to understand some of the properties of linear regression, as we’ll illustrate now.</p>
+<p>Let’s look at an example dataset we’ll use in this lecture to illustrate some of the techniques. This dataset is built into R, and contains air quality measurements. We’ll focus on two variables, the temperature (X axis, in degrees Fahrenheit) and the wind speed (Y axis, in knots):</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="loss-functions-and-regression-models.html#cb28-1" tabindex="-1"></a><span class="fu">with</span>( airquality, </span>
+<span id="cb28-2"><a href="loss-functions-and-regression-models.html#cb28-2" tabindex="-1"></a>  <span class="fu">plot</span>( Temp, Wind, <span class="at">cex=</span>.<span class="dv">5</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span>
+<span id="cb28-3"><a href="loss-functions-and-regression-models.html#cb28-3" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc1-1.png" width="672" /></p>
+<p>How is wind speed affected by temperature?</p>
+<p>To already answer this question, let’s use the <code>lm</code> function in base R to add a regression line to this plot – and we’ll make sure later that we understand exactly how it is computed:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="loss-functions-and-regression-models.html#cb29-1" tabindex="-1"></a><span class="fu">with</span>( airquality, {</span>
+<span id="cb29-2"><a href="loss-functions-and-regression-models.html#cb29-2" tabindex="-1"></a>  <span class="fu">plot</span>( Temp, Wind, <span class="at">cex=</span>.<span class="dv">5</span>, </span>
+<span id="cb29-3"><a href="loss-functions-and-regression-models.html#cb29-3" tabindex="-1"></a>      <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span>
+<span id="cb29-4"><a href="loss-functions-and-regression-models.html#cb29-4" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lm</span>( Wind <span class="sc">~</span> Temp )</span>
+<span id="cb29-5"><a href="loss-functions-and-regression-models.html#cb29-5" tabindex="-1"></a>  <span class="fu">abline</span>( m, <span class="at">col=</span><span class="dv">2</span> )</span>
+<span id="cb29-6"><a href="loss-functions-and-regression-models.html#cb29-6" tabindex="-1"></a>} )</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc1lm-1.png" width="672" /></p>
+<p>As we can see, this <em>regression line</em> appear to fit quite well, as it goes “through” the data.</p>
+<p>Now, let’s add an outlier to this dataset, and see what that does to our regression line.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="loss-functions-and-regression-models.html#cb30-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Temp; wind <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Wind</span>
+<span id="cb30-2"><a href="loss-functions-and-regression-models.html#cb30-2" tabindex="-1"></a>temp[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>; wind[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb30-3"><a href="loss-functions-and-regression-models.html#cb30-3" tabindex="-1"></a><span class="fu">plot</span>( temp, wind, <span class="at">cex=</span>.<span class="dv">5</span>, </span>
+<span id="cb30-4"><a href="loss-functions-and-regression-models.html#cb30-4" tabindex="-1"></a>    <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span>
+<span id="cb30-5"><a href="loss-functions-and-regression-models.html#cb30-5" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>( wind <span class="sc">~</span> temp )</span>
+<span id="cb30-6"><a href="loss-functions-and-regression-models.html#cb30-6" tabindex="-1"></a><span class="fu">abline</span>( m, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc1lmol-1.png" width="672" /></p>
+<p>We can see that this single outlier has a quite big effect on the regression model. We’ll understand better why this is in a moment, but just to give an idea: fitting this linear regression model essentially minimizes a squared loss.</p>
+<p>Regression fitting can be compared to a tug-of-war: each data point pulls on the line, and the line balances these forces. With squared loss, points farther from the line exert disproportionately stronger pulls, since the force grows with the squared distance.
+This means that a single outlier can heavily influence the regression line, In an extreme case, a single point could have more influence than the rest of the data combined.</p>
+<p>In R, you can quite easily generate a plot that allows you to diagnose how much each point “pulls” on the line:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="loss-functions-and-regression-models.html#cb31-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Temp; wind <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Wind</span>
+<span id="cb31-2"><a href="loss-functions-and-regression-models.html#cb31-2" tabindex="-1"></a>temp[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>; wind[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb31-3"><a href="loss-functions-and-regression-models.html#cb31-3" tabindex="-1"></a><span class="fu">plot</span>( temp, wind, <span class="at">cex=</span>.<span class="dv">5</span>, </span>
+<span id="cb31-4"><a href="loss-functions-and-regression-models.html#cb31-4" tabindex="-1"></a>    <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc1lmolcook-1.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="loss-functions-and-regression-models.html#cb32-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>( wind <span class="sc">~</span> temp )</span>
+<span id="cb32-2"><a href="loss-functions-and-regression-models.html#cb32-2" tabindex="-1"></a><span class="fu">plot</span>(m, <span class="at">which=</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc1lmolcook-2.png" width="672" /></p>
+<p>The Cook’s distance measures how much “pull” each point has (X axis), considering how far it is away from the line (Y axis). Points should fall within the dashed region. Here, we can see very clearly that the outlier we added (data point 1) has much more “pull” than it should have.</p>
+<p>If you see several points with too much leverage, you could see if those are errors and correct them. If there are too many of those, or the data is coming from a source you can’t change (such as a faulty device), you could instead use a different loss.</p>
+</div>
+<div id="recap-expectation-mean-and-squared-error" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Recap: Expectation, mean, and squared error<a href="loss-functions-and-regression-models.html#recap-expectation-mean-and-squared-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s now continue to formally introduce regression models.</p>
+<p>Recall that last week on Monday, we
+talked about the expectation <span class="math inline">\(E[X]\)</span> for a variable <span class="math inline">\(X\)</span>, which we defined as:</p>
+<p><span class="math display">\[
+E[X] = \int P(x) \, x \, \, dx
+\]</span></p>
+<p>We had also seen that the <em>sample mean</em> <span class="math inline">\(\bar{x}=(x_1 + \ldots + x_n)/n\)</span> minimizes the <em>sum of squared errors</em> (SSE)</p>
+<p><span class="math display">\[
+\bar{x} = \text{argmin}_{\mu} \sum_{i=1}^n (x_i - \mu)^2
+\]</span></p>
+<p>How are these two related?</p>
+<p>As <span class="math inline">\(n \to \infty\)</span>, the sample mean <span class="math inline">\(\bar{x}\)</span> converges (in probability) to <span class="math inline">\(E[X]\)</span>. This fact is known as the <em>law of large numbers</em>. Convergence in probability is a tricky notion that I won’t get into here, but if you’re curious, it is very well explained here: <a href="https://www.youtube.com/watch?v=Ajar_6MAOLw" class="uri">https://www.youtube.com/watch?v=Ajar_6MAOLw</a></p>
+<p>But just for our intuition, as we raise our sample size, our sample mean is going to get
+closer and closer to the actual mean. For example, if you flip a coin a million times, then
+the proportion of heads is very likely going to be very close to 50%.</p>
+<p>Now that was really the simplest case of making a
+prediction right so we had only we were only asked for one number we were
+saying like please give make one prediction but for things like regression
+models we want to use other information to make that prediction so now we are
+going to move to the conditional variant of that. The <em>conditional expectation</em> is defined as</p>
+<p><span class="math display">\[
+E[Y  \mid X] = \int P(y \mid x) \, y \, \, dy
+\]</span></p>
+<p>Many statistical models can be understood as models of conditional expectation. In such a model, I am generally uninterested in how exactly the data will be distributed around my prediction; I am simply trying to make the best prediction I can.</p>
+<p>The linear regression model, which we defined earlier as a conditional probability model, can also be defined as a conditional expectation model:</p>
+<p><span class="math display">\[
+E[Y  \mid X] = \beta X + \alpha
+\]</span></p>
+<p>Note how this equation says nothing about probabilities, and does not contain an explicit error term anymore. That’s the key difference between a conditional probability model (which defines the entire distribution <span class="math inline">\(P(y \mid x)\)</span>) and a conditional expectation model (the expectation <span class="math inline">\(E[ y \mid x]\)</span> is only one property of the distribution <span class="math inline">\(P(y \mid x)\)</span>).
+This is important to keep in mind given the widely held opinion that “linear regression can only be done if the data is normally distributed” (which is wrong in several subtle ways).</p>
+<p>The above equation defines the <em>model</em>. When we have a <em>sample</em>, we need to <em>fit</em> the model to the sample to <em>estimate</em> the parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. Again, we do this by minimizing a loss function:</p>
+<p><span class="math display">\[
+\sum_i L(\mu, y_i)
+\]</span></p>
+<p>Here, <span class="math inline">\(L\)</span> could be any loss – squared error, absolute error, Huber’s loss – but in the context of linear regression, the squared error is typically used.</p>
+<p>We considered this scenario earlier (the example with the number of people in the building) but there, <span class="math inline">\(\mu\)</span> was a constant. Now, we use the value of <span class="math inline">\(x\)</span> to determine what <span class="math inline">\(\mu\)</span> should be:</p>
+<p><span class="math display">\[
+\mu_i = \beta x_i + \alpha
+\]</span></p>
+<p>Our prediction <span class="math inline">\(\mu\)</span> is a linear function in <span class="math inline">\(x\)</span>. Altogether this lead to this equation for the loss we’re trying to minimize:</p>
+<p><span class="math display">\[
+\text{SSE}=\sum_i (y_i - \alpha - \beta x_i)^2
+\]</span></p>
+<p>This is the exact same equation we used in Lecture 2 earlier, except now <span class="math inline">\(\mu\)</span> is expanded to <span class="math inline">\(\alpha + \beta x_i\)</span>.</p>
+<p>And to repeat, you could do this with any other loss
+function, but when we talk about “the” linear regression model, we’re typically referring to the squared loss defined above.</p>
+<p>This equation defines a so-called <em>M-estimator</em>: we are estimating the values <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> by <strong>m</strong>inimizing an objective function (a loss function in this case). This will become important later, when we’ll show methodology that works for all M-estimators.
+M-estimators include linear regression but also maximum likelihood and many other useful statistical estimation techniques. For example, many M-estimators lead to normally distributed estimates, which is very useful when constructing confidence intervals (see Lecture 4).</p>
+<p>In the case of linear regression, there is actually an analytical solution for the optimal coefficients, which we can again get by computing the derivative (in this case, gradient):</p>
+<p><span class="math display">\[
+\left(
+\begin{array}{c}
+\partial / \partial \alpha \\
+\partial / \partial \beta
+\end{array}
+\right)
+\sum_i (y_i - \alpha - \beta x_i)^2
+= \left(
+\begin{array}{c}
+0 \\
+0
+\end{array}
+\right)
+\]</span>
+which we can evaluate as<br />
+<span class="math display">\[
+\sum_i
+\left(
+\begin{array}{c}
+-2(y_i - \alpha - \beta x_i)
+\\
+-2x_i(y_i - \alpha - \beta x_i)
+\end{array}
+\right)
+= \left(
+\begin{array}{c}
+0 \\
+0
+\end{array}
+\right)
+\]</span>
+and then simplify to
+<span class="math display">\[
+\sum_i
+\left(
+\begin{array}{c}
+y_i - \alpha - \beta x_i
+\\
+x_i( y_i - \alpha - \beta x_i)
+\end{array}
+\right)
+= \left(
+\begin{array}{c}
+0 \\
+0
+\end{array}
+\right)
+\]</span></p>
+<p>These two constraints above actually have a nice interpretation which we can unpick. The first constraint states
+<span class="math display">\[
+\sum_i \underbrace{y_i - \alpha - \beta x_i}_\text{residual} = 0
+\]</span>
+That is, the <em>sum of all residuals (prediction errors) must be 0</em>. The second constraint states
+<span class="math display">\[
+\sum_i x_i (y_i - \alpha - \beta x_i) = 0
+\]</span>
+Fun fact: For two samples where at least one has mean 0, their mean product is 0 exactly when the correlation between them is 0. Here, satisfying the first constraint already requires that the residuals have mean 0. Therefore, the constraint above is equivalent to stating that <em>there must be no correlation between the residuals and the predictor</em>.</p>
+<p>But we won’t dwell on the analytical solution here – I want to focus on giving you recipes that you can easily adopt to other, more flexible model classes, for which you’ll generally use numerical optimization to determine the minumum.</p>
+</div>
+<div id="example-linear-regression-for-the-air-quality-data" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Example: Linear regression for the air quality data<a href="loss-functions-and-regression-models.html#example-linear-regression-for-the-air-quality-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s revisit our earlier example:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="loss-functions-and-regression-models.html#cb33-1" tabindex="-1"></a><span class="fu">with</span>( airquality, <span class="fu">plot</span>( Temp, Wind, <span class="at">cex=</span>.<span class="dv">5</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>) ) )</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc123-1.png" width="672" /></p>
+<p>Can we predict wind speed from temperature?</p>
+<p>In the class, we estimated together that <span class="math inline">\(\alpha \approx 45\)</span> and <span class="math inline">\(\beta \approx -0.5\)</span>.</p>
+<p>Let’s now define this regression problem in terms of a loss function to optimize, and visualize the loss
+values. Where will our guessed point lie?</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="loss-functions-and-regression-models.html#cb34-1" tabindex="-1"></a><span class="fu">with</span>( airquality, {</span>
+<span id="cb34-2"><a href="loss-functions-and-regression-models.html#cb34-2" tabindex="-1"></a>  loss <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>( <span class="cf">function</span>( a, b ){ </span>
+<span id="cb34-3"><a href="loss-functions-and-regression-models.html#cb34-3" tabindex="-1"></a>    <span class="fu">sum</span>( ( Wind <span class="sc">-</span> a <span class="sc">-</span> b <span class="sc">*</span>Temp )<span class="sc">^</span><span class="dv">2</span> ) </span>
+<span id="cb34-4"><a href="loss-functions-and-regression-models.html#cb34-4" tabindex="-1"></a>  } )</span>
+<span id="cb34-5"><a href="loss-functions-and-regression-models.html#cb34-5" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>,.<span class="dv">1</span>); b <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>); </span>
+<span id="cb34-6"><a href="loss-functions-and-regression-models.html#cb34-6" tabindex="-1"></a>  <span class="fu">contour</span>( a, b, <span class="fu">sqrt</span>( <span class="fu">outer</span>( a, b, loss ) ) )</span>
+<span id="cb34-7"><a href="loss-functions-and-regression-models.html#cb34-7" tabindex="-1"></a>  <span class="fu">points</span>( <span class="dv">45</span>, <span class="sc">-</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="dv">2</span> )</span>
+<span id="cb34-8"><a href="loss-functions-and-regression-models.html#cb34-8" tabindex="-1"></a>} )</span></code></pre></div>
+<p><img src="sci_files/figure-html/airc2loss-1.png" width="672" /></p>
+<p>(Note that we’re visualizing the square root of the loss here because otherwise these numbers get too large to fast; but this doesn’t change the location of the optimum nor the general structure of the landscape.)</p>
+<p>To actually find the best value, we’re going to use a built-in numerical optimizer in r, using the function <code>nlm</code>. Like any numerical optimizer, this requires some initial guess of what the optimal values might be; we could put in our guess from earlier, but for this specific loss function, it doesn’t matter too much and so we’ll start with a much worse guess: <span class="math inline">\(\alpha=\beta=1\)</span>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="loss-functions-and-regression-models.html#cb35-1" tabindex="-1"></a><span class="fu">with</span>( airquality, {</span>
+<span id="cb35-2"><a href="loss-functions-and-regression-models.html#cb35-2" tabindex="-1"></a>  loss <span class="ot">&lt;-</span> <span class="cf">function</span>( x ){ </span>
+<span id="cb35-3"><a href="loss-functions-and-regression-models.html#cb35-3" tabindex="-1"></a>    <span class="fu">sum</span>( ( Wind <span class="sc">-</span> x[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">2</span>] <span class="sc">*</span>Temp )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb35-4"><a href="loss-functions-and-regression-models.html#cb35-4" tabindex="-1"></a>  }</span>
+<span id="cb35-5"><a href="loss-functions-and-regression-models.html#cb35-5" tabindex="-1"></a>  <span class="fu">nlm</span>( loss, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )</span>
+<span id="cb35-6"><a href="loss-functions-and-regression-models.html#cb35-6" tabindex="-1"></a>} )</span></code></pre></div>
+<pre><code>## $minimum
+## [1] 1490.844
+## 
+## $estimate
+## [1] 23.2336881 -0.1704644
+## 
+## $gradient
+## [1] -2.577243e-07 -1.997932e-05
+## 
+## $code
+## [1] 1
+## 
+## $iterations
+## [1] 7</code></pre>
+<p>For other loss functions,
+initialization can make a huge difference. For example, this was historically a thorny issue in getting neural networks to train. For our linear regression, however, we can be quite bad in our initial guesses could be quite bad and it’ll probably still work. We can see that the
+optimizer in fact only required six iterations to find the optimum. The loss value 1490 is much better than the value of 5000 that we got for our own guess earlier.</p>
+<p>Let’s project the optimum we found onto our loss landscape:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="loss-functions-and-regression-models.html#cb37-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">100</span>,.<span class="dv">1</span>); b <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>); </span>
+<span id="cb37-2"><a href="loss-functions-and-regression-models.html#cb37-2" tabindex="-1"></a><span class="fu">with</span>( airquality, {</span>
+<span id="cb37-3"><a href="loss-functions-and-regression-models.html#cb37-3" tabindex="-1"></a>  lossv <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>( <span class="cf">function</span>( a, b ){ </span>
+<span id="cb37-4"><a href="loss-functions-and-regression-models.html#cb37-4" tabindex="-1"></a>    <span class="fu">sum</span>( ( Wind <span class="sc">-</span> a <span class="sc">-</span> b <span class="sc">*</span>Temp )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb37-5"><a href="loss-functions-and-regression-models.html#cb37-5" tabindex="-1"></a>  } )</span>
+<span id="cb37-6"><a href="loss-functions-and-regression-models.html#cb37-6" tabindex="-1"></a>  <span class="fu">contour</span>( a, b, <span class="fu">outer</span>( a, b, lossv ) )</span>
+<span id="cb37-7"><a href="loss-functions-and-regression-models.html#cb37-7" tabindex="-1"></a>} )</span>
+<span id="cb37-8"><a href="loss-functions-and-regression-models.html#cb37-8" tabindex="-1"></a><span class="fu">points</span>( <span class="fl">23.23</span>, <span class="sc">-</span><span class="fl">0.17</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/optimlosssll-1.png" width="672" /></p>
+<p>Now of course the linear regression has an analytical solution, as we saw earlier, so numerical optimization would not have been necessary. Yet, defining a loss function and optimizing it numerically is a general approach that is applicable to many models.</p>
+<p>Beyond fitting, this method raises questions of inference: how confident can we be in the estimated parameters given only a sample of data? A model may return precise numerical results, but those values can shift if the data changes.</p>
+<p>We’ll discuss this in more detail later, but a quick
+look at the loss contour plots helps assess uncertainty. For instance, in this case we can be fairly confident about the slope’s direction—positive versus negative — which is important since if the slope were positive, that would fundamentally change our interpretation of the relationship. Still, small shifts in the data could alter estimates, meaning conclusions about correlation strength or intercept size carry varying levels of uncertainty.</p>
+<p>Now let’s wrap this part up by checking if we can get the same results using the built-in R function <code>lm</code> for linear regression:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="loss-functions-and-regression-models.html#cb38-1" tabindex="-1"></a><span class="fu">summary</span>( <span class="fu">lm</span>( Wind <span class="sc">~</span> Temp, airquality ) )</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Wind ~ Temp, data = airquality)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.5784 -2.4489 -0.2261  1.9853  9.7398 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.23369    2.11239  10.999  &lt; 2e-16 ***
+## Temp        -0.17046    0.02693  -6.331 2.64e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.142 on 151 degrees of freedom
+## Multiple R-squared:  0.2098, Adjusted R-squared:  0.2045 
+## F-statistic: 40.08 on 1 and 151 DF,  p-value: 2.642e-09</code></pre>
+<p>Yes, we get the exact same coefficients! The <code>lm</code> function is of course a bit more powerful than our own implementation. For example, we can quite easily get confidence intervals for the model parameters:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="loss-functions-and-regression-models.html#cb40-1" tabindex="-1"></a><span class="fu">confint</span>( <span class="fu">lm</span>( Wind <span class="sc">~</span> Temp, airquality ) )</span></code></pre></div>
+<pre><code>##                  2.5 %    97.5 %
+## (Intercept) 19.0600210 27.407355
+## Temp        -0.2236649 -0.117264</code></pre>
+<p>Our result lends support to the idea that there’s actually a negative relationship – the entire confidence interval for the regression coefficient is quite far away from 0. We’ll see later how we can compute these kind of confidence intervals ourselves (Lecture 4).</p>
+<p><em>(Break)</em></p>
+</div>
+<div id="implementing-your-own-regression-model-versus-using-a-pre-packaged-solution" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Implementing your own regression model versus using a pre-packaged solution<a href="loss-functions-and-regression-models.html#implementing-your-own-regression-model-versus-using-a-pre-packaged-solution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before I continue with an illustration of a custom loss function, I want to address a question some of you have asked: Do we need to use R in this course?</p>
+<p>My answer would be: I don’t have a strong preference or recommendation for a programming language. What I would however recommend is to not
+simply using prebuilt functions like <code>lm()</code> in R or <code>model.fit()</code> in scikit-learn to fit your regression models. Instead, I suggest you explicitly define a loss function and optimize it numerically.
+This approach makes things more transparent and easier to experiment with different models and loss functions. If you like python, you can try to use the PyTorch framework, which nicely supports this prcess by providing optimizers and flexible ways to define losses. While standard packages are convenient, they often don’t allow you to change the model or loss function, so implementing a simple version manually can deepen understanding. Exercises like portfolio item 6 are not about building complex model using the latest packages, but about engaging with the mechanics of regression on a fundamental level.</p>
+<p>I do want to emphasize that I don’t expect you to write your own numerical optimizer. Numerical optimization is hard to get right and this is beyond the scope of this course. Many excellent off-the-shelf numerical optimizers exist. It would be more important to spend your time on e.g. making a contour plot of the loss landscape in which you’re optimizing.</p>
+<p>The reason I’m encouraging you now to follow this “semin-manual” approach is that models we’ll discuss in the coming weeks may not be available in existing off-the-shelf packages, so gaining hands-on experience now will help. You can use the code examples provided in the lecture notes and transcripts as a starting point and adapt these (you can easily convert them to Python if you want to with the help of AI).</p>
+</div>
+<div id="the-huber-loss" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> The Huber loss<a href="loss-functions-and-regression-models.html#the-huber-loss" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s now look at an example that illustrates the effect of changing the loss function. I’ll illustrate this using the <em>Huber loss</em> that I briefly mentioned before. The Huber loss is in some sense an “interpolation” between squared error and absolute error. It is defined as follows:</p>
+<p><span class="math display">\[
+L_\delta(\mu, x) = \begin{cases}
+\frac{1}{2} (x-\mu)^2 &amp; \text{if}\, \, \mid x - \mu\mid \leq \delta \\
+\delta \left( \mid x - \mu \mid - \delta/2 \right) &amp;
+\text{otherwise}
+\end{cases}
+\]</span></p>
+<p>As you can see, the Huber loss is a hybrid loss function
+that transitions from using quadratic loss for small errors to absolute
+loss for larger errors. This transition is controlled by the parameter <span class="math inline">\(\delta\)</span>.</p>
+<p>Let’s implement the Huber loss in R and plot it for two different values of <span class="math inline">\(\delta\)</span> to see the effect.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="loss-functions-and-regression-models.html#cb42-1" tabindex="-1"></a>huber <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>( <span class="cf">function</span>( x, mu, <span class="at">delta=</span><span class="dv">1</span> ) {</span>
+<span id="cb42-2"><a href="loss-functions-and-regression-models.html#cb42-2" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">abs</span>( x <span class="sc">-</span> mu ) <span class="sc">&lt;=</span> delta ){</span>
+<span id="cb42-3"><a href="loss-functions-and-regression-models.html#cb42-3" tabindex="-1"></a>        (x<span class="sc">-</span>mu)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span> </span>
+<span id="cb42-4"><a href="loss-functions-and-regression-models.html#cb42-4" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb42-5"><a href="loss-functions-and-regression-models.html#cb42-5" tabindex="-1"></a>        delta<span class="sc">*</span>(<span class="fu">abs</span>(x<span class="sc">-</span>mu)<span class="sc">-</span>delta<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb42-6"><a href="loss-functions-and-regression-models.html#cb42-6" tabindex="-1"></a>    }</span>
+<span id="cb42-7"><a href="loss-functions-and-regression-models.html#cb42-7" tabindex="-1"></a>} )</span>
+<span id="cb42-8"><a href="loss-functions-and-regression-models.html#cb42-8" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span>; mu <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by=</span>.<span class="dv">1</span> )</span>
+<span id="cb42-9"><a href="loss-functions-and-regression-models.html#cb42-9" tabindex="-1"></a><span class="fu">plot</span>( mu, <span class="fu">huber</span>( x, mu ), <span class="at">t=</span><span class="st">&#39;l&#39;</span> )</span>
+<span id="cb42-10"><a href="loss-functions-and-regression-models.html#cb42-10" tabindex="-1"></a><span class="fu">lines</span>( mu, <span class="fu">huber</span>( x, mu, <span class="at">delta=</span><span class="dv">3</span> ), <span class="at">t=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/huber-1.png" width="672" /></p>
+<p>You can see that near zero, the Huber loss has a nice, smoothly quadratic shape. And then as you move towards larger values, it becomes linear. As we increase the value of <span class="math inline">\(\delta\)</span>, the Huber loss becomes more like the squared loss.</p>
+<p>When would we use something like the Huber loss? Say we were to build a model that predicts tomorrow’s temperature, for example, and suppose we’re off by a 100 degrees (e.g. we predict 20 degrees but the data says it’s 120). Then a likely explanation could be that the dataset contains an error, since we don’t usually have this kind of temperatures. In such a case, where we have a large dataset in which we can’t rule out outliers but don’t want them to influence our results too much, might want to use something like the Huber loss.</p>
+<p>Let’s now check how the loss landscape looks like for this loss. <em>(In the lecture, I worked my way step by step from the version above to this version below, which required some debugging steps that I won’t repeat here.)</em></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="loss-functions-and-regression-models.html#cb43-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">40</span>,.<span class="dv">1</span>); b <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>);</span>
+<span id="cb43-2"><a href="loss-functions-and-regression-models.html#cb43-2" tabindex="-1"></a><span class="co"># We need a vectorized version of the loss now,</span></span>
+<span id="cb43-3"><a href="loss-functions-and-regression-models.html#cb43-3" tabindex="-1"></a><span class="co"># as we need to compute a sum of losses</span></span>
+<span id="cb43-4"><a href="loss-functions-and-regression-models.html#cb43-4" tabindex="-1"></a><span class="co"># for the whole dataset.</span></span>
+<span id="cb43-5"><a href="loss-functions-and-regression-models.html#cb43-5" tabindex="-1"></a>lossv <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>( <span class="cf">function</span>( a, b, <span class="at">delta=</span><span class="dv">1</span> ){</span>
+<span id="cb43-6"><a href="loss-functions-and-regression-models.html#cb43-6" tabindex="-1"></a>    err <span class="ot">&lt;-</span>  airquality<span class="sc">$</span>Wind <span class="sc">-</span> a <span class="sc">-</span> b<span class="sc">*</span>airquality<span class="sc">$</span>Temp</span>
+<span id="cb43-7"><a href="loss-functions-and-regression-models.html#cb43-7" tabindex="-1"></a>    small <span class="ot">&lt;-</span> err <span class="sc">&lt;=</span> delta</span>
+<span id="cb43-8"><a href="loss-functions-and-regression-models.html#cb43-8" tabindex="-1"></a>    err[small] <span class="ot">&lt;-</span> <span class="fl">0.5</span><span class="sc">*</span>err[small]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb43-9"><a href="loss-functions-and-regression-models.html#cb43-9" tabindex="-1"></a>    err[<span class="sc">!</span>small] <span class="ot">&lt;-</span> delta<span class="sc">*</span>(<span class="fu">abs</span>(err[<span class="sc">!</span>small])<span class="sc">-</span>delta<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb43-10"><a href="loss-functions-and-regression-models.html#cb43-10" tabindex="-1"></a>    <span class="fu">return</span>( <span class="fu">mean</span>( err ) )</span>
+<span id="cb43-11"><a href="loss-functions-and-regression-models.html#cb43-11" tabindex="-1"></a>} )</span>
+<span id="cb43-12"><a href="loss-functions-and-regression-models.html#cb43-12" tabindex="-1"></a><span class="co"># We need to adjust the contour plot to</span></span>
+<span id="cb43-13"><a href="loss-functions-and-regression-models.html#cb43-13" tabindex="-1"></a><span class="co"># better see the optimum</span></span>
+<span id="cb43-14"><a href="loss-functions-and-regression-models.html#cb43-14" tabindex="-1"></a><span class="fu">contour</span>( a, b, <span class="fu">outer</span>( a, b, lossv ), <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>) )</span></code></pre></div>
+<p><img src="sci_files/figure-html/huberlosslandscape-1.png" width="672" /></p>
+<p>We see that the loss landscape has changed quite a bit, especially in terms of the values – note how I use the levels <code>c(50,100,500,1000)</code> in the code above to make the minimum clearly visible.</p>
+<p>Now let’s see if we can find the optimum of our loss function, and plot it onto this loss landscape:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="loss-functions-and-regression-models.html#cb44-1" tabindex="-1"></a><span class="co"># We need a single argument vector for our minimization below</span></span>
+<span id="cb44-2"><a href="loss-functions-and-regression-models.html#cb44-2" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">lossv</span>( x[<span class="dv">1</span>], x[<span class="dv">2</span>] )</span>
+<span id="cb44-3"><a href="loss-functions-and-regression-models.html#cb44-3" tabindex="-1"></a>opt <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )</span>
+<span id="cb44-4"><a href="loss-functions-and-regression-models.html#cb44-4" tabindex="-1"></a><span class="fu">contour</span>( a, b, <span class="fu">outer</span>( a, b, lossv ), <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>) )</span>
+<span id="cb44-5"><a href="loss-functions-and-regression-models.html#cb44-5" tabindex="-1"></a><span class="fu">points</span>( <span class="fl">23.23</span>, <span class="sc">-</span><span class="fl">0.17</span>, <span class="at">col=</span><span class="dv">2</span> )</span>
+<span id="cb44-6"><a href="loss-functions-and-regression-models.html#cb44-6" tabindex="-1"></a><span class="fu">points</span>(opt<span class="sc">$</span>estimate[<span class="dv">1</span>], opt<span class="sc">$</span>estimate[<span class="dv">2</span>], <span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>We see that the Huber loss optimum is not very different from our least squares optimum that we found earlier. Could we maybe have expected that?</p>
+<blockquote>
+<p>I think maybe there weren’t a lot of outliers</p>
+</blockquote>
+<p>Exactly, this data was quite well behaved, and it didn’t contain severe outliers, which we argued above would be the main reason to use the Huber loss in the first place.</p>
+<blockquote>
+<p>Can we manually add an outliner and see how this affects things?</p>
+</blockquote>
+<p>Yes, let’s do that! We’ll manually garble the first data value:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="loss-functions-and-regression-models.html#cb45-1" tabindex="-1"></a>airquality<span class="sc">$</span>Temp[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb45-2"><a href="loss-functions-and-regression-models.html#cb45-2" tabindex="-1"></a>airquality<span class="sc">$</span>Wind[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb45-3"><a href="loss-functions-and-regression-models.html#cb45-3" tabindex="-1"></a>huber_fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )</span>
+<span id="cb45-4"><a href="loss-functions-and-regression-models.html#cb45-4" tabindex="-1"></a>huber_fit</span></code></pre></div>
+<pre><code>## $minimum
+## [1] 2.96133
+## 
+## $estimate
+## [1] 20.2052478 -0.1498287
+## 
+## $gradient
+## [1] 2.415482e-10 1.893374e-08
+## 
+## $code
+## [1] 1
+## 
+## $iterations
+## [1] 30</code></pre>
+<p>And let’s see how the two regression lines compare to each other:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="loss-functions-and-regression-models.html#cb47-1" tabindex="-1"></a><span class="fu">plot</span>( airquality<span class="sc">$</span>Temp, airquality<span class="sc">$</span>Wind )</span>
+<span id="cb47-2"><a href="loss-functions-and-regression-models.html#cb47-2" tabindex="-1"></a><span class="fu">abline</span>( <span class="fu">lm</span>( Wind <span class="sc">~</span> Temp, airquality ), <span class="at">col=</span><span class="dv">2</span> ) <span class="co"># red line: least squares</span></span>
+<span id="cb47-3"><a href="loss-functions-and-regression-models.html#cb47-3" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">a=</span>huber_fit<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">b=</span>huber_fit<span class="sc">$</span>estimate[<span class="dv">2</span>], <span class="at">col=</span><span class="dv">4</span> ) <span class="co"># blue line: Huber</span></span></code></pre></div>
+<p><img src="sci_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>So, this clearly illustrates how the Huber loss is more robust to outliers.
+But is there any downside to using it?</p>
+<p>Recall that we derived the conditional expectation as a predictor that minimizes
+the mean squared error. If we now change our loss
+function from squared loss to something like Huber loss, we lose this connection,
+since the Huber loss isn’t connected to a well-known statistical quantity like the mean.
+In that sense, the estimate we’re getting might become less <em>interpretable</em>.
+Again, whether that’s important for you depends on the application, but in
+inference we often do care about interpretability. In that sense, we have in fact some
+trade-off here between interpretability and robustness.</p>
+<p>What could help with this is the realization that Huber interpolates between absolute
+error (which leads to the conditional median) and squared error (which leads to the
+conditional mean). Therefore, the prediction obtained by minimizing Huber loss is
+likewise somewhere in between these two well-understood statistical quantities.
+If we don’t expect mean and median should be very different, but we do see a big
+difference due to outliers in our data, then Huber loss might actually get us closer to the
+“real” conditional expectation.</p>
+<p>Nevertheless, especially in high-stakes settings such as medical applications,
+analysists generally stay away from more complex loss functions like Huber since
+they are less easy to interpret and communicate.</p>
+<p>And with that, I’ll leave you and I’ll see you on Monday!</p>
+</div>
+<div id="test-your-understanding-2" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Test your understanding<a href="loss-functions-and-regression-models.html#test-your-understanding-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Which of the following best explains why squared loss is commonly used in regression?</p>
+<ul>
+<li>It always gives the most accurate predictions</li>
+<li>It has a direct connection to the conditional mean and is analytically tractable</li>
+<li>It is less sensitive to outliers than other loss functions</li>
+<li>It requires fewer data points to compute</li>
+</ul></li>
+<li><p>The Huber loss function uses:</p>
+<ul>
+<li>Squared loss for all prediction errors</li>
+<li>Absolute loss for all prediction errors</li>
+<li>Squared loss for small errors and absolute loss
+for large errors</li>
+<li>Squared loss for large errors and absolute loss for small errors</li>
+</ul></li>
+<li><p>What do the two constraints from the analytical solution of linear regression tell us about
+the residuals? (Hint: one is about their sum, the other about their correlation with predictors)</p></li>
+<li><p>An M-estimator is defined as:</p>
+<ul>
+<li>A model that uses maximum likelihood estimation</li>
+<li>An estimator that minimizes an objective function</li>
+<li>A regression model with multiple variables</li>
+<li>An estimator that maximizes the mean squared error</li>
+</ul></li>
+<li><p>In the air quality example, why didn’t the Huber loss produce a very different result from
+ordinary least squares?</p></li>
+<li><p>Write the mathematical definition of a linear regression mdoel as a conditional expectation <span class="math inline">\(E[Y|X]\)</span>. Explain the meaning of the parameters.</p></li>
+<li><p>The Cook’s distance in regression diagnostics measures:</p>
+<ul>
+<li>The correlation between variables</li>
+<li>The leverage or “pull” each data point has on the regression line</li>
+<li>The prediction accuracy of the model</li>
+<li>The normality of residuals</li>
+</ul></li>
+<li><p>Suppose you’re building a temperature prediction model and encounter a data point predicting 20°C when the actual temperature was 120°C. Explain whether you’d prefer squared loss or Huber loss for this scenario and why.</p></li>
+<li><p>(Moderate challenge question!) True of false: “For any dataset, if the Huber loss (with <span class="math inline">\(\delta=1\)</span>)
+and squared loss produce identical parameter estimates, then the dataset contains no outliers.” In your
+answer, define what you mean by “outlier”.</p></li>
+<li><p>(Challenge question!) Design and explain a data-dependent method to automatically choose the parameter <span class="math inline">\(\alpha\)</span> of the Huber loss.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extending-linear-regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Statistical and Causal Inference</title>
+  <meta name="description" content="Statistical and Causal Inference" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Statistical and Causal Inference" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistical and Causal Inference" />
+  
+  
+  
+
+<meta name="author" content="Johannes Textor" />
+
+
+<meta name="date" content="2025-10-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="scientific-inference.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#generative-ai-disclosure"><i class="fa fa-check"></i>Generative AI disclosure</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="scientific-inference.html"><a href="scientific-inference.html"><i class="fa fa-check"></i><b>1</b> Scientific inference</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="scientific-inference.html"><a href="scientific-inference.html#greetings-and-introduction"><i class="fa fa-check"></i><b>1.1</b> Greetings and introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="scientific-inference.html"><a href="scientific-inference.html#the-setup-of-the-course"><i class="fa fa-check"></i><b>1.2</b> The setup of the course</a></li>
+<li class="chapter" data-level="1.3" data-path="scientific-inference.html"><a href="scientific-inference.html#philosophy-of-science"><i class="fa fa-check"></i><b>1.3</b> Philosophy of science</a></li>
+<li class="chapter" data-level="1.4" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-inference-1"><i class="fa fa-check"></i><b>1.4</b> Scientific inference</a></li>
+<li class="chapter" data-level="1.5" data-path="scientific-inference.html"><a href="scientific-inference.html#karl-popper-and-falsificationism"><i class="fa fa-check"></i><b>1.5</b> Karl Popper and falsificationism</a></li>
+<li class="chapter" data-level="1.6" data-path="scientific-inference.html"><a href="scientific-inference.html#introducing-portfolio-item-5"><i class="fa fa-check"></i><b>1.6</b> Introducing portfolio item 5</a></li>
+<li class="chapter" data-level="1.7" data-path="scientific-inference.html"><a href="scientific-inference.html#statistical-versus-causal-inference"><i class="fa fa-check"></i><b>1.7</b> Statistical versus causal inference</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="scientific-inference.html"><a href="scientific-inference.html#description"><i class="fa fa-check"></i><b>1.7.1</b> Description</a></li>
+<li class="chapter" data-level="1.7.2" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction"><i class="fa fa-check"></i><b>1.7.2</b> Prediction</a></li>
+<li class="chapter" data-level="1.7.3" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-description"><i class="fa fa-check"></i><b>1.7.3</b> Techniques used for description</a></li>
+<li class="chapter" data-level="1.7.4" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-prediction"><i class="fa fa-check"></i><b>1.7.4</b> Techniques used for prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction-versus-causal-inference"><i class="fa fa-check"></i><b>1.8</b> Prediction versus causal inference</a></li>
+<li class="chapter" data-level="1.9" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-versus-statistical-inference"><i class="fa fa-check"></i><b>1.9</b> Scientific versus statistical inference</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="scientific-inference.html"><a href="scientific-inference.html#hypothesis-testing"><i class="fa fa-check"></i><b>1.9.1</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="1.9.2" data-path="scientific-inference.html"><a href="scientific-inference.html#parameter-estimation"><i class="fa fa-check"></i><b>1.9.2</b> Parameter estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="scientific-inference.html"><a href="scientific-inference.html#frequentist-versus-bayesian-statistics"><i class="fa fa-check"></i><b>1.10</b> Frequentist versus Bayesian statistics</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="scientific-inference.html"><a href="scientific-inference.html#bayes-rule-likelihood-and-posterior-probability"><i class="fa fa-check"></i><b>1.10.1</b> Bayes’ rule, likelihood, and posterior probability</a></li>
+<li class="chapter" data-level="1.10.2" data-path="scientific-inference.html"><a href="scientific-inference.html#epistemic-and-aleatorial-probability"><i class="fa fa-check"></i><b>1.10.2</b> Epistemic and aleatorial probability</a></li>
+<li class="chapter" data-level="1.10.3" data-path="scientific-inference.html"><a href="scientific-inference.html#constrasting-bayesian-and-frequentist-statistics"><i class="fa fa-check"></i><b>1.10.3</b> Constrasting Bayesian and frequentist statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="scientific-inference.html"><a href="scientific-inference.html#test-your-understanding"><i class="fa fa-check"></i><b>1.11</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#on-the-difference-between-this-course-and-others-in-the-master"><i class="fa fa-check"></i><b>2.1</b> On the difference between this course and others in the Master</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-1"><i class="fa fa-check"></i><b>2.2</b> Linear regression</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#how-is-a-linear-regression-model-mathematically-defined"><i class="fa fa-check"></i><b>2.3</b> How is a linear regression model mathematically defined?</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#recap-on-probability-distributions"><i class="fa fa-check"></i><b>2.4</b> Recap on probability distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distribution"><i class="fa fa-check"></i><b>2.5</b> Some example normal distribution</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#conditional-probability-distributions"><i class="fa fa-check"></i><b>2.6</b> Conditional probability distributions</a></li>
+<li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#generative-versus-discriminative-models"><i class="fa fa-check"></i><b>2.7</b> Generative versus discriminative models</a></li>
+<li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#defining-linear-regression-as-a-conditional-probability-model"><i class="fa fa-check"></i><b>2.8</b> Defining linear regression as a conditional probability model</a></li>
+<li class="chapter" data-level="2.9" data-path="linear-regression.html"><a href="linear-regression.html#additional-background-on-probability-distributions"><i class="fa fa-check"></i><b>2.9</b> Additional background on probability distributions</a></li>
+<li class="chapter" data-level="2.10" data-path="linear-regression.html"><a href="linear-regression.html#the-regression-model"><i class="fa fa-check"></i><b>2.10</b> “The regression model”</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-conditional-expectation"><i class="fa fa-check"></i><b>2.10.1</b> Linear regression as conditional expectation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="linear-regression.html"><a href="linear-regression.html#loss-functions"><i class="fa fa-check"></i><b>2.11</b> Loss functions</a></li>
+<li class="chapter" data-level="2.12" data-path="linear-regression.html"><a href="linear-regression.html#square-loss-verus-absolute-loss"><i class="fa fa-check"></i><b>2.12</b> Square loss verus absolute loss</a></li>
+<li class="chapter" data-level="2.13" data-path="linear-regression.html"><a href="linear-regression.html#test-your-understanding-1"><i class="fa fa-check"></i><b>2.13</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html"><i class="fa fa-check"></i><b>3</b> Loss functions and regression models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#considerations-for-choosing-different-loss-functions"><i class="fa fa-check"></i><b>3.1</b> Considerations for choosing different loss functions</a></li>
+<li class="chapter" data-level="3.2" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#linear-regression-and-the-effect-of-outliers"><i class="fa fa-check"></i><b>3.2</b> Linear regression and the effect of outliers</a></li>
+<li class="chapter" data-level="3.3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#recap-expectation-mean-and-squared-error"><i class="fa fa-check"></i><b>3.3</b> Recap: Expectation, mean, and squared error</a></li>
+<li class="chapter" data-level="3.4" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#example-linear-regression-for-the-air-quality-data"><i class="fa fa-check"></i><b>3.4</b> Example: Linear regression for the air quality data</a></li>
+<li class="chapter" data-level="3.5" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#implementing-your-own-regression-model-versus-using-a-pre-packaged-solution"><i class="fa fa-check"></i><b>3.5</b> Implementing your own regression model versus using a pre-packaged solution</a></li>
+<li class="chapter" data-level="3.6" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#the-huber-loss"><i class="fa fa-check"></i><b>3.6</b> The Huber loss</a></li>
+<li class="chapter" data-level="3.7" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#test-your-understanding-2"><i class="fa fa-check"></i><b>3.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html"><i class="fa fa-check"></i><b>4</b> Extending linear regression models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#example-basic-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Example: Basic linear regression</a></li>
+<li class="chapter" data-level="4.2" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#transforming-variables"><i class="fa fa-check"></i><b>4.2</b> Transforming variables</a></li>
+<li class="chapter" data-level="4.3" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#using-binary-variables-as-predictors"><i class="fa fa-check"></i><b>4.3</b> Using binary variables as predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#regression-with-multiple-predictors"><i class="fa fa-check"></i><b>4.4</b> Regression with multiple predictors</a></li>
+<li class="chapter" data-level="4.5" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>4.5</b> Interaction terms</a></li>
+<li class="chapter" data-level="4.6" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#test-your-understanding-3"><i class="fa fa-check"></i><b>4.6</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="non-linear-models.html"><a href="non-linear-models.html"><i class="fa fa-check"></i><b>5</b> Non-linear models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#portfolio-contributions"><i class="fa fa-check"></i><b>5.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="non-linear-models.html"><a href="non-linear-models.html#the-box-cox-transformation"><i class="fa fa-check"></i><b>5.1.1</b> The Box-Cox transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#introduction-1"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="non-linear-models.html"><a href="non-linear-models.html#recap"><i class="fa fa-check"></i><b>5.2.1</b> Recap</a></li>
+<li class="chapter" data-level="5.2.2" data-path="non-linear-models.html"><a href="non-linear-models.html#the-motivation-for-non-linear-models"><i class="fa fa-check"></i><b>5.2.2</b> The motivation for non-linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="non-linear-models.html"><a href="non-linear-models.html#a-model-of-population-growth-in-biology"><i class="fa fa-check"></i><b>5.3</b> A model of population growth in biology</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="non-linear-models.html"><a href="non-linear-models.html#algae-growth"><i class="fa fa-check"></i><b>5.3.1</b> Algae growth</a></li>
+<li class="chapter" data-level="5.3.2" data-path="non-linear-models.html"><a href="non-linear-models.html#initialization-of-the-numerical-optimizer"><i class="fa fa-check"></i><b>5.3.2</b> Initialization of the numerical optimizer</a></li>
+<li class="chapter" data-level="5.3.3" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-linear-log-model"><i class="fa fa-check"></i><b>5.3.3</b> Fitting a linear-log model</a></li>
+<li class="chapter" data-level="5.3.4" data-path="non-linear-models.html"><a href="non-linear-models.html#model-falsification-revisited"><i class="fa fa-check"></i><b>5.3.4</b> Model falsification revisited</a></li>
+<li class="chapter" data-level="5.3.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-growth-model"><i class="fa fa-check"></i><b>5.3.5</b> The logistic growth model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="non-linear-models.html"><a href="non-linear-models.html#maximum-likelihood-fitting-of-probability-models"><i class="fa fa-check"></i><b>5.4</b> Maximum likelihood fitting of probability models</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-the-linear-regression-model-with-gaussian-errors"><i class="fa fa-check"></i><b>5.4.1</b> Fitting the linear regression model with Gaussian errors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-regression-model"><i class="fa fa-check"></i><b>5.5</b> The logistic regression model</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-logistic-regression-model"><i class="fa fa-check"></i><b>5.5.1</b> Fitting a logistic regression model</a></li>
+<li class="chapter" data-level="5.5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#interpretation-of-logistic-regression-results"><i class="fa fa-check"></i><b>5.5.2</b> Interpretation of logistic regression results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="non-linear-models.html"><a href="non-linear-models.html#the-cox-proportional-hazards-model-for-time-to-event-data"><i class="fa fa-check"></i><b>5.6</b> The Cox proportional hazards model for time-to-event data</a></li>
+<li class="chapter" data-level="5.7" data-path="non-linear-models.html"><a href="non-linear-models.html#test-your-understanding-4"><i class="fa fa-check"></i><b>5.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html"><i class="fa fa-check"></i><b>6</b> Model parameter estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#portfolio-contributions-1"><i class="fa fa-check"></i><b>6.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-dummy-variable-trap"><i class="fa fa-check"></i><b>6.1.1</b> The dummy variable trap</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#introduction-2"><i class="fa fa-check"></i><b>6.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#todays-goal-quantifying-uncertainty"><i class="fa fa-check"></i><b>6.2.1</b> Today’s goal: quantifying uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-1-estimating-the-standard-deviation"><i class="fa fa-check"></i><b>6.3</b> Running example 1: estimating the standard deviation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#intuition-uncertainty-is-related-to-the-curvature-of-the-loss-function"><i class="fa fa-check"></i><b>6.3.1</b> Intuition: uncertainty is related to the curvature of the loss function</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-2-estimating-the-lifetime-of-white-blood-cells"><i class="fa fa-check"></i><b>6.4</b> Running example 2: estimating the lifetime of white blood cells</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#fitting-the-labelling-model"><i class="fa fa-check"></i><b>6.4.1</b> Fitting the labelling model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#bootstrapping"><i class="fa fa-check"></i><b>6.5</b> Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#implementing-bootstrapping"><i class="fa fa-check"></i><b>6.5.1</b> Implementing bootstrapping</a></li>
+<li class="chapter" data-level="6.5.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#prelude-bootstrapping-and-model-selection"><i class="fa fa-check"></i><b>6.5.2</b> Prelude: Bootstrapping and model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-wald-test"><i class="fa fa-check"></i><b>6.6</b> The Wald test</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#toy-example"><i class="fa fa-check"></i><b>6.6.1</b> Toy example</a></li>
+<li class="chapter" data-level="6.6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#wald-test-for-the-labeling-data"><i class="fa fa-check"></i><b>6.6.2</b> Wald test for the labeling data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimation"><i class="fa fa-check"></i><b>6.7</b> Sandwich estimation</a></li>
+<li class="chapter" data-level="6.8" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood"><i class="fa fa-check"></i><b>6.8</b> Sandwich estimator for maximum likelihood</a></li>
+<li class="chapter" data-level="6.9" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#recap-1"><i class="fa fa-check"></i><b>6.9</b> Recap</a></li>
+<li class="chapter" data-level="6.10" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#test-your-knowledge"><i class="fa fa-check"></i><b>6.10</b> Test your knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="selecting-models.html"><a href="selecting-models.html"><i class="fa fa-check"></i><b>7</b> Selecting models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="selecting-models.html"><a href="selecting-models.html#course-logistics"><i class="fa fa-check"></i><b>7.1</b> Course logistics</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="selecting-models.html"><a href="selecting-models.html#cancelling-portfolio-item-2"><i class="fa fa-check"></i><b>7.1.1</b> Cancelling portfolio item 2</a></li>
+<li class="chapter" data-level="7.1.2" data-path="selecting-models.html"><a href="selecting-models.html#explanation-item-11-publication-quality-figure"><i class="fa fa-check"></i><b>7.1.2</b> Explanation item 11 (publication-quality figure)</a></li>
+<li class="chapter" data-level="7.1.3" data-path="selecting-models.html"><a href="selecting-models.html#items-67-and-8"><i class="fa fa-check"></i><b>7.1.3</b> Items 6,7, and 8</a></li>
+<li class="chapter" data-level="7.1.4" data-path="selecting-models.html"><a href="selecting-models.html#difference-to-the-other-items"><i class="fa fa-check"></i><b>7.1.4</b> Difference to the other items</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="selecting-models.html"><a href="selecting-models.html#introduction-to-model-comparison"><i class="fa fa-check"></i><b>7.2</b> Introduction to model comparison</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-and-accurate-model"><i class="fa fa-check"></i><b>7.2.1</b> A correct and accurate model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-but-not-accurate-model"><i class="fa fa-check"></i><b>7.2.2</b> A correct but not accurate model</a></li>
+<li class="chapter" data-level="7.2.3" data-path="selecting-models.html"><a href="selecting-models.html#an-incorrect-but-accurate-model"><i class="fa fa-check"></i><b>7.2.3</b> An incorrect but accurate model</a></li>
+<li class="chapter" data-level="7.2.4" data-path="selecting-models.html"><a href="selecting-models.html#quantifying-model-accuracy"><i class="fa fa-check"></i><b>7.2.4</b> Quantifying model accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="selecting-models.html"><a href="selecting-models.html#statistical-approaches-to-model-falsification"><i class="fa fa-check"></i><b>7.3</b> Statistical approaches to model falsification</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="selecting-models.html"><a href="selecting-models.html#the-wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>7.3.1</b> The Wald-Wolfowitz runs test</a></li>
+<li class="chapter" data-level="7.3.2" data-path="selecting-models.html"><a href="selecting-models.html#model-extensions-can-be-unnecessary-but-not-wrong"><i class="fa fa-check"></i><b>7.3.2</b> Model extensions can be unnecessary but not wrong</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="selecting-models.html"><a href="selecting-models.html#model-selection-by-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Model selection by confidence intervals</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="selecting-models.html"><a href="selecting-models.html#more-complex-models-are-more-accurate-on-the-training-data"><i class="fa fa-check"></i><b>7.4.1</b> More complex models are more accurate on the training data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="selecting-models.html"><a href="selecting-models.html#non-nested-models"><i class="fa fa-check"></i><b>7.4.2</b> Non-nested models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="selecting-models.html"><a href="selecting-models.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.5</b> Leave-one-out cross-validation</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-linear-regression"><i class="fa fa-check"></i><b>7.5.1</b> LOO-CV for linear regression</a></li>
+<li class="chapter" data-level="7.5.2" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-logistic-regression"><i class="fa fa-check"></i><b>7.5.2</b> LOO-CV for logistic regression</a></li>
+<li class="chapter" data-level="7.5.3" data-path="selecting-models.html"><a href="selecting-models.html#the-area-under-the-roc-curve-auc"><i class="fa fa-check"></i><b>7.5.3</b> The area under the ROC curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="selecting-models.html"><a href="selecting-models.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>7.6</b> Akaike’s information criterion (AIC)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="selecting-models.html"><a href="selecting-models.html#interpretation-of-aic-differences"><i class="fa fa-check"></i><b>7.6.1</b> Interpretation of AIC differences</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="selecting-models.html"><a href="selecting-models.html#the-connection-between-cross-validation-and-complexity-penalties"><i class="fa fa-check"></i><b>7.7</b> The connection between cross-validation and complexity penalties</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="selecting-models.html"><a href="selecting-models.html#how-the-amount-of-held-out-data-for-cross-validation-determines-complexity"><i class="fa fa-check"></i><b>7.7.1</b> How the amount of held-out data for cross-validation determines complexity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="selecting-models.html"><a href="selecting-models.html#test-your-understanding-5"><i class="fa fa-check"></i><b>7.8</b> Test your understanding</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical and Causal Inference</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Statistical and Causal Inference</h1>
+<p class="author"><em>Johannes Textor</em></p>
+<p class="date"><em>2025-10-11</em></p>
+</div>
+<div id="introduction" class="section level1 unnumbered hasAnchor">
+<h1>Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Welcome to the transcripts for the course “Statistical and causal inference”!</p>
+<p>These transcripts are generated by combining an AI-generated transcript of the lecture recordings with the lecture notes (Markdown file I’m using during the lecture itself). I edit these by hand — I’ve tried to use AI for this but it doesn’t work well.</p>
+<p>Initially, I only lightly edited the transcripts — trying to keep as much as possible of what was being said — but upon some feedback, the later chapters are edited more heavily, and I may also sometimes decide to omit things that were said in the lecture (such as purely organizational matters that are not relevant beyond the week in question). Therefore, you will see the style shift from the earlier to the later chapters.</p>
+<p>If you spot any error in this transcript (that isn’t just a trivial typo), you can send it to me and I will count it for your Portfolio item 1.</p>
+<div id="generative-ai-disclosure" class="section level2 unnumbered hasAnchor">
+<h2>Generative AI disclosure<a href="index.html#generative-ai-disclosure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The initial version of the transcripts are generated by OpenAI Whisper (running locally) from the lecture recording.</p>
+<p>I edit the transcripts by hand, without the use of AI. (I tried a few times to get Claude Sonnet 4.5 or ChatGPT 5 to help me, but it didn’t work so well, and I ended up using none of this help.)</p>
+<p>I use Claude Sonnet 4.5 to proofread the transcript and identify any errors or typos. I fix these errors myself by hand.</p>
+<p>I use Claude Sonnet 4.5 to help generate the formative questions at the end of each lecture, in the following way. Once I am done with editing the transcript, I ask Claude to generate about twice as many questions as I am aiming for. I then delete all questions that I find too boring, to vague, or not well suited for testing the content, and edit the other questions to my liking. I then add additional questions by hand if I feel the difficulty level is not well balanced or a certain topic is not covered enough.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="scientific-inference.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Extending linear regression models | Statistical and Causal Inference</title>
+  <meta name="description" content="4 Extending linear regression models | Statistical and Causal Inference" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Extending linear regression models | Statistical and Causal Inference" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Extending linear regression models | Statistical and Causal Inference" />
+  
+  
+  
+
+<meta name="author" content="Johannes Textor" />
+
+
+<meta name="date" content="2025-10-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="loss-functions-and-regression-models.html"/>
+<link rel="next" href="non-linear-models.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#generative-ai-disclosure"><i class="fa fa-check"></i>Generative AI disclosure</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="scientific-inference.html"><a href="scientific-inference.html"><i class="fa fa-check"></i><b>1</b> Scientific inference</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="scientific-inference.html"><a href="scientific-inference.html#greetings-and-introduction"><i class="fa fa-check"></i><b>1.1</b> Greetings and introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="scientific-inference.html"><a href="scientific-inference.html#the-setup-of-the-course"><i class="fa fa-check"></i><b>1.2</b> The setup of the course</a></li>
+<li class="chapter" data-level="1.3" data-path="scientific-inference.html"><a href="scientific-inference.html#philosophy-of-science"><i class="fa fa-check"></i><b>1.3</b> Philosophy of science</a></li>
+<li class="chapter" data-level="1.4" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-inference-1"><i class="fa fa-check"></i><b>1.4</b> Scientific inference</a></li>
+<li class="chapter" data-level="1.5" data-path="scientific-inference.html"><a href="scientific-inference.html#karl-popper-and-falsificationism"><i class="fa fa-check"></i><b>1.5</b> Karl Popper and falsificationism</a></li>
+<li class="chapter" data-level="1.6" data-path="scientific-inference.html"><a href="scientific-inference.html#introducing-portfolio-item-5"><i class="fa fa-check"></i><b>1.6</b> Introducing portfolio item 5</a></li>
+<li class="chapter" data-level="1.7" data-path="scientific-inference.html"><a href="scientific-inference.html#statistical-versus-causal-inference"><i class="fa fa-check"></i><b>1.7</b> Statistical versus causal inference</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="scientific-inference.html"><a href="scientific-inference.html#description"><i class="fa fa-check"></i><b>1.7.1</b> Description</a></li>
+<li class="chapter" data-level="1.7.2" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction"><i class="fa fa-check"></i><b>1.7.2</b> Prediction</a></li>
+<li class="chapter" data-level="1.7.3" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-description"><i class="fa fa-check"></i><b>1.7.3</b> Techniques used for description</a></li>
+<li class="chapter" data-level="1.7.4" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-prediction"><i class="fa fa-check"></i><b>1.7.4</b> Techniques used for prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction-versus-causal-inference"><i class="fa fa-check"></i><b>1.8</b> Prediction versus causal inference</a></li>
+<li class="chapter" data-level="1.9" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-versus-statistical-inference"><i class="fa fa-check"></i><b>1.9</b> Scientific versus statistical inference</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="scientific-inference.html"><a href="scientific-inference.html#hypothesis-testing"><i class="fa fa-check"></i><b>1.9.1</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="1.9.2" data-path="scientific-inference.html"><a href="scientific-inference.html#parameter-estimation"><i class="fa fa-check"></i><b>1.9.2</b> Parameter estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="scientific-inference.html"><a href="scientific-inference.html#frequentist-versus-bayesian-statistics"><i class="fa fa-check"></i><b>1.10</b> Frequentist versus Bayesian statistics</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="scientific-inference.html"><a href="scientific-inference.html#bayes-rule-likelihood-and-posterior-probability"><i class="fa fa-check"></i><b>1.10.1</b> Bayes’ rule, likelihood, and posterior probability</a></li>
+<li class="chapter" data-level="1.10.2" data-path="scientific-inference.html"><a href="scientific-inference.html#epistemic-and-aleatorial-probability"><i class="fa fa-check"></i><b>1.10.2</b> Epistemic and aleatorial probability</a></li>
+<li class="chapter" data-level="1.10.3" data-path="scientific-inference.html"><a href="scientific-inference.html#constrasting-bayesian-and-frequentist-statistics"><i class="fa fa-check"></i><b>1.10.3</b> Constrasting Bayesian and frequentist statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="scientific-inference.html"><a href="scientific-inference.html#test-your-understanding"><i class="fa fa-check"></i><b>1.11</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#on-the-difference-between-this-course-and-others-in-the-master"><i class="fa fa-check"></i><b>2.1</b> On the difference between this course and others in the Master</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-1"><i class="fa fa-check"></i><b>2.2</b> Linear regression</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#how-is-a-linear-regression-model-mathematically-defined"><i class="fa fa-check"></i><b>2.3</b> How is a linear regression model mathematically defined?</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#recap-on-probability-distributions"><i class="fa fa-check"></i><b>2.4</b> Recap on probability distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distribution"><i class="fa fa-check"></i><b>2.5</b> Some example normal distribution</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#conditional-probability-distributions"><i class="fa fa-check"></i><b>2.6</b> Conditional probability distributions</a></li>
+<li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#generative-versus-discriminative-models"><i class="fa fa-check"></i><b>2.7</b> Generative versus discriminative models</a></li>
+<li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#defining-linear-regression-as-a-conditional-probability-model"><i class="fa fa-check"></i><b>2.8</b> Defining linear regression as a conditional probability model</a></li>
+<li class="chapter" data-level="2.9" data-path="linear-regression.html"><a href="linear-regression.html#additional-background-on-probability-distributions"><i class="fa fa-check"></i><b>2.9</b> Additional background on probability distributions</a></li>
+<li class="chapter" data-level="2.10" data-path="linear-regression.html"><a href="linear-regression.html#the-regression-model"><i class="fa fa-check"></i><b>2.10</b> “The regression model”</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-conditional-expectation"><i class="fa fa-check"></i><b>2.10.1</b> Linear regression as conditional expectation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="linear-regression.html"><a href="linear-regression.html#loss-functions"><i class="fa fa-check"></i><b>2.11</b> Loss functions</a></li>
+<li class="chapter" data-level="2.12" data-path="linear-regression.html"><a href="linear-regression.html#square-loss-verus-absolute-loss"><i class="fa fa-check"></i><b>2.12</b> Square loss verus absolute loss</a></li>
+<li class="chapter" data-level="2.13" data-path="linear-regression.html"><a href="linear-regression.html#test-your-understanding-1"><i class="fa fa-check"></i><b>2.13</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html"><i class="fa fa-check"></i><b>3</b> Loss functions and regression models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#considerations-for-choosing-different-loss-functions"><i class="fa fa-check"></i><b>3.1</b> Considerations for choosing different loss functions</a></li>
+<li class="chapter" data-level="3.2" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#linear-regression-and-the-effect-of-outliers"><i class="fa fa-check"></i><b>3.2</b> Linear regression and the effect of outliers</a></li>
+<li class="chapter" data-level="3.3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#recap-expectation-mean-and-squared-error"><i class="fa fa-check"></i><b>3.3</b> Recap: Expectation, mean, and squared error</a></li>
+<li class="chapter" data-level="3.4" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#example-linear-regression-for-the-air-quality-data"><i class="fa fa-check"></i><b>3.4</b> Example: Linear regression for the air quality data</a></li>
+<li class="chapter" data-level="3.5" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#implementing-your-own-regression-model-versus-using-a-pre-packaged-solution"><i class="fa fa-check"></i><b>3.5</b> Implementing your own regression model versus using a pre-packaged solution</a></li>
+<li class="chapter" data-level="3.6" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#the-huber-loss"><i class="fa fa-check"></i><b>3.6</b> The Huber loss</a></li>
+<li class="chapter" data-level="3.7" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#test-your-understanding-2"><i class="fa fa-check"></i><b>3.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html"><i class="fa fa-check"></i><b>4</b> Extending linear regression models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#example-basic-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Example: Basic linear regression</a></li>
+<li class="chapter" data-level="4.2" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#transforming-variables"><i class="fa fa-check"></i><b>4.2</b> Transforming variables</a></li>
+<li class="chapter" data-level="4.3" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#using-binary-variables-as-predictors"><i class="fa fa-check"></i><b>4.3</b> Using binary variables as predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#regression-with-multiple-predictors"><i class="fa fa-check"></i><b>4.4</b> Regression with multiple predictors</a></li>
+<li class="chapter" data-level="4.5" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>4.5</b> Interaction terms</a></li>
+<li class="chapter" data-level="4.6" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#test-your-understanding-3"><i class="fa fa-check"></i><b>4.6</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="non-linear-models.html"><a href="non-linear-models.html"><i class="fa fa-check"></i><b>5</b> Non-linear models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#portfolio-contributions"><i class="fa fa-check"></i><b>5.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="non-linear-models.html"><a href="non-linear-models.html#the-box-cox-transformation"><i class="fa fa-check"></i><b>5.1.1</b> The Box-Cox transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#introduction-1"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="non-linear-models.html"><a href="non-linear-models.html#recap"><i class="fa fa-check"></i><b>5.2.1</b> Recap</a></li>
+<li class="chapter" data-level="5.2.2" data-path="non-linear-models.html"><a href="non-linear-models.html#the-motivation-for-non-linear-models"><i class="fa fa-check"></i><b>5.2.2</b> The motivation for non-linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="non-linear-models.html"><a href="non-linear-models.html#a-model-of-population-growth-in-biology"><i class="fa fa-check"></i><b>5.3</b> A model of population growth in biology</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="non-linear-models.html"><a href="non-linear-models.html#algae-growth"><i class="fa fa-check"></i><b>5.3.1</b> Algae growth</a></li>
+<li class="chapter" data-level="5.3.2" data-path="non-linear-models.html"><a href="non-linear-models.html#initialization-of-the-numerical-optimizer"><i class="fa fa-check"></i><b>5.3.2</b> Initialization of the numerical optimizer</a></li>
+<li class="chapter" data-level="5.3.3" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-linear-log-model"><i class="fa fa-check"></i><b>5.3.3</b> Fitting a linear-log model</a></li>
+<li class="chapter" data-level="5.3.4" data-path="non-linear-models.html"><a href="non-linear-models.html#model-falsification-revisited"><i class="fa fa-check"></i><b>5.3.4</b> Model falsification revisited</a></li>
+<li class="chapter" data-level="5.3.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-growth-model"><i class="fa fa-check"></i><b>5.3.5</b> The logistic growth model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="non-linear-models.html"><a href="non-linear-models.html#maximum-likelihood-fitting-of-probability-models"><i class="fa fa-check"></i><b>5.4</b> Maximum likelihood fitting of probability models</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-the-linear-regression-model-with-gaussian-errors"><i class="fa fa-check"></i><b>5.4.1</b> Fitting the linear regression model with Gaussian errors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-regression-model"><i class="fa fa-check"></i><b>5.5</b> The logistic regression model</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-logistic-regression-model"><i class="fa fa-check"></i><b>5.5.1</b> Fitting a logistic regression model</a></li>
+<li class="chapter" data-level="5.5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#interpretation-of-logistic-regression-results"><i class="fa fa-check"></i><b>5.5.2</b> Interpretation of logistic regression results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="non-linear-models.html"><a href="non-linear-models.html#the-cox-proportional-hazards-model-for-time-to-event-data"><i class="fa fa-check"></i><b>5.6</b> The Cox proportional hazards model for time-to-event data</a></li>
+<li class="chapter" data-level="5.7" data-path="non-linear-models.html"><a href="non-linear-models.html#test-your-understanding-4"><i class="fa fa-check"></i><b>5.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html"><i class="fa fa-check"></i><b>6</b> Model parameter estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#portfolio-contributions-1"><i class="fa fa-check"></i><b>6.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-dummy-variable-trap"><i class="fa fa-check"></i><b>6.1.1</b> The dummy variable trap</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#introduction-2"><i class="fa fa-check"></i><b>6.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#todays-goal-quantifying-uncertainty"><i class="fa fa-check"></i><b>6.2.1</b> Today’s goal: quantifying uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-1-estimating-the-standard-deviation"><i class="fa fa-check"></i><b>6.3</b> Running example 1: estimating the standard deviation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#intuition-uncertainty-is-related-to-the-curvature-of-the-loss-function"><i class="fa fa-check"></i><b>6.3.1</b> Intuition: uncertainty is related to the curvature of the loss function</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-2-estimating-the-lifetime-of-white-blood-cells"><i class="fa fa-check"></i><b>6.4</b> Running example 2: estimating the lifetime of white blood cells</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#fitting-the-labelling-model"><i class="fa fa-check"></i><b>6.4.1</b> Fitting the labelling model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#bootstrapping"><i class="fa fa-check"></i><b>6.5</b> Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#implementing-bootstrapping"><i class="fa fa-check"></i><b>6.5.1</b> Implementing bootstrapping</a></li>
+<li class="chapter" data-level="6.5.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#prelude-bootstrapping-and-model-selection"><i class="fa fa-check"></i><b>6.5.2</b> Prelude: Bootstrapping and model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-wald-test"><i class="fa fa-check"></i><b>6.6</b> The Wald test</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#toy-example"><i class="fa fa-check"></i><b>6.6.1</b> Toy example</a></li>
+<li class="chapter" data-level="6.6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#wald-test-for-the-labeling-data"><i class="fa fa-check"></i><b>6.6.2</b> Wald test for the labeling data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimation"><i class="fa fa-check"></i><b>6.7</b> Sandwich estimation</a></li>
+<li class="chapter" data-level="6.8" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood"><i class="fa fa-check"></i><b>6.8</b> Sandwich estimator for maximum likelihood</a></li>
+<li class="chapter" data-level="6.9" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#recap-1"><i class="fa fa-check"></i><b>6.9</b> Recap</a></li>
+<li class="chapter" data-level="6.10" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#test-your-knowledge"><i class="fa fa-check"></i><b>6.10</b> Test your knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="selecting-models.html"><a href="selecting-models.html"><i class="fa fa-check"></i><b>7</b> Selecting models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="selecting-models.html"><a href="selecting-models.html#course-logistics"><i class="fa fa-check"></i><b>7.1</b> Course logistics</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="selecting-models.html"><a href="selecting-models.html#cancelling-portfolio-item-2"><i class="fa fa-check"></i><b>7.1.1</b> Cancelling portfolio item 2</a></li>
+<li class="chapter" data-level="7.1.2" data-path="selecting-models.html"><a href="selecting-models.html#explanation-item-11-publication-quality-figure"><i class="fa fa-check"></i><b>7.1.2</b> Explanation item 11 (publication-quality figure)</a></li>
+<li class="chapter" data-level="7.1.3" data-path="selecting-models.html"><a href="selecting-models.html#items-67-and-8"><i class="fa fa-check"></i><b>7.1.3</b> Items 6,7, and 8</a></li>
+<li class="chapter" data-level="7.1.4" data-path="selecting-models.html"><a href="selecting-models.html#difference-to-the-other-items"><i class="fa fa-check"></i><b>7.1.4</b> Difference to the other items</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="selecting-models.html"><a href="selecting-models.html#introduction-to-model-comparison"><i class="fa fa-check"></i><b>7.2</b> Introduction to model comparison</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-and-accurate-model"><i class="fa fa-check"></i><b>7.2.1</b> A correct and accurate model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-but-not-accurate-model"><i class="fa fa-check"></i><b>7.2.2</b> A correct but not accurate model</a></li>
+<li class="chapter" data-level="7.2.3" data-path="selecting-models.html"><a href="selecting-models.html#an-incorrect-but-accurate-model"><i class="fa fa-check"></i><b>7.2.3</b> An incorrect but accurate model</a></li>
+<li class="chapter" data-level="7.2.4" data-path="selecting-models.html"><a href="selecting-models.html#quantifying-model-accuracy"><i class="fa fa-check"></i><b>7.2.4</b> Quantifying model accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="selecting-models.html"><a href="selecting-models.html#statistical-approaches-to-model-falsification"><i class="fa fa-check"></i><b>7.3</b> Statistical approaches to model falsification</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="selecting-models.html"><a href="selecting-models.html#the-wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>7.3.1</b> The Wald-Wolfowitz runs test</a></li>
+<li class="chapter" data-level="7.3.2" data-path="selecting-models.html"><a href="selecting-models.html#model-extensions-can-be-unnecessary-but-not-wrong"><i class="fa fa-check"></i><b>7.3.2</b> Model extensions can be unnecessary but not wrong</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="selecting-models.html"><a href="selecting-models.html#model-selection-by-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Model selection by confidence intervals</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="selecting-models.html"><a href="selecting-models.html#more-complex-models-are-more-accurate-on-the-training-data"><i class="fa fa-check"></i><b>7.4.1</b> More complex models are more accurate on the training data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="selecting-models.html"><a href="selecting-models.html#non-nested-models"><i class="fa fa-check"></i><b>7.4.2</b> Non-nested models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="selecting-models.html"><a href="selecting-models.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.5</b> Leave-one-out cross-validation</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-linear-regression"><i class="fa fa-check"></i><b>7.5.1</b> LOO-CV for linear regression</a></li>
+<li class="chapter" data-level="7.5.2" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-logistic-regression"><i class="fa fa-check"></i><b>7.5.2</b> LOO-CV for logistic regression</a></li>
+<li class="chapter" data-level="7.5.3" data-path="selecting-models.html"><a href="selecting-models.html#the-area-under-the-roc-curve-auc"><i class="fa fa-check"></i><b>7.5.3</b> The area under the ROC curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="selecting-models.html"><a href="selecting-models.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>7.6</b> Akaike’s information criterion (AIC)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="selecting-models.html"><a href="selecting-models.html#interpretation-of-aic-differences"><i class="fa fa-check"></i><b>7.6.1</b> Interpretation of AIC differences</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="selecting-models.html"><a href="selecting-models.html#the-connection-between-cross-validation-and-complexity-penalties"><i class="fa fa-check"></i><b>7.7</b> The connection between cross-validation and complexity penalties</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="selecting-models.html"><a href="selecting-models.html#how-the-amount-of-held-out-data-for-cross-validation-determines-complexity"><i class="fa fa-check"></i><b>7.7.1</b> How the amount of held-out data for cross-validation determines complexity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="selecting-models.html"><a href="selecting-models.html#test-your-understanding-5"><i class="fa fa-check"></i><b>7.8</b> Test your understanding</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical and Causal Inference</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="extending-linear-regression-models" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Extending linear regression models<a href="extending-linear-regression-models.html#extending-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We’re continuing to discuss linear models today. I will confess that I like
+linear models – they can do much more than you might think. As an example,
+check out this table that shows how most statistical test you may or may not
+have heard of can be related to some kind of linear model:</p>
+<p><a href="https://lindeloev.github.io/tests-as-linear/" class="uri">https://lindeloev.github.io/tests-as-linear/</a></p>
+<p>One important skill for data scientists is understanding how to adapt linear
+models to different types of data and different situations. Linear models serve
+as an excellent standard baseline, and in many situations there’s nothing much
+to gain by using something more complex than a linear model.</p>
+<p>That’s why we have item 6 in our portfolio, where I ask you to fit a linear
+model to your own data. For this it’s important to finish item 5 – choosing
+your own data – first. If you haven’t done that yet, please do!</p>
+<p>Today, we’ll go over a few examples related to item 6. We’ll fit different
+kinds of linear models, showcasing their capabilities as we move along. I’ll do
+all these examples in R, because that’s what I know best. You could do those in
+Python instead if you really must (although knowing R in addition to just
+Python makes you a much more valuable data scientist). However, I’d strongly
+advise you to write the model code and loss function yourself, as we do in the
+examples that follow, rather than using some convenience library like
+<code>scikit-learn</code>. The reason is that we’ll later move on to implement more custom
+models that you won’t simply find in scikit-learn. Practicing the general
+workflow now, where the models are still standard and you can compare your
+implementation to a reference, will make this easier for you in the future.</p>
+<div id="example-basic-linear-regression" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Example: Basic linear regression<a href="extending-linear-regression-models.html#example-basic-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’re going to use the <code>mtcars</code> dataset from R in the examples below. This dataset
+contains characteristics of 32 cars from the 1970’s. We will try to model the
+fuel efficiency measured in miles per gallon (<em>mpg</em>). 1 mpg is approximately
+425m/l. We could perhaps expect heavier, more powerful cars to be less fuel efficient.</p>
+<p>Let’s first look at the data, and try to model <em>mpg</em> as a function of engine
+power, measured in “horse power” (<em>hp</em>).</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="extending-linear-regression-models.html#cb48-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( hp, mpg ))</span></code></pre></div>
+<p><img src="sci_files/figure-html/mtcplot-1.png" width="672" /></p>
+<p>Last week, we extensively discussed <em>loss functions</em>, and we saw how the “standard” linear model uses the sum of squared errors (or equivalently, the mean squared error as in the formula below) as a loss function:</p>
+<p><span class="math display">\[ \text{argmin}_{\theta} \frac{1}{n}\sum_i (y_i - \theta_2 x_i - \theta_1)^2
+\]</span></p>
+<p>Here we optimize over a parameter vector <span class="math inline">\(\theta=(\theta_1,\theta_2)\)</span>. For more complex models, this vector could be longer.</p>
+<p>In a language like R, we would set this up something like this:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="extending-linear-regression-models.html#cb49-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(x, th){</span>
+<span id="cb49-2"><a href="extending-linear-regression-models.html#cb49-2" tabindex="-1"></a>    th[<span class="dv">1</span>] <span class="sc">+</span> th[<span class="dv">2</span>]<span class="sc">*</span>x }</span>
+<span id="cb49-3"><a href="extending-linear-regression-models.html#cb49-3" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, th){</span>
+<span id="cb49-4"><a href="extending-linear-regression-models.html#cb49-4" tabindex="-1"></a>    <span class="fu">mean</span>( ( y <span class="sc">-</span> <span class="fu">model</span>(x, th) )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb49-5"><a href="extending-linear-regression-models.html#cb49-5" tabindex="-1"></a>}</span></code></pre></div>
+<p>The function <code>model</code> takes the predictor variable <code>x</code> and a parameter vector
+<code>th</code> (shorthand for <span class="math inline">\(\theta\)</span>) and outputs a vector of predictions, one for each
+item in <code>x</code>.</p>
+<p>Let’s look at an example using R’s builtin dataset <code>mtcars</code>, which contains
+information about (quite old) cars. To predict the fuel efficiency <code>mpg</code>
+(miles per gallon) from the engine power, measured in “horse power” (<code>hp</code>), we can <em>bind</em> the loss function to
+these variables:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="extending-linear-regression-models.html#cb50-1" tabindex="-1"></a>loss_mtcars <span class="ot">&lt;-</span> <span class="cf">function</span>(th){</span>
+<span id="cb50-2"><a href="extending-linear-regression-models.html#cb50-2" tabindex="-1"></a>  <span class="fu">loss</span>( mtcars<span class="sc">$</span>hp, mtcars<span class="sc">$</span>mpg, th )</span>
+<span id="cb50-3"><a href="extending-linear-regression-models.html#cb50-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>Then we can find the optimal <code>th</code> values by using the general-purpose
+non-linear optimizer <code>nlm</code> from R:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="extending-linear-regression-models.html#cb51-1" tabindex="-1"></a><span class="fu">nlm</span>( loss_mtcars, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )</span></code></pre></div>
+<pre><code>## $minimum
+## [1] 13.98982
+## 
+## $estimate
+## [1] 30.09919435 -0.06823066
+## 
+## $gradient
+## [1] 3.647236e-08 1.447731e-06
+## 
+## $code
+## [1] 1
+## 
+## $iterations
+## [1] 6</code></pre>
+<p>Hence, my intercept is about 30.1 and the slope is -0.07. So, as we expected,
+there is a negative relationship between these variables. A useful
+<strong>interpretation</strong> of this basic result would be:</p>
+<ul>
+<li>A car that has 100 horse powers (<code>hp=100</code>) is expected to yield 23.3 miles per
+gallon of fuel (about 9.9 km per liter).</li>
+<li>For each additional 10 horse powers, the expected fuel efficiency <em>decreases</em>
+further by 0.69 miles per gallon.</li>
+</ul>
+<p>Let’s convince ourselves that we’d get the same results with an
+“out-of-the-box” linear model fit in R:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="extending-linear-regression-models.html#cb53-1" tabindex="-1"></a><span class="fu">lm</span>( mpg <span class="sc">~</span> hp, mtcars )</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           hp  
+##    30.09886     -0.06823</code></pre>
+<p>Yes, this yields the same estimates. From this command we can also get
+additional information such as p-values and standard errors for the coefficients,
+which we don’t know how to compute yet:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="extending-linear-regression-models.html#cb55-1" tabindex="-1"></a><span class="fu">summary</span>( <span class="fu">lm</span>( mpg <span class="sc">~</span> hp, mtcars ) )</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.7121 -2.1122 -0.8854  1.5819  8.2360 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 30.09886    1.63392  18.421  &lt; 2e-16 ***
+## hp          -0.06823    0.01012  -6.742 1.79e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.863 on 30 degrees of freedom
+## Multiple R-squared:  0.6024, Adjusted R-squared:  0.5892 
+## F-statistic: 45.46 on 1 and 30 DF,  p-value: 1.788e-07</code></pre>
+<p>But we’ll keep using the more explicit
+code, which we can more easily modify and understand. In the examples that follow,
+we’ll apply the same basic setup to binary predictors, multiple predictors,
+and nonlinear versions of the predictors. But first, let’s see how we can
+visualize our regression by adding a regression line to the plot:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="extending-linear-regression-models.html#cb57-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( hp, mpg ))</span>
+<span id="cb57-2"><a href="extending-linear-regression-models.html#cb57-2" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">30.09886</span>, <span class="sc">-</span><span class="fl">0.06823</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/mtcplot12-1.png" width="672" /></p>
+</div>
+<div id="transforming-variables" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Transforming variables<a href="extending-linear-regression-models.html#transforming-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now let’s see how we can extend our simple linear regression analysis to a few more general cases.</p>
+<p>Looking back at our earlier regression, it actually doesn’t look like the regression line fits very well. The data looks somewhat “curved”: in
+the middle we see that most points are below the line, on the left a lot of
+them are above the line. In other words, we are mostly “under-predicting” at intermediate <em>hp</em>, and “over-predicting” at low or high <em>hp</em>. Instead, we’d want
+to see the line go through the middle of the data kind of in most places.</p>
+<p>Does anyone have an idea how we could improve this model?</p>
+<blockquote>
+<p>Maybe transform the data.</p>
+</blockquote>
+<p>Do you have a suggestion how we could transform it?</p>
+<blockquote>
+<p>Take the logarithm?</p>
+</blockquote>
+<p>Yes, that’s a common technique (that those who took the class “Data Analysis” may remember). A common reason why a relationship isn’t linear could be that a predictor variable has a log-normal rather than normal distribution. Log-normal distributions are non-symmetrical (skewed) and have many large values. In our example, there are some
+very big cars with a lot of horsepower but comparatively fewer ones with low horsepower, so there is indeed some skew.</p>
+<p>Let’s change our code, and use a log-transformed version of the <code>hp</code> variable. A single change in the <code>model</code> function is enough to achieve this:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="extending-linear-regression-models.html#cb58-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(x, th){</span>
+<span id="cb58-2"><a href="extending-linear-regression-models.html#cb58-2" tabindex="-1"></a>    th[<span class="dv">1</span>] <span class="sc">+</span> th[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">log10</span>(x) }   <span class="do">## We changed only this line</span></span>
+<span id="cb58-3"><a href="extending-linear-regression-models.html#cb58-3" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, th){</span>
+<span id="cb58-4"><a href="extending-linear-regression-models.html#cb58-4" tabindex="-1"></a>    <span class="fu">mean</span>( ( y <span class="sc">-</span> <span class="fu">model</span>(x, th) )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb58-5"><a href="extending-linear-regression-models.html#cb58-5" tabindex="-1"></a>}</span>
+<span id="cb58-6"><a href="extending-linear-regression-models.html#cb58-6" tabindex="-1"></a>loss_mtcars <span class="ot">&lt;-</span> <span class="cf">function</span>(th){</span>
+<span id="cb58-7"><a href="extending-linear-regression-models.html#cb58-7" tabindex="-1"></a>  <span class="fu">loss</span>( mtcars<span class="sc">$</span>hp, mtcars<span class="sc">$</span>mpg, th )</span>
+<span id="cb58-8"><a href="extending-linear-regression-models.html#cb58-8" tabindex="-1"></a>}</span>
+<span id="cb58-9"><a href="extending-linear-regression-models.html#cb58-9" tabindex="-1"></a><span class="fu">nlm</span>( loss_mtcars, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>## [1]  72.64047 -24.78543</code></pre>
+<p>The model still fits. My question to you is: Is this now still a linear model?</p>
+<blockquote>
+<p>Yes, Because the linearity is more around the parameters for the slope and the
+intercept so on the variables on the X, on the feature, you can apply any
+can be any mathematical</p>
+</blockquote>
+<p>Indeed. The important point is: what does the “linear” in linear model exactly mean? Our <code>model</code> is a function of both the data <code>x</code> and parameters <code>th</code>. Previously it was linear in both <code>x</code> and <code>th</code>. Now it remains linear in <code>th</code> but not in <code>x</code>. For the definition of a linear model, what matters is linearity in <code>th</code>, not <code>x</code>. Taking the derivative with respect to <code>th</code> gives a constant, So this remains a linear model. You could use any transformation on x – log(x), sin(x), or whatever you like – it doesn’t matter as it won’t affect linearity in <code>th</code>.</p>
+<p>Therefore, I can fit the model in the exact same way as before, using the same
+quadratic loss function. However – even though the general setup remained the same –
+since x is now log-transformed, this will give me
+very different coefficients. These are now 72 and -24.8, rather than
+30 and -0.06. The slope -24.8 also has a very different <strong>interpretation</strong>: If the horsepower of a car’s engine <em>increases by a factor of 10</em> (=1 unit on the <span class="math inline">\(\log_{10}\)</span> scale), the efficiency goes down by 24.8 mpg (or 10.5 km/l). Note that for this interpretation to be reasonably simple, it was important to use the <span class="math inline">\(\log_{10}\)</span> rather than the natural logarithm.</p>
+<p>Let’s see how the model fit looks like now:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="extending-linear-regression-models.html#cb60-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( hp, mpg ))</span>
+<span id="cb60-2"><a href="extending-linear-regression-models.html#cb60-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">50</span>,<span class="dv">300</span>)</span>
+<span id="cb60-3"><a href="extending-linear-regression-models.html#cb60-3" tabindex="-1"></a><span class="fu">lines</span>( x,  <span class="fl">72.64047</span> <span class="sc">-</span><span class="fl">24.78543</span><span class="sc">*</span><span class="fu">log10</span>(x), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/mtcplot123-1.png" width="672" /></p>
+<p>Not too bad!</p>
+<p>This is called a <em>log-linear</em> model. In fact it doesn’t look linear at all, but remember, it remains linear in the parameters <code>th</code>. This one reason why linear models are much more powerful than many people think. Using a linear model doesn’t necessarily mean fitting a line through data points. Linear models could use spline functions, Fourier series, or other very powerful transformations of the data.</p>
+</div>
+<div id="using-binary-variables-as-predictors" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Using binary variables as predictors<a href="extending-linear-regression-models.html#using-binary-variables-as-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A related case is when we use a variable as a predictor that isn’t continuous.
+In the <code>mtcars</code> dataset, there’s for example a variable called <code>am</code> which
+stands for <em>automatic</em> – is the gear transmission automatic (am=1) or manual
+(am=0)? We could also ask for instance: is an automatic car more
+efficient than a manual car? Then we’d be using a binary
+variable as a predictor instead of a continuous variable. Again, that wouldn’t
+correspond to the simple view of linear regression as just fitting a line
+through a point cloud.</p>
+<p>What do we need to do to use a binary predictor, compared to the basic case with a (non-transformed) continuous predictor? Nothing special whatsoever.<br />
+We just need to change our <code>loss_mtcars</code> function to use a different variable. This is simply a linear regression with no changes at all!</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="extending-linear-regression-models.html#cb61-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(x, th){</span>
+<span id="cb61-2"><a href="extending-linear-regression-models.html#cb61-2" tabindex="-1"></a>    th[<span class="dv">1</span>] <span class="sc">+</span> th[<span class="dv">2</span>]<span class="sc">*</span>x }</span>
+<span id="cb61-3"><a href="extending-linear-regression-models.html#cb61-3" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, th){</span>
+<span id="cb61-4"><a href="extending-linear-regression-models.html#cb61-4" tabindex="-1"></a>    <span class="fu">mean</span>( ( y <span class="sc">-</span> <span class="fu">model</span>(x, th) )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb61-5"><a href="extending-linear-regression-models.html#cb61-5" tabindex="-1"></a>}</span>
+<span id="cb61-6"><a href="extending-linear-regression-models.html#cb61-6" tabindex="-1"></a>loss_mtcars <span class="ot">&lt;-</span> <span class="cf">function</span>(th){</span>
+<span id="cb61-7"><a href="extending-linear-regression-models.html#cb61-7" tabindex="-1"></a>  <span class="fu">loss</span>( mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>mpg, th )</span>
+<span id="cb61-8"><a href="extending-linear-regression-models.html#cb61-8" tabindex="-1"></a>}</span>
+<span id="cb61-9"><a href="extending-linear-regression-models.html#cb61-9" tabindex="-1"></a><span class="fu">nlm</span>( loss_mtcars, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>## [1] 17.147356  7.244948</code></pre>
+<p>We can also plot this setup:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="extending-linear-regression-models.html#cb63-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( am, mpg ))</span>
+<span id="cb63-2"><a href="extending-linear-regression-models.html#cb63-2" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">17.147356</span>, <span class="fl">7.244948</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/mtcplot1243423-1.png" width="672" /></p>
+<p>Although this plot may look slightly strange because we have only two different values on our x-axis, this is still a perfectly fine linear model – as before, it remains linear in its parameters.</p>
+<p>What we see here is that the cars with automatic transmission (points on the
+right-hand side) are more efficient than the non-automatic ones on the
+left-hand side.</p>
+<p>What could the <strong>interpretation</strong> of these results be?
+How would you communicate the results of this analysis to a stakeholder?
+You set out to answer the question: are automatic cars more efficient than manual cars?
+What’s your answer?</p>
+<blockquote>
+<p>Since we have a positive slope we can generally say that automatic cars are
+more efficient or at least there is a relationship which suggests so.</p>
+</blockquote>
+<p>So you would say it’s more fuel efficient and you look to say that you looked
+at which aspect of this but specifically what of the slope?</p>
+<blockquote>
+<p>Oh it’s positive and it’s more than like 0.05.</p>
+</blockquote>
+<p>So you looked at the sign of the slope so in this case the positive sign means
+higher values on the y for higher values on the x. So if I go higher on x it
+means going from manual to automatic means I’m going to go up on the y axis
+making it more efficient. But you also said it’s not something like 0.05 so
+does it mean that if the slope had indeed been 0.05 it would not be important?</p>
+<blockquote>
+<p>That suggests that the data sets generally have the same mean or same carry counts which it’s not so much about the mean but more the significance involved.</p>
+</blockquote>
+<p>Let’s not get distracted by statistical significance at the moment – this is about interpretation of the slope value itself.</p>
+<p>Considering that there’s only two
+values for the predictor – 0 and 1 – we could say that an automatic transmission car it is 7.245 mpg (3.1 km/l) mpg more efficient than a manual one: a change of 1 on the X axis – going from manual to automatic – is linked to a change of 7.245 on the Y axis.</p>
+<p>Therefore, whether the slope value that we obtain from a regression model translates to a n important effect or an unimportant one critically depends on the <em>units</em> of both the X and the Y axis.</p>
+<p>Small numbers can be important. Let’s consider GDP growth for example. It makes an enormous difference whether annual GDP growth is 0.02 (2%) or 0.05 (5%), although both numbers seem small on the face of it. Therefore, like any result of a data analysis, a regression needs to be interpreted carefully in the context of the substantive meaning and units of the variables that are involved. In short, you won’t be able to do statistical inference y when you don’t know what the numbers that you are analyzing actually mean (although you may well be able to build a prediction model that achieves a high accuracy without having any clue what the involved numbers mean, and that hopefully illustrates why inference is not the same thing as prediction).</p>
+<p>Specifically, when interpreting a regression coefficient, be careful to address both its <em>sign</em> (is the effect positive or negative?) and its <em>magnitude</em> (is the effect large or small)? You could also do this by working through a few representative examples.</p>
+</div>
+<div id="regression-with-multiple-predictors" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Regression with multiple predictors<a href="extending-linear-regression-models.html#regression-with-multiple-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s say we want to use more than just one variable in our
+regression. For example, let’s use both the weight and the horsepower to
+predict the efficiency of the car. This kind of model is called a
+<em>multivariable</em> regression model. Suppose we have
+<span class="math inline">\(k\)</span> predictor variables <span class="math inline">\(X^{(1)},\ldots,X^{(k)}\)</span>, then the
+multivariable regression model would correspond to the loss function</p>
+<p><span class="math display">\[
+\text{argmin}_{\theta} \frac{1}{n}\sum_i \left(y_i - \theta_1 - \sum_{j=2}^{k+1} \theta_{j} x^{(j-1)}_i \right)^2
+\]</span></p>
+<p>How could we implement this in our framework?</p>
+<p>Again, it can be done with a few simple tweaks. This time, we need to modify both the function <code>model</code> and the function <code>loss</code>. Both now need to take an additional argument. (Note that we could also do this better by allowing <em>x</em> to be a matrix, but let’s keep it simple for now.)</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="extending-linear-regression-models.html#cb64-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2, th){</span>
+<span id="cb64-2"><a href="extending-linear-regression-models.html#cb64-2" tabindex="-1"></a>    th[<span class="dv">1</span>] <span class="sc">+</span> th[<span class="dv">2</span>]<span class="sc">*</span>x1 <span class="sc">+</span> th[<span class="dv">3</span>]<span class="sc">*</span>x2 }</span>
+<span id="cb64-3"><a href="extending-linear-regression-models.html#cb64-3" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2, y, th){</span>
+<span id="cb64-4"><a href="extending-linear-regression-models.html#cb64-4" tabindex="-1"></a>    <span class="fu">mean</span>( ( y <span class="sc">-</span> <span class="fu">model</span>(x1, x2, th) )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb64-5"><a href="extending-linear-regression-models.html#cb64-5" tabindex="-1"></a>}</span>
+<span id="cb64-6"><a href="extending-linear-regression-models.html#cb64-6" tabindex="-1"></a>loss_mtcars <span class="ot">&lt;-</span> <span class="cf">function</span>(th){</span>
+<span id="cb64-7"><a href="extending-linear-regression-models.html#cb64-7" tabindex="-1"></a>  <span class="fu">loss</span>( mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg, th )</span>
+<span id="cb64-8"><a href="extending-linear-regression-models.html#cb64-8" tabindex="-1"></a>}</span>
+<span id="cb64-9"><a href="extending-linear-regression-models.html#cb64-9" tabindex="-1"></a><span class="fu">nlm</span>( loss_mtcars, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>) )<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>## [1] 37.32155130 -0.02361512 -5.35281145</code></pre>
+<p>This model now predicts the fuel efficiency using both the
+binary variable <code>am</code> and the continuous variable <code>wt</code> (weight of the car, in 1000 lbs) –
+two predictors of different types.
+The minimization of the loss using <code>nlm</code> works in the same way because the
+minimizer can handle functions of many dimensions (at least in principle).</p>
+<p>We have three fitted values now. The first one, 37.3, is still the intercept.
+The second one, -0.02, is the difference between manual and automated transmission
+(keeping the weight fixed) whereas the third one, -5.35, is the average decrease
+in efficiency associated with an increase of the weight in 1000 lbs when the
+transmission type is kept fixed. The value of -0.02 is especially interesting
+given our earlier results – just before we said that manual cars are actually
+less efficient than automated cars. What’s the conclusion of this number here?</p>
+<blockquote>
+<p>That they actually
+do not differ if you correct the weight.</p>
+</blockquote>
+<p>Exactly! It could be, for instance, that heavier cars more often have manual
+transmission whereas lighter cars more often have automatic transmission.
+And once you consider this, the association of transmission type and fuel
+efficiency disappears.</p>
+<blockquote>
+<p>is this a real dataset?</p>
+</blockquote>
+<p>Yes, it is!</p>
+<blockquote>
+<p>How do you know that this result isn’t just due to overfitting?</p>
+</blockquote>
+<p>That is a very good question, which we’re going to address two or three weeks
+from now!</p>
+<p>Let’s wrap up with a quick visualization of this model. We can think of the model as fitting two different parallel lines to our data: one for manual, and one for automatic transmission. The lines in this case actually barely differ.</p>
+<p>We can visualize this result by using two different regression lines with slightly different intercepts like this:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="extending-linear-regression-models.html#cb66-1" tabindex="-1"></a><span class="fu">with</span>( mtcars, <span class="fu">plot</span>( wt, mpg ) )</span>
+<span id="cb66-2"><a href="extending-linear-regression-models.html#cb66-2" tabindex="-1"></a><span class="co"># red line for am=0</span></span>
+<span id="cb66-3"><a href="extending-linear-regression-models.html#cb66-3" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32155130</span>, <span class="sc">-</span><span class="fl">5.35281145</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span>
+<span id="cb66-4"><a href="extending-linear-regression-models.html#cb66-4" tabindex="-1"></a><span class="co"># blue line for am=1</span></span>
+<span id="cb66-5"><a href="extending-linear-regression-models.html#cb66-5" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32155130-0.02361512</span>, <span class="sc">-</span><span class="fl">5.35281145</span>, <span class="at">col=</span><span class="dv">4</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>And we could summarize our <strong>interpretation</strong> like this: For two cars of the same weight <em>wt</em>, it barely makes a difference if the transmission is automatic or manual, whereas for both automatic and manual cars, each additional 1000 lbs (450 kg) is associated with a decrease in fuel efficiency of 5.35 mpg</p>
+</div>
+<div id="interaction-terms" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Interaction terms<a href="extending-linear-regression-models.html#interaction-terms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One fundamental assumption of the basic linear model with multiple predictors is that
+the effects of the predictors are <em>additive</em>. For example, consider the model
+with two predictors:</p>
+<p><span class="math display">\[
+\text{argmin}_{\theta} \frac{1}{n}\sum_i \left(y_i - \theta_1 - \theta_{2} x^{(1)}_i - \theta_{3} x^{(2)}_i \right)^2
+\]</span></p>
+<p>In a certain sense, this additivity corresponds to an <em>independence</em> between the two effects: Any change in $X^{(1)} by one unit will change the predicted value by <span class="math inline">\(\theta_{2}\)</span>, independently of the value of $X^{(2)}; vice versa, any change in $X^{(2)} by one unit will change the predicted value by <span class="math inline">\(\theta_{3}\)</span>, independently of the value of $X^{(1)};</p>
+<p>That assumption may not always hold. For example, putting an automatic
+transmission into a small car might make a noticeable difference
+on its weight, whereas putting an automated transmission into a heavy car may
+not make such a big difference on its weight. This dependence of effects of one
+variable on the values of others is called an <em>interaction</em>.</p>
+<p>Generally we implement interactions by taking the products
+between two (or more) variables and
+adding those into the regression model. For example, my two-predictor model above
+would become:</p>
+<p><span class="math display">\[
+\text{argmin}_{\theta} \frac{1}{n}\sum_i \left(y_i - \theta_1 - \theta_{2} x^{(1)}_i - \theta_{3} x^{(2)}_i  - \underbrace{ \theta_{4} x^{(1)}_i  x^{(2)}_i }_{\text{interaction term}} \ \right)^2
+\]</span></p>
+<p>Again, the inclusion of this product makes the model appear non-linear – but it’s not, since it remains linear in the parameters <span class="math inline">\(\theta\)</span>. In this sense, it’s similar to our variable transformation technique from earlier.</p>
+<p>We can implement this model as follows:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="extending-linear-regression-models.html#cb67-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2, th){</span>
+<span id="cb67-2"><a href="extending-linear-regression-models.html#cb67-2" tabindex="-1"></a>    th[<span class="dv">1</span>] <span class="sc">+</span> th[<span class="dv">2</span>]<span class="sc">*</span>x1 <span class="sc">+</span> th[<span class="dv">3</span>]<span class="sc">*</span>x2 <span class="sc">+</span> th[<span class="dv">4</span>]<span class="sc">*</span>x1<span class="sc">*</span>x2 }</span>
+<span id="cb67-3"><a href="extending-linear-regression-models.html#cb67-3" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2, y, th){</span>
+<span id="cb67-4"><a href="extending-linear-regression-models.html#cb67-4" tabindex="-1"></a>    <span class="fu">mean</span>( ( y <span class="sc">-</span> <span class="fu">model</span>(x1, x2, th) )<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb67-5"><a href="extending-linear-regression-models.html#cb67-5" tabindex="-1"></a>}</span>
+<span id="cb67-6"><a href="extending-linear-regression-models.html#cb67-6" tabindex="-1"></a>loss_mtcars <span class="ot">&lt;-</span> <span class="cf">function</span>(th){</span>
+<span id="cb67-7"><a href="extending-linear-regression-models.html#cb67-7" tabindex="-1"></a>  <span class="fu">loss</span>( mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg, th )</span>
+<span id="cb67-8"><a href="extending-linear-regression-models.html#cb67-8" tabindex="-1"></a>}</span>
+<span id="cb67-9"><a href="extending-linear-regression-models.html#cb67-9" tabindex="-1"></a><span class="fu">nlm</span>( loss_mtcars, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>) )<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>## [1] 31.416055 14.878423 -3.785907 -5.298361</code></pre>
+<p>Now I have four coefficient estimates. Now check the effect of
+transmission type again, which is in the coefficient -3.7. This again does
+suggest and impact of transmission type.</p>
+<p>However, the <strong>interpretation</strong> actually gets a little tricky now.</p>
+<p>For automatic cars, fuel efficiency decreases by about 3.8 mpg per 1000 lbs of weight on average. For manual cars it even decreases by about 9.1 mpg per 1000 lbs. Although the coefficient for transmission (+14.9) suggests that manuals are more efficient at very low weights, the negative interaction term means this advantage shrinks as weight increases. Around the average weight of cars in the dataset, the efficiency difference vanishes, and for heavier cars, automatics are actually predicted to outperform manuals.</p>
+<p>This is probably made much clearer by a plot.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="extending-linear-regression-models.html#cb69-1" tabindex="-1"></a><span class="fu">with</span>( mtcars, <span class="fu">plot</span>( wt, mpg ) )</span>
+<span id="cb69-2"><a href="extending-linear-regression-models.html#cb69-2" tabindex="-1"></a><span class="co"># red line for am=0</span></span>
+<span id="cb69-3"><a href="extending-linear-regression-models.html#cb69-3" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32155130</span>, <span class="sc">-</span><span class="fl">3.785907</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span>
+<span id="cb69-4"><a href="extending-linear-regression-models.html#cb69-4" tabindex="-1"></a><span class="co"># blue line for am=1</span></span>
+<span id="cb69-5"><a href="extending-linear-regression-models.html#cb69-5" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32</span> <span class="sc">+</span> <span class="fl">14.88</span>, <span class="sc">-</span><span class="fl">3.79</span> <span class="sc">-</span><span class="fl">5.3</span>, <span class="at">col=</span><span class="dv">4</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/mtcinteractplot-1.png" width="672" /></p>
+<p>As we can see the slopes are not the same, which means they must cross at some point. For our data, the crossover point means that light manual cars are more efficient than <em>light</em> automatic cars, whereas it’s the opposite for heavy cars: heavy manual cars are <em>less</em> efficient than heavy automatic ones.</p>
+<blockquote>
+<p>Instead of taking the product of
+two variables, for example, could you also take the
+ratio of two variables.</p>
+</blockquote>
+<p>Absolutely, in principle we could also use a ratio like that to model an interaction, which would lead to a model like:</p>
+<p><span class="math display">\[
+\text{argmin}_{\theta} \frac{1}{n}\sum_i \left(y_i - \theta_1 - \theta_{2} x^{(1)}_i - \theta_{3} x^{(2)}_i  - \theta_{4} \frac{ x^{(1)}_i }{ x^{(2)}_i } \ \right)^2
+\]</span></p>
+<p>We could also use something completely different like</p>
+<p><span class="math display">\[
+\text{argmin}_{\theta} \frac{1}{n}\sum_i \left(y_i - \theta_1 - \theta_{2} x^{(1)}_i - \theta_{3} x^{(2)}_i  - \theta_{4} \frac{ \text{sin}( x^{(1)}_i ) }{ \log( x^{(2)}_i ) } \ \right)^2
+\]</span></p>
+<p>Obviously, this would become a bit esoteric and hard to interpret. The ratio, however, is still quite easy to interpret. A reason that isn’t used much is simply that it might lead to division by 0 errors.</p>
+<p>To summarize: we covered multivariable regression (multiple predictors), nonlinear linear regression (nonlinear in predictors, not parameters), binary predictor variables, and interaction terms. These four items form your regression modeling toolkit and make linear models very powerful, even when data doesn’t look linear. You cannot fit truly nonlinear functions of parameters in this framework, but the linear framework goes extremely far. My advice is: only leave the linear framework if absolutely necessary.</p>
+<p>All of these are standard techniques of regression modeling covered in anything from textbooks to YouTube videos, and I invite you to seek out additional explanations to build a robust understanding of these.</p>
+</div>
+<div id="test-your-understanding-3" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Test your understanding<a href="extending-linear-regression-models.html#test-your-understanding-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>A researcher applies a log transformation to the predictor variable in their regression model:</li>
+</ol>
+<p><span class="math display">\[y = \alpha + \beta \log(x) + \epsilon \]</span></p>
+<p>Which statement is correct?</p>
+<ul>
+<li>This is no longer a linear model because the relationship is curved</li>
+<li>This remains a linear model because it’s linear in the parameters</li>
+<li>This becomes a nonlinear model requiring specialized optimization techniques</li>
+<li>The transformation invalidates the use of least squares estimation</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><p>A student argues: “Linear models are too simple because they can only fit straight lines through data points.” Explain why this statement is incorrect, providing a specific example to support your answer.</p></li>
+<li><p>Which of the following model formulations includes an interaction term?</p></li>
+</ol>
+<ul>
+<li><span class="math display">\[y = \theta_1 + \theta_2 x_1 + \theta_3 x_2 \]</span></li>
+<li><span class="math display">\[y = \theta_1 + \theta_2 x_1 + \theta_3 x_2 + \theta_4 x_1 x_2 \]</span></li>
+<li><span class="math display">\[y = \theta_1 + \theta_2 \log(x_1) + \theta_3 x_2 \]</span></li>
+<li><span class="math display">\[y = \theta_1 + \theta_2 x_1^2 + \theta_3 x_2 \]</span></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>In a multiple regression with interaction terms, you obtain the following
+fitted equation for your model:
+<span class="math display">\[mpg = 37 + 15 am - 4\text{wt} - 5\, \text{am} \, \text{wt}\]</span></li>
+</ol>
+<p>Calculate the predicted fuel efficiency for</p>
+<ul>
+<li>A manual car (am=0) weighing 3000 lbs (wt=3)</li>
+<li>An automatic car (am=1) weighing 3000 lbs (wt=3)</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Consider the same fitted regression model from above:
+<span class="math display">\[mpg = 37 + 15 am - 4\text{wt} - 5\, \text{am} \, \text{wt}\]</span></li>
+</ol>
+<p>According to this model, at which weight does it not make a difference whether transmission is automatic or manual? And what is the relationship between transmission type and efficiency below and above this weight?</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Suppose we have a dataset containing three variables: student grades (g, continuous), hours of study (h, continuous), and semester (fall / spring, binary). Which regression model would correspond to fitting two parallel lines that predict the grades from the hours of study, one for each semester? Write down the linear equation that defines the model and explain briefly.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="loss-functions-and-regression-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="non-linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
