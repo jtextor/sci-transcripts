@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Likelihood-free Bayesian inference | Statistical and Causal Inference</title>
+  <meta name="description" content="8 Likelihood-free Bayesian inference | Statistical and Causal Inference" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Likelihood-free Bayesian inference | Statistical and Causal Inference" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Likelihood-free Bayesian inference | Statistical and Causal Inference" />
+  
+  
+  
+
+<meta name="author" content="Johannes Textor" />
+
+
+<meta name="date" content="2025-10-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="selecting-models.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#generative-ai-disclosure"><i class="fa fa-check"></i>Generative AI disclosure</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="scientific-inference.html"><a href="scientific-inference.html"><i class="fa fa-check"></i><b>1</b> Scientific inference</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="scientific-inference.html"><a href="scientific-inference.html#greetings-and-introduction"><i class="fa fa-check"></i><b>1.1</b> Greetings and introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="scientific-inference.html"><a href="scientific-inference.html#the-setup-of-the-course"><i class="fa fa-check"></i><b>1.2</b> The setup of the course</a></li>
+<li class="chapter" data-level="1.3" data-path="scientific-inference.html"><a href="scientific-inference.html#philosophy-of-science"><i class="fa fa-check"></i><b>1.3</b> Philosophy of science</a></li>
+<li class="chapter" data-level="1.4" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-inference-1"><i class="fa fa-check"></i><b>1.4</b> Scientific inference</a></li>
+<li class="chapter" data-level="1.5" data-path="scientific-inference.html"><a href="scientific-inference.html#karl-popper-and-falsificationism"><i class="fa fa-check"></i><b>1.5</b> Karl Popper and falsificationism</a></li>
+<li class="chapter" data-level="1.6" data-path="scientific-inference.html"><a href="scientific-inference.html#introducing-portfolio-item-5"><i class="fa fa-check"></i><b>1.6</b> Introducing portfolio item 5</a></li>
+<li class="chapter" data-level="1.7" data-path="scientific-inference.html"><a href="scientific-inference.html#statistical-versus-causal-inference"><i class="fa fa-check"></i><b>1.7</b> Statistical versus causal inference</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="scientific-inference.html"><a href="scientific-inference.html#description"><i class="fa fa-check"></i><b>1.7.1</b> Description</a></li>
+<li class="chapter" data-level="1.7.2" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction"><i class="fa fa-check"></i><b>1.7.2</b> Prediction</a></li>
+<li class="chapter" data-level="1.7.3" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-description"><i class="fa fa-check"></i><b>1.7.3</b> Techniques used for description</a></li>
+<li class="chapter" data-level="1.7.4" data-path="scientific-inference.html"><a href="scientific-inference.html#techniques-used-for-prediction"><i class="fa fa-check"></i><b>1.7.4</b> Techniques used for prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="scientific-inference.html"><a href="scientific-inference.html#prediction-versus-causal-inference"><i class="fa fa-check"></i><b>1.8</b> Prediction versus causal inference</a></li>
+<li class="chapter" data-level="1.9" data-path="scientific-inference.html"><a href="scientific-inference.html#scientific-versus-statistical-inference"><i class="fa fa-check"></i><b>1.9</b> Scientific versus statistical inference</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="scientific-inference.html"><a href="scientific-inference.html#hypothesis-testing"><i class="fa fa-check"></i><b>1.9.1</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="1.9.2" data-path="scientific-inference.html"><a href="scientific-inference.html#parameter-estimation"><i class="fa fa-check"></i><b>1.9.2</b> Parameter estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="scientific-inference.html"><a href="scientific-inference.html#frequentist-versus-bayesian-statistics"><i class="fa fa-check"></i><b>1.10</b> Frequentist versus Bayesian statistics</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="scientific-inference.html"><a href="scientific-inference.html#bayes-rule-likelihood-and-posterior-probability"><i class="fa fa-check"></i><b>1.10.1</b> Bayes’ rule, likelihood, and posterior probability</a></li>
+<li class="chapter" data-level="1.10.2" data-path="scientific-inference.html"><a href="scientific-inference.html#epistemic-and-aleatorial-probability"><i class="fa fa-check"></i><b>1.10.2</b> Epistemic and aleatorial probability</a></li>
+<li class="chapter" data-level="1.10.3" data-path="scientific-inference.html"><a href="scientific-inference.html#constrasting-bayesian-and-frequentist-statistics"><i class="fa fa-check"></i><b>1.10.3</b> Constrasting Bayesian and frequentist statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="scientific-inference.html"><a href="scientific-inference.html#test-your-understanding"><i class="fa fa-check"></i><b>1.11</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="linear-regression.html"><a href="linear-regression.html#on-the-difference-between-this-course-and-others-in-the-master"><i class="fa fa-check"></i><b>2.1</b> On the difference between this course and others in the Master</a></li>
+<li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-1"><i class="fa fa-check"></i><b>2.2</b> Linear regression</a></li>
+<li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#how-is-a-linear-regression-model-mathematically-defined"><i class="fa fa-check"></i><b>2.3</b> How is a linear regression model mathematically defined?</a></li>
+<li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#recap-on-probability-distributions"><i class="fa fa-check"></i><b>2.4</b> Recap on probability distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distribution"><i class="fa fa-check"></i><b>2.5</b> Some example normal distribution</a></li>
+<li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#conditional-probability-distributions"><i class="fa fa-check"></i><b>2.6</b> Conditional probability distributions</a></li>
+<li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#generative-versus-discriminative-models"><i class="fa fa-check"></i><b>2.7</b> Generative versus discriminative models</a></li>
+<li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#defining-linear-regression-as-a-conditional-probability-model"><i class="fa fa-check"></i><b>2.8</b> Defining linear regression as a conditional probability model</a></li>
+<li class="chapter" data-level="2.9" data-path="linear-regression.html"><a href="linear-regression.html#additional-background-on-probability-distributions"><i class="fa fa-check"></i><b>2.9</b> Additional background on probability distributions</a></li>
+<li class="chapter" data-level="2.10" data-path="linear-regression.html"><a href="linear-regression.html#the-regression-model"><i class="fa fa-check"></i><b>2.10</b> “The regression model”</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-conditional-expectation"><i class="fa fa-check"></i><b>2.10.1</b> Linear regression as conditional expectation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="linear-regression.html"><a href="linear-regression.html#loss-functions"><i class="fa fa-check"></i><b>2.11</b> Loss functions</a></li>
+<li class="chapter" data-level="2.12" data-path="linear-regression.html"><a href="linear-regression.html#square-loss-verus-absolute-loss"><i class="fa fa-check"></i><b>2.12</b> Square loss verus absolute loss</a></li>
+<li class="chapter" data-level="2.13" data-path="linear-regression.html"><a href="linear-regression.html#test-your-understanding-1"><i class="fa fa-check"></i><b>2.13</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html"><i class="fa fa-check"></i><b>3</b> Loss functions and regression models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#considerations-for-choosing-different-loss-functions"><i class="fa fa-check"></i><b>3.1</b> Considerations for choosing different loss functions</a></li>
+<li class="chapter" data-level="3.2" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#linear-regression-and-the-effect-of-outliers"><i class="fa fa-check"></i><b>3.2</b> Linear regression and the effect of outliers</a></li>
+<li class="chapter" data-level="3.3" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#recap-expectation-mean-and-squared-error"><i class="fa fa-check"></i><b>3.3</b> Recap: Expectation, mean, and squared error</a></li>
+<li class="chapter" data-level="3.4" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#example-linear-regression-for-the-air-quality-data"><i class="fa fa-check"></i><b>3.4</b> Example: Linear regression for the air quality data</a></li>
+<li class="chapter" data-level="3.5" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#implementing-your-own-regression-model-versus-using-a-pre-packaged-solution"><i class="fa fa-check"></i><b>3.5</b> Implementing your own regression model versus using a pre-packaged solution</a></li>
+<li class="chapter" data-level="3.6" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#the-huber-loss"><i class="fa fa-check"></i><b>3.6</b> The Huber loss</a></li>
+<li class="chapter" data-level="3.7" data-path="loss-functions-and-regression-models.html"><a href="loss-functions-and-regression-models.html#test-your-understanding-2"><i class="fa fa-check"></i><b>3.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html"><i class="fa fa-check"></i><b>4</b> Extending linear regression models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#example-basic-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Example: Basic linear regression</a></li>
+<li class="chapter" data-level="4.2" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#transforming-variables"><i class="fa fa-check"></i><b>4.2</b> Transforming variables</a></li>
+<li class="chapter" data-level="4.3" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#using-binary-variables-as-predictors"><i class="fa fa-check"></i><b>4.3</b> Using binary variables as predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#regression-with-multiple-predictors"><i class="fa fa-check"></i><b>4.4</b> Regression with multiple predictors</a></li>
+<li class="chapter" data-level="4.5" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#interaction-terms"><i class="fa fa-check"></i><b>4.5</b> Interaction terms</a></li>
+<li class="chapter" data-level="4.6" data-path="extending-linear-regression-models.html"><a href="extending-linear-regression-models.html#test-your-understanding-3"><i class="fa fa-check"></i><b>4.6</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="non-linear-models.html"><a href="non-linear-models.html"><i class="fa fa-check"></i><b>5</b> Non-linear models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#portfolio-contributions"><i class="fa fa-check"></i><b>5.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="non-linear-models.html"><a href="non-linear-models.html#the-box-cox-transformation"><i class="fa fa-check"></i><b>5.1.1</b> The Box-Cox transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#introduction-1"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="non-linear-models.html"><a href="non-linear-models.html#recap"><i class="fa fa-check"></i><b>5.2.1</b> Recap</a></li>
+<li class="chapter" data-level="5.2.2" data-path="non-linear-models.html"><a href="non-linear-models.html#the-motivation-for-non-linear-models"><i class="fa fa-check"></i><b>5.2.2</b> The motivation for non-linear models</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="non-linear-models.html"><a href="non-linear-models.html#a-model-of-population-growth-in-biology"><i class="fa fa-check"></i><b>5.3</b> A model of population growth in biology</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="non-linear-models.html"><a href="non-linear-models.html#algae-growth"><i class="fa fa-check"></i><b>5.3.1</b> Algae growth</a></li>
+<li class="chapter" data-level="5.3.2" data-path="non-linear-models.html"><a href="non-linear-models.html#initialization-of-the-numerical-optimizer"><i class="fa fa-check"></i><b>5.3.2</b> Initialization of the numerical optimizer</a></li>
+<li class="chapter" data-level="5.3.3" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-linear-log-model"><i class="fa fa-check"></i><b>5.3.3</b> Fitting a linear-log model</a></li>
+<li class="chapter" data-level="5.3.4" data-path="non-linear-models.html"><a href="non-linear-models.html#model-falsification-revisited"><i class="fa fa-check"></i><b>5.3.4</b> Model falsification revisited</a></li>
+<li class="chapter" data-level="5.3.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-growth-model"><i class="fa fa-check"></i><b>5.3.5</b> The logistic growth model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="non-linear-models.html"><a href="non-linear-models.html#maximum-likelihood-fitting-of-probability-models"><i class="fa fa-check"></i><b>5.4</b> Maximum likelihood fitting of probability models</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-the-linear-regression-model-with-gaussian-errors"><i class="fa fa-check"></i><b>5.4.1</b> Fitting the linear regression model with Gaussian errors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="non-linear-models.html"><a href="non-linear-models.html#the-logistic-regression-model"><i class="fa fa-check"></i><b>5.5</b> The logistic regression model</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="non-linear-models.html"><a href="non-linear-models.html#fitting-a-logistic-regression-model"><i class="fa fa-check"></i><b>5.5.1</b> Fitting a logistic regression model</a></li>
+<li class="chapter" data-level="5.5.2" data-path="non-linear-models.html"><a href="non-linear-models.html#interpretation-of-logistic-regression-results"><i class="fa fa-check"></i><b>5.5.2</b> Interpretation of logistic regression results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="non-linear-models.html"><a href="non-linear-models.html#the-cox-proportional-hazards-model-for-time-to-event-data"><i class="fa fa-check"></i><b>5.6</b> The Cox proportional hazards model for time-to-event data</a></li>
+<li class="chapter" data-level="5.7" data-path="non-linear-models.html"><a href="non-linear-models.html#test-your-understanding-4"><i class="fa fa-check"></i><b>5.7</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html"><i class="fa fa-check"></i><b>6</b> Model parameter estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#portfolio-contributions-1"><i class="fa fa-check"></i><b>6.1</b> Portfolio contributions</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-dummy-variable-trap"><i class="fa fa-check"></i><b>6.1.1</b> The dummy variable trap</a></li>
+<li class="chapter" data-level="6.1.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#ridge-regression"><i class="fa fa-check"></i><b>6.1.2</b> Ridge regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#introduction-2"><i class="fa fa-check"></i><b>6.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#todays-goal-quantifying-uncertainty"><i class="fa fa-check"></i><b>6.2.1</b> Today’s goal: quantifying uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-1-estimating-the-standard-deviation"><i class="fa fa-check"></i><b>6.3</b> Running example 1: estimating the standard deviation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#intuition-uncertainty-is-related-to-the-curvature-of-the-loss-function"><i class="fa fa-check"></i><b>6.3.1</b> Intuition: uncertainty is related to the curvature of the loss function</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#running-example-2-estimating-the-lifetime-of-white-blood-cells"><i class="fa fa-check"></i><b>6.4</b> Running example 2: estimating the lifetime of white blood cells</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#fitting-the-labelling-model"><i class="fa fa-check"></i><b>6.4.1</b> Fitting the labelling model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#bootstrapping"><i class="fa fa-check"></i><b>6.5</b> Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#implementing-bootstrapping"><i class="fa fa-check"></i><b>6.5.1</b> Implementing bootstrapping</a></li>
+<li class="chapter" data-level="6.5.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#prelude-bootstrapping-and-model-selection"><i class="fa fa-check"></i><b>6.5.2</b> Prelude: Bootstrapping and model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#the-wald-test"><i class="fa fa-check"></i><b>6.6</b> The Wald test</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#toy-example"><i class="fa fa-check"></i><b>6.6.1</b> Toy example</a></li>
+<li class="chapter" data-level="6.6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#wald-test-for-the-labeling-data"><i class="fa fa-check"></i><b>6.6.2</b> Wald test for the labeling data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimation"><i class="fa fa-check"></i><b>6.7</b> Sandwich estimation</a></li>
+<li class="chapter" data-level="6.8" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood"><i class="fa fa-check"></i><b>6.8</b> Sandwich estimator for maximum likelihood</a></li>
+<li class="chapter" data-level="6.9" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#recap-1"><i class="fa fa-check"></i><b>6.9</b> Recap</a></li>
+<li class="chapter" data-level="6.10" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#test-your-knowledge"><i class="fa fa-check"></i><b>6.10</b> Test your knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="selecting-models.html"><a href="selecting-models.html"><i class="fa fa-check"></i><b>7</b> Selecting models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="selecting-models.html"><a href="selecting-models.html#course-logistics"><i class="fa fa-check"></i><b>7.1</b> Course logistics</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="selecting-models.html"><a href="selecting-models.html#cancelling-portfolio-item-2"><i class="fa fa-check"></i><b>7.1.1</b> Cancelling portfolio item 2</a></li>
+<li class="chapter" data-level="7.1.2" data-path="selecting-models.html"><a href="selecting-models.html#explanation-item-11-publication-quality-figure"><i class="fa fa-check"></i><b>7.1.2</b> Explanation item 11 (publication-quality figure)</a></li>
+<li class="chapter" data-level="7.1.3" data-path="selecting-models.html"><a href="selecting-models.html#items-67-and-8"><i class="fa fa-check"></i><b>7.1.3</b> Items 6,7, and 8</a></li>
+<li class="chapter" data-level="7.1.4" data-path="selecting-models.html"><a href="selecting-models.html#difference-to-the-other-items"><i class="fa fa-check"></i><b>7.1.4</b> Difference to the other items</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="selecting-models.html"><a href="selecting-models.html#introduction-to-model-comparison"><i class="fa fa-check"></i><b>7.2</b> Introduction to model comparison</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-and-accurate-model"><i class="fa fa-check"></i><b>7.2.1</b> A correct and accurate model</a></li>
+<li class="chapter" data-level="7.2.2" data-path="selecting-models.html"><a href="selecting-models.html#a-correct-but-not-accurate-model"><i class="fa fa-check"></i><b>7.2.2</b> A correct but not accurate model</a></li>
+<li class="chapter" data-level="7.2.3" data-path="selecting-models.html"><a href="selecting-models.html#an-incorrect-but-accurate-model"><i class="fa fa-check"></i><b>7.2.3</b> An incorrect but accurate model</a></li>
+<li class="chapter" data-level="7.2.4" data-path="selecting-models.html"><a href="selecting-models.html#quantifying-model-accuracy"><i class="fa fa-check"></i><b>7.2.4</b> Quantifying model accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="selecting-models.html"><a href="selecting-models.html#statistical-approaches-to-model-falsification"><i class="fa fa-check"></i><b>7.3</b> Statistical approaches to model falsification</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="selecting-models.html"><a href="selecting-models.html#the-wald-wolfowitz-runs-test"><i class="fa fa-check"></i><b>7.3.1</b> The Wald-Wolfowitz runs test</a></li>
+<li class="chapter" data-level="7.3.2" data-path="selecting-models.html"><a href="selecting-models.html#model-extensions-can-be-unnecessary-but-not-wrong"><i class="fa fa-check"></i><b>7.3.2</b> Model extensions can be unnecessary but not wrong</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="selecting-models.html"><a href="selecting-models.html#model-selection-by-confidence-intervals"><i class="fa fa-check"></i><b>7.4</b> Model selection by confidence intervals</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="selecting-models.html"><a href="selecting-models.html#more-complex-models-are-more-accurate-on-the-training-data"><i class="fa fa-check"></i><b>7.4.1</b> More complex models are more accurate on the training data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="selecting-models.html"><a href="selecting-models.html#non-nested-models"><i class="fa fa-check"></i><b>7.4.2</b> Non-nested models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="selecting-models.html"><a href="selecting-models.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.5</b> Leave-one-out cross-validation</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-linear-regression"><i class="fa fa-check"></i><b>7.5.1</b> LOO-CV for linear regression</a></li>
+<li class="chapter" data-level="7.5.2" data-path="selecting-models.html"><a href="selecting-models.html#loo-cv-for-logistic-regression"><i class="fa fa-check"></i><b>7.5.2</b> LOO-CV for logistic regression</a></li>
+<li class="chapter" data-level="7.5.3" data-path="selecting-models.html"><a href="selecting-models.html#the-area-under-the-roc-curve-auc"><i class="fa fa-check"></i><b>7.5.3</b> The area under the ROC curve (AUC)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="selecting-models.html"><a href="selecting-models.html#akaikes-information-criterion-aic"><i class="fa fa-check"></i><b>7.6</b> Akaike’s information criterion (AIC)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="selecting-models.html"><a href="selecting-models.html#interpretation-of-aic-differences"><i class="fa fa-check"></i><b>7.6.1</b> Interpretation of AIC differences</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="selecting-models.html"><a href="selecting-models.html#the-connection-between-cross-validation-and-complexity-penalties"><i class="fa fa-check"></i><b>7.7</b> The connection between cross-validation and complexity penalties</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="selecting-models.html"><a href="selecting-models.html#how-the-amount-of-held-out-data-for-cross-validation-determines-complexity"><i class="fa fa-check"></i><b>7.7.1</b> How the amount of held-out data for cross-validation determines complexity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="selecting-models.html"><a href="selecting-models.html#test-your-understanding-5"><i class="fa fa-check"></i><b>7.8</b> Test your understanding</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html"><i class="fa fa-check"></i><b>8</b> Likelihood-free Bayesian inference</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#course-logistics-1"><i class="fa fa-check"></i><b>8.1</b> Course logistics</a></li>
+<li class="chapter" data-level="8.2" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#a-quick-introduction-to-bayesian-inference"><i class="fa fa-check"></i><b>8.2</b> A quick introduction to Bayesian inference</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#quick-recap-of-fitting-methods"><i class="fa fa-check"></i><b>8.2.1</b> Quick recap of fitting methods</a></li>
+<li class="chapter" data-level="8.2.2" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#loss-less-models"><i class="fa fa-check"></i><b>8.2.2</b> Loss-less models</a></li>
+<li class="chapter" data-level="8.2.3" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#example-bayesian-inference-of-a-fraction"><i class="fa fa-check"></i><b>8.2.3</b> Example: Bayesian inference of a fraction</a></li>
+<li class="chapter" data-level="8.2.4" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#bayesian-inference-in-a-simulation-setting"><i class="fa fa-check"></i><b>8.2.4</b> Bayesian inference in a simulation setting</a></li>
+<li class="chapter" data-level="8.2.5" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#applied-example-modeling-cell-networks"><i class="fa fa-check"></i><b>8.2.5</b> Applied example: Modeling cell networks</a></li>
+<li class="chapter" data-level="8.2.6" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#small-world-networks"><i class="fa fa-check"></i><b>8.2.6</b> Small world networks</a></li>
+<li class="chapter" data-level="8.2.7" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#the-watts-strogatz-model"><i class="fa fa-check"></i><b>8.2.7</b> The Watts-Strogatz model</a></li>
+<li class="chapter" data-level="8.2.8" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#the-preferential-attachment-model"><i class="fa fa-check"></i><b>8.2.8</b> The preferential attachment model</a></li>
+<li class="chapter" data-level="8.2.9" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#the-bayesian-version-of-fitting"><i class="fa fa-check"></i><b>8.2.9</b> The Bayesian version of “fitting”</a></li>
+<li class="chapter" data-level="8.2.10" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#recap-of-the-bayes-formula"><i class="fa fa-check"></i><b>8.2.10</b> Recap of the Bayes formula</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#approximate-bayesian-computation-abc"><i class="fa fa-check"></i><b>8.3</b> Approximate Bayesian Computation (ABC)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#example-estimating-a-proportion"><i class="fa fa-check"></i><b>8.3.1</b> Example: Estimating a proportion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#student-contribution"><i class="fa fa-check"></i><b>8.4</b> Student contribution</a></li>
+<li class="chapter" data-level="8.5" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#abc-continued"><i class="fa fa-check"></i><b>8.5</b> ABC (continued)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#example-customer-churn-data"><i class="fa fa-check"></i><b>8.5.1</b> Example: Customer churn data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#sequential-monte-carlo-abc-abc-smc"><i class="fa fa-check"></i><b>8.6</b> Sequential Monte Carlo ABC (ABC-SMC)</a></li>
+<li class="chapter" data-level="8.7" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#model-selection-using-abc"><i class="fa fa-check"></i><b>8.7</b> Model selection using ABC</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#nested-models"><i class="fa fa-check"></i><b>8.7.1</b> Nested models</a></li>
+<li class="chapter" data-level="8.7.2" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#non-nested-models-1"><i class="fa fa-check"></i><b>8.7.2</b> Non-nested models</a></li>
+<li class="chapter" data-level="8.7.3" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#example-inferring-the-rewiring-probability-in-the-watts-strogatz-model"><i class="fa fa-check"></i><b>8.7.3</b> Example: inferring the rewiring probability in the Watts-Strogatz model</a></li>
+<li class="chapter" data-level="8.7.4" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#recap-2"><i class="fa fa-check"></i><b>8.7.4</b> Recap</a></li>
+<li class="chapter" data-level="8.7.5" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#student-contribution-1"><i class="fa fa-check"></i><b>8.7.5</b> Student contribution</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="likelihood-free-bayesian-inference.html"><a href="likelihood-free-bayesian-inference.html#test-your-knowledge-1"><i class="fa fa-check"></i><b>8.8</b> Test your knowledge</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical and Causal Inference</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="likelihood-free-bayesian-inference" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Likelihood-free Bayesian inference<a href="likelihood-free-bayesian-inference.html#likelihood-free-bayesian-inference" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="course-logistics-1" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Course logistics<a href="likelihood-free-bayesian-inference.html#course-logistics-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Good morning.
+This is our final lecture of this quarter.
+Next week we’re only going to do exercises or items.
+So could I ask you who is intending to show, present anything next week in the final?
+Anyone here?
+This is not a massive…
+Okay, so I put out an announcement,
+but next week I would like to actually pre-schedule the things
+so that I have a better overview of maybe how many people are doing something
+so that we can also do a time that we’re not running out of time, let’s say.
+So I put out an announcement,
+and this time I would like you to actually put a short message on the Brightspace forum
+when you want to show something in advance.
+So that I can make a better planning, okay?
+So far that hasn’t been necessary,
+but I heard now indeed from a few people who are, as they put it,
+following the course on distance,
+and they would like to show something next week.
+So I’ll also do one of the sessions next week online for that reason.
+So I will have one session on Zoom on Thursday.
+There will also be, of course, a normal session on Monday.
+And so I’m trying to…
+Watch if there’s also need for a parallel in-person session on Thursday as well.
+So we could basically have one online and one also here.
+I don’t know if that’s necessary
+because I don’t know how many people are actually going to do something.
+So it’s a bit hard to judge for me.
+But what we will definitely have is one session on Monday,
+which will be in person here.
+One session on Thursday, which will be on Zoom.
+And then, if necessary, another.
+And then a session on Thursday in parallel that’s also in person with Moabi,
+then, most likely.</p>
+<p>So the exam is coming up.
+That’s on the final day of the midterm break.
+So I’ll make sure that this week
+I finish all the remaining transcripts and questions.
+And you also get a mock exam to prepare.
+About the mock exam, you can use the “Feedback and questions for
+teachers” forum on Brightspace to ask any questions on the mock exam.
+Okay.
+I will not provide solutions for the mock exam questions
+because I’m always skeptical about providing solutions
+because I think it’s often important to realize
+that there’s more than one solution.
+And I would like you to be confident enough in the material
+that you can tell yourself if the solution is right.
+Okay.
+If the solution is correct.
+However, yeah, AI has become so good now
+that you can just get your solution from AI.
+I do that myself because I want to check
+is there any error in my question?
+You know, is there anything ambiguous?
+So I asked ChatGPT to solve all my questions
+and it had no problem with that so far.
+I have yet to see any mistake by the new ChatGPT model.
+So, so far it’s going perfectly on all the questions.
+So that doesn’t mean that it will always give you
+a perfect answer.
+Because it’s a stochastic model.
+So, yeah, there might be the occasional mistake.
+But I think ChatGPT would be the top student in any class
+at this point in any exam, if it’s a good exam.
+So if there’s actually an error by ChatGPT,
+more often it is because the question isn’t phrased very well
+or maybe there’s some ambiguity.
+And so that’s how it is now.
+But if you have any questions, specific things
+that you don’t get about a question, then you’re more
+than welcome to post that on Brightspace
+and I will respond to these things.
+But please don’t count on me responding on the day
+of your exam, like one hour before the exam starts.
+So try to maybe at least ask your questions
+until the day before the exam
+so I also still have a chance to respond.
+Any questions on the exam?
+Anything that you want to know about that?
+I mean, I’m not telling you what is on the exam.
+But as I told you, I have a question.
+I told you that the questions in the transcripts
+are pretty representative.
+I will make a selection of similar questions like these.
+So if you can solve these, then you should be fine
+because the questions on the exam are similar.
+Not the same ones, of course, but that’s kind of the style.
+But you will also see the mock exam
+that might be even better as an example of the actual exam.
+Okay.</p>
+</div>
+<div id="a-quick-introduction-to-bayesian-inference" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> A quick introduction to Bayesian inference<a href="likelihood-free-bayesian-inference.html#a-quick-introduction-to-bayesian-inference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I was looking forward to this class.
+It’s one of my favorite subjects.
+And, yeah, so it’s about likelihood-free Bayesian inference.
+I think I asked you this before,
+but I probably forgot who has had any exposure to Bayesian methods so far.
+And that was in the context of,
+and I think you also told me that before, which class, course?
+Bayesian statistics and thesis.
+For your thesis.
+But you also had a course on Bayesian statistics?
+And that was what course?
+From AI, it’s called Bayesian statistics.
+From AI, in the bachelor?
+Yeah.
+Okay.
+And others?
+Any other?
+Yeah.
+Are there any other sources rather than the course Bayesian statistics
+from AI that you have had anything in?
+Are you doing now anything on Bayesian statistics in a different course?
+Yeah, even when AI is explained in corporate data.
+Okay, yeah.
+I mean…
+I mean, a Bayes theorem, indeed, even is in our calculus and probability theory class in theory.
+It’s in there.
+So did you already learn about approximate Bayesian computation in the Bayesian…
+Do you know that?
+So I’m not assuming any background on Bayesian methods.
+And in a way, I think the approximate Bayesian computation
+is maybe the easiest way to even understand Bayesian statistics itself.
+So, yeah.
+So that’s why we’re going to go through that today.</p>
+<div id="quick-recap-of-fitting-methods" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Quick recap of fitting methods<a href="likelihood-free-bayesian-inference.html#quick-recap-of-fitting-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So first of all, I want to recap basically the methods that we’ve seen so far.
+So, so far, we’ve discussed actually three different things related to inference, as seen in this table:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Likelihood-based probability model</th>
+<th>Loss-based model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fitting</td>
+<td>Maximum Likelihood</td>
+<td>Loss Optimization</td>
+</tr>
+<tr class="even">
+<td>Parameter inference</td>
+<td>Wald test, Sandwich, Bootstrap</td>
+<td>Sandwich, Bootstrap</td>
+</tr>
+<tr class="odd">
+<td>Model selection</td>
+<td>AIC, LOO-CV</td>
+<td>LOO-CV</td>
+</tr>
+</tbody>
+</table>
+<p>The first was fitting your model.
+Yes, we have defined your model, and you want to fit this model to a data set.
+And then the second task was to do some inference on the parameter,
+meaning that you want to not only know the most likely value,
+but also some confidence interval.
+So that you can say, I’m relatively certain the parameters may be between this and that value.
+And then the last thing that we did last week was model selection,
+which is you have multiple models, and now you want to know which is the best one, right?
+And for purposes of inference, that means that we want the model to be correct.
+But you also learned that correctness can be viewed as being the best generalizing model.
+And that is the correct model is the one that generalizes the best.
+So if I’m…
+If I’m comparing multiple models, and the correct model is among those,
+then these methods asymptotically will select the correct model.
+But now, of course, in reality, we may never have the correct model.
+But we are still using the same methodology to at least try to kick out some very wrong models.
+Okay, so we had basically two different classes of models.
+One is broadly likelihood-based, and those are typically probability models.
+So conditional probability.
+And then the other class of models that we had was loss-based, right?
+So in some cases, these are the same, right?
+For instance, the normally distributed error logistic…
+Sorry, linear regression gives you the same solution as the squared loss.
+And that was a coincidence.
+But in other cases, they might be different, right?
+So we learned about other losses, mean absolute error,
+and the other class of models that we had was loss-based.
+And the Huber loss that lead to different models that are not necessarily probability models.
+So generally speaking, there’s lots of statistical theory for likelihood-based models.
+So we can do maximum likelihood.
+A lot of software implements general methodology for maximum likelihood models.
+Among those, we have the Wald test for confidence intervals of parameters.
+We have the sandwich estimator.
+And we have the bootstrap.
+And then when we do want to do a model selection,
+then we have to look at the Akaike information criterion
+and the leave-one-out cross-validation approach,
+which actually, in the case of likelihood models
+and using the likelihood as your loss function,
+are the same asymptotically.
+So when we move to loss-based methods,
+there’s fewer methods that we can apply
+because they’re not likelihood-based anymore.
+But there are still things that we can do.
+We can still optimize our loss
+in exactly the same way.
+It’s just a numerical optimization problem.
+We can still use the sandwich estimator.
+We can bootstrap, which we can almost always do.
+And we can also apply leave-one-out cross-validation
+for model selection if we have only loss-based models.
+So these models give us the most tools,
+the most tools that we can use for inference.
+And I would argue loss-based models give us,
+also, still a very decent set of tools.
+The only thing is that we have to use
+the slightly annoying sandwich estimator
+instead of the Wald test.
+But we can still pretty easily do inference
+and model selection on loss-based models.</p>
+</div>
+<div id="loss-less-models" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Loss-less models<a href="likelihood-free-bayesian-inference.html#loss-less-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Loss-based models are <em>very</em> flexible. Yet they can also present problems:</p>
+<p>So now, basically, the question today is,
+there might be a case where we don’t even have a loss, right?
+So basically, we have a model that provides not even this.
+So it’s, in some sense, even more far away
+from the likelihood-based method.
+What do we do then?
+Not only don’t we have a likelihood,
+that’s still a relatively common case,
+but we don’t even have a loss.
+And that question seems a bit weird,
+because now, the first question might be,
+what kind of model could that be
+that doesn’t even have a loss, right?
+It seems to be quite easy to define a model
+that outputs a prediction,
+and then we just compute some loss, right?
+It doesn’t seem to be very hard.
+But there are some valid cases where we have models
+that actually don’t have a loss,
+at least not directly.
+So there can be several reasons why we might have
+a loss-less model, so to speak.</p>
+<p>We may not be able to use a loss if:</p>
+<ul>
+<li>The loss function is not analytically tractable</li>
+<li>The loss function doesn’t give me meaningful results</li>
+<li>My model is a probabilistic model</li>
+</ul>
+<p>One could be that there are some analytical issues,
+so maybe I have a prediction,
+but that prediction somehow isn’t
+an analytically tractable value
+for which I can generate a loss function.
+Then another thing is that I could have,
+maybe I have a loss function,
+but it’s giving me meaningless results,
+and we are looking at an example of that in a second.
+So for some cases, having a loss-based model
+might be technically passable and implementable,
+but for some reasons, sometimes it might not give us
+the answers that we would like.
+And so maybe the most common situation
+is that your model isn’t deterministic,
+it is actually a stochastic model,
+meaning that you don’t get one single prediction,
+but every time that you put your parameters in,
+the prediction also changes,
+which means that you can’t naively apply a simple loss
+because the model itself isn’t giving you one prediction.
+So that is very common for simulation models, for example.
+When we try to build simulation models
+that reproduce observed data in some form,
+they are often stochastic models,
+and in that case, we can’t define the loss function.
+So one thing that we can do would be
+that we run a lot of simulations,
+and we run a lot of simulations,
+and we basically average the predictions,
+and in that sense, at some point, we do get one value,
+but that is quite computationally expensive,
+and it can mean, if our model has, for example,
+10 different parameters, it could take literally weeks
+for us to estimate even just one prediction.
+And then to plug that into a numerical optimizer
+is going to be difficult.
+So most numerical optimizers are designed
+for deterministic functions,
+and they will struggle if there’s even a bit of noise,
+in that function.
+There are now, of course, also stochastic optimizers,
+which are very frequently used in machine learning,
+because in machine learning, we have the same thing.
+The loss function could maybe be computed,
+but it could also be that I have to then evaluate
+my entire data set, which could maybe take a lot.
+So what we’re typically doing in machine learning
+is that we sample a mini-batch,
+and then we estimate our loss on the mini-batch,
+and that’s also a noisy version of the true loss, right?
+So also there, we have to issue that we can’t, you know,
+we can’t use a deterministic optimizer,
+because it’s never going to converge.
+So I’ve actually investigated if we could do the same thing
+for statistical inference,
+but the problem is that a lot of the theory that we have here,
+like developed, the sandwich and the boots,
+and the sandwich, for example,
+that assumes that we have a second derivative,
+and if our function is noisy, then we don’t have that, right?
+So the most common situation where you cannot use
+this framework anymore is that for whatever reason
+that you cannot, that you don’t actually have your loss,
+for instance, because it’s either too,
+it’s either a probabilistic model in the first place,
+or it’s too expensive to compute,
+and then you have to kind of estimate it by sampling
+somehow as in machine learning.
+So the question is, then what do we do?
+And so one solution is then to move to Bayesian methods,
+because Bayesian methods are actually quite nice.
+They’re quite nicely suitable for these kind of models
+that are non-deterministic.
+Bayesian models themselves are inherently probabilistic models,
+so all of this framework of Bayesian inference
+is actually a quite nice fit for this case.</p>
+</div>
+<div id="example-bayesian-inference-of-a-fraction" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Example: Bayesian inference of a fraction<a href="likelihood-free-bayesian-inference.html#example-bayesian-inference-of-a-fraction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So let’s look at one example.
+So I had just mentioned that in the chat GPT,
+the newest version seems to do perfectly on all my questions.
+So let’s say I give it 10 questions,
+and it gets zero of these questions wrong, right?
+The question now is, okay, so the most likely,
+let’s say I consider the probability that chat GPT
+gets something wrong as an inference target,
+and I want to estimate the probability.
+What’s the most likely estimate of the probability
+given this data?
+I would do maximum likelihood of loss-based model,
+and I would optimize it on this data set,
+and what would be the most likely value
+of the underlying probability that it gets something wrong?
+Yeah, it is zero, so my most likelihood method
+would tell me, okay, so given this data,
+the most likely P, so the probability
+of getting something wrong, is zero.
+Okay, great, but now we also want to quantify
+the uncertainty somehow, right?
+So let’s say we’re gonna use
+bootstrapping, so we have our data set
+that contains 10 zeros, and now we bootstrap
+from the data set and create sub-samples of the data set,
+and what is our bootstrapping sample going to look like?</p>
+<blockquote>
+<p>Only zeros.</p>
+</blockquote>
+<p>Yeah, because if you re-sample from zeros,
+the only thing that we can get, zeros, right?
+So in that case, we would get a 95%,
+even a 100% confidence interval telling us
+chat GPT is perfect, so we are, it’s not only the most likely,
+answer, but we’re actually given on our bootstrap analysis
+100% certain that it’s the correct answer.
+So something’s wrong here, right?
+So this is a case where the framework that we’ve presented
+doesn’t really provide a meaningful answer,
+because clearly we cannot be 100% certain
+based on only 10 observations.
+But that’s what the bootstrapping approach
+would give us here.
+The Wald test actually would be better here,
+in this case, the Wald test would say something like,
+okay, zero, but still a standard error is, I think,
+one-tenth, which makes sense.
+But I just, I mean, it’s just an example
+that these methods can sometimes break down,
+and it often happens if our most likely estimate is so bad,
+and on the border of some parameter space, for example.
+And the other thing is that,
+let’s say we want to take this P as an estimate
+and plug it into some other model, yeah?
+Then other models might start to say,
+oh, this might struggle if you’re providing a P of zero
+as a plug-in estimation,
+because then maybe they want to compute
+the log likelihood of that,
+and they take the log of zero,
+which is going to be minus infinity.
+So this is also a slightly awkward estimation to get.
+And also, kind of philosophically,
+it seems weird that we would say
+the most likely case is that ChatGPT is perfect, right?
+It doesn’t seem to make sense,
+because very likely it’s not perfect,
+it’s a large language model.
+We just haven’t, of course, observed enough data,
+but so based on that to say we are most,
+the most likely case is that ZGBT is perfect seems weird,
+right, it seems like a weird conclusion.
+So why do we get this conclusion, by the way,
+and why do we think it’s weird?
+It is because the maximum likelihood estimator
+is actually biased, right?
+On small samples, it will give you results,
+it sets it on average off,
+it’s not an unbiased estimator in many cases,
+and here we are basically interpreting
+a biased maximum likelihood estimator.
+A sample is quite small,
+and so the true value is probably something like,
+I don’t know, one in a thousand questions or something,
+but we just haven’t seen enough data to observe that.
+So, yeah, so that’s one example where
+we’re using a methodology that we’ve talked about so far,
+doesn’t really give us a meaning for that.</p>
+</div>
+<div id="bayesian-inference-in-a-simulation-setting" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Bayesian inference in a simulation setting<a href="likelihood-free-bayesian-inference.html#bayesian-inference-in-a-simulation-setting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So, another example is indeed simulation models.
+So, simulation models are a whole new class of models
+that we haven’t talked about before.
+So basically any computer program that outputs a value
+can be seen as a simulation.
+Simulation models are often easier to build
+than mathematical models,
+because you just write down in code
+how you think the process is working.
+that you are trying to model.
+And so that also makes them very flexible, right?
+So there’s different kinds of simulations,
+discrete simulations, agent-based models,
+literally games, right?
+So people building entire worlds in a computer.
+All these things are basically covered in this framework.
+So anything, it can be very complicated models too, right?
+So it could be that running one simulation once,
+I had a colleague in Utrecht
+who was doing some evolutionary biology
+and he was running these simulations that took a year.
+After one year, you would get one result.
+So but that’s covered by this framework.
+So the important case here is
+that a simulation is often stochastic.
+So it’s often that we say, okay, randomly people,
+for instance, simulations have been also used
+in the COVID pandemic to predict the spread of the virus.
+And then you would say, well, randomly people move around
+and randomly they meet each other.
+And whenever they meet each other,
+there’s a random.
+There’s a random chance that the virus gets transmitted
+or something like that, right?
+So that means if you run the same simulation model twice,
+it will just give you a slightly different number
+every single time.
+It’s just in the model.
+Not all simulations are stochastic, okay?
+But many of them are.</p>
+</div>
+<div id="applied-example-modeling-cell-networks" class="section level3 hasAnchor" number="8.2.5">
+<h3><span class="header-section-number">8.2.5</span> Applied example: Modeling cell networks<a href="likelihood-free-bayesian-inference.html#applied-example-modeling-cell-networks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So let’s look at a concrete example.
+I chose this one.
+So that was about network science.
+I’ve actually seen somebody choose a network data set.
+So I thought it might be,
+that would be a nice example to discuss.
+So here we have a network (the image is taken from this article:
+<a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002515" class="uri">https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002515</a>)</p>
+<div class="float">
+<img src="assets/frc1.png" alt="FRC network image" />
+<div class="figcaption">FRC network image</div>
+</div>
+<p>And this network consists of cells in the lymph node,
+these green cells here.
+And they have these red, these red basically arms
+and they connect to each other.
+And so this is a network of cells.
+It’s a bit like, it’s very different from the neural network
+in the brain, but people also use the same methodology
+to analyze neural networks in the brain just by imaging the cells
+and trying to find the connections.
+So we would like, maybe would like to understand how,
+how this network was created, right?
+So, and, and we can’t really observe that.
+This is in a mouse, but even in a mouse,
+we can’t really watch the whole network grow.
+We just give, get this network.
+And now the question is what process might have constructed
+this network and what might the properties of the process be?
+So one approach is then to basically convert this image,
+so that’s from this paper here, that image into an abstract graph, right?
+So we have to.
+So people did image analysis and they identified the locations
+of each of the cells and then they identified the connections
+between the cells and now we just have a graph:</p>
+<div class="float">
+<img src="assets/frc2.png" alt="FRC network graph" />
+<div class="figcaption">FRC network graph</div>
+</div>
+<p>So now our question becomes: how was this graph created?
+What’s the process that made this graph?
+And that’s what we call network science.
+So there’s an entire field that studies how networks are made
+and what different processes can give rise to certain properties
+that we observe in these networks.</p>
+</div>
+<div id="small-world-networks" class="section level3 hasAnchor" number="8.2.6">
+<h3><span class="header-section-number">8.2.6</span> Small world networks<a href="likelihood-free-bayesian-inference.html#small-world-networks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So in this paper, they studied this graph and they said,
+this is a small world network (the term was coined in this paper:
+<a href="https://www.nature.com/articles/30918" class="uri">https://www.nature.com/articles/30918</a>).
+A small world network is a network where every node has
+many local connections, but also some remote connections.
+And it means that a small world network is at the same
+time very clustered,
+meaning that, you know, the friends of your friends also tend
+to be friends with each other.
+It’s an example of clustering.
+But also the shortest path between any two given nodes
+in this network is quite short —
+shorter than we would expect if, for example,
+this was a lattice where we only are connected to our neighbors.
+That means that the shortest path to somebody
+who lives very far away could be quite long.
+And so there are many examples of small world networks.
+There’s this famous thing with the seven degrees of separation,
+which means that we basically know every other person
+in the world through a chain of only maybe five people,
+which is surprisingly few people.</p>
+<p>People who study networks reported that many networks
+that you observe in nature have this small world property,
+that they’re both clustered, but also the shortest path
+between any two nodes is relatively short.
+So in this paper, they were saying this network here looks
+like a small world network.
+Okay, so they were saying, okay, so this is the network.
+And then they computed these numbers, sigma and omega.
+These are numbers in network science.
+I really won’t explain what they are, but the thing is,
+if your sigma is high, then that is a measure of small worldness.
+So the sigma that would be negative would be less clustered.
+So basically, it’s something like you’re comparing the path length
+to the expected path length in a random network,
+and you’re comparing a cluster.
+You’re comparing the clustering to the expected clustering
+in a random network.
+If this gives you a large number, it means that there’s lots
+of clustering, and the paths are short.
+And that way, you get a large number, right?
+So a large number means that the network looks
+like a small world network.
+And that was the evidence that they showed here.
+So, but now, our question might be,
+how has this network been created?
+And what can we infer about this process?
+So we can think about this.
+We can think about different simulation models.</p>
+</div>
+<div id="the-watts-strogatz-model" class="section level3 hasAnchor" number="8.2.7">
+<h3><span class="header-section-number">8.2.7</span> The Watts-Strogatz model<a href="likelihood-free-bayesian-inference.html#the-watts-strogatz-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So one example would be the <em>Watts-Strogatz</em> model.
+That’s a classic in network science.</p>
+<p>The <em>Watts-Strogatz-Model</em> (in 1D) assumes that:</p>
+<ul>
+<li>We start with a ring of <span class="math inline">\(N\)</span> nodes, where each is connected to its neighbours</li>
+<li>With probability <span class="math inline">\(p\)</span>, we “re-wire” each edge to connect two random nodes</li>
+</ul>
+<p>So in the Watts-Strogatz model, it’s
+a model where you start with the lattice.
+So lattice is a regular network where, for example,
+a 1D lattice is simply a ring.
+So you put your nodes on a ring, and you connect your nodes
+to the nearest k other nodes in the ring, right?
+And then you take, you start rewiring connections.
+So you look at each edge in the network,
+and with a certain probability, you remove that edge,
+and then you connect the same node
+to a completely random other node.
+So that’s called the rewiring step, okay?
+So initially, you are only connected to your neighbors,
+but then you get randomly connected
+to random other people in the network.
+And so this process generates,
+networks that have this small world property.
+And of course, depending on how large this probability p is,
+right, if p is very small, there will not
+be many additional connections in the network.
+And if p is one, it will be a random network in the end,
+because none of the network connections
+that were there initially will survive.</p>
+<p>So if we look here, for example, this is an igraph package.
+It’s a big package for graphs and network analysis.
+This would be, this is even in the package as a function,
+<code>sample_smallworld</code>, that generates random small world networks.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="likelihood-free-bayesian-inference.html#cb205-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="likelihood-free-bayesian-inference.html#cb209-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="fl">0.1</span>)</span>
+<span id="cb209-2"><a href="likelihood-free-bayesian-inference.html#cb209-2" tabindex="-1"></a></span>
+<span id="cb209-3"><a href="likelihood-free-bayesian-inference.html#cb209-3" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout_in_circle,  <span class="at">vertex.label =</span> <span class="cn">NA</span>,  <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/wattsstrogatz-1.png" width="672" /></p>
+<p>We can check here what happens when we change that probability.
+For this example, the probability of rewiring
+is set to <span class="math inline">\(p=0.1\)</span>, and it gives you quite many rewiring connections.
+If I set the probability to <span class="math inline">\(p=1\)</span>, or a large value like <span class="math inline">\(p=0.9\)</span>,
+I would expect basically the circle structure
+is completely gone:</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="likelihood-free-bayesian-inference.html#cb210-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="fl">0.9</span>)</span>
+<span id="cb210-2"><a href="likelihood-free-bayesian-inference.html#cb210-2" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout_in_circle,  <span class="at">vertex.label =</span> <span class="cn">NA</span>,  <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/wattsstrogatz2-1.png" width="672" /></p>
+<p>And if I set <span class="math inline">\(p\)</span>
+to a smaller value, like 0.01, for instance,
+then you have only a few extra connections:</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="likelihood-free-bayesian-inference.html#cb211-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="fl">0.01</span>)</span>
+<span id="cb211-2"><a href="likelihood-free-bayesian-inference.html#cb211-2" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout_in_circle,  <span class="at">vertex.label =</span> <span class="cn">NA</span>,  <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/wattsstrogatz3-1.png" width="672" /></p>
+<p>The parameter <span class="math inline">\(p\)</span> basically controls
+the local versus global connectivity in this network.</p>
+<p>Now we have the simulation model,
+and maybe we want to now fit this model to our data set.
+We have this observed network, and we might want to know,
+what is the most likely value of p given the data that we observe, right?</p>
+<p>Assume that this network really was created by the process described in the Watts-Strogatz model.
+Then this is an inference problem like any other inference problem.
+We have a parameter, and we want to know the most likely value,
+and maybe also we want to have some confidence in that.
+This would be a typical realistic setting
+of where we have a model that we cannot really compute a loss function for.</p>
+<p>We could, for example, measure the values <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\sigma\)</span> that they used to describe their network (see picture above),
+and compare it to value of <span class="math inline">\(\sigma\)</span> we obtained from our simulation.
+But it’s going to be a different value every time that we run this simulation.</p>
+</div>
+<div id="the-preferential-attachment-model" class="section level3 hasAnchor" number="8.2.8">
+<h3><span class="header-section-number">8.2.8</span> The preferential attachment model<a href="likelihood-free-bayesian-inference.html#the-preferential-attachment-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We could also consider alternative explanations for
+how the network was generated.
+Maybe instead, it was actually started on a 2D lattice.
+And actually, we could maybe say, well, in a real physical network,
+like this cell network, maybe it is still more likely
+that you’re connected to nodes that are close by than to nodes
+that are far away.
+So we might make a modified version of that model where we say, well,
+we assume that it is more likely to be connected to a node that is close by
+than far away:</p>
+<ul>
+<li>We start by putting our nodes on a 2D lattice</li>
+<li>We then pick a node <span class="math inline">\(u\)</span></li>
+<li>We connect <span class="math inline">\(u\)</span> to another node <span class="math inline">\(v\)</span> at random with weight <span class="math inline">\(\exp( -\beta \, \, \Vert u-v \Vert )\)</span>, where <span class="math inline">\(\beta\)</span> is a parameter</li>
+</ul>
+<p>It’s also a single parameter model (<span class="math inline">\(beta\)</span> is the only parameter).
+And then we could ask, which of these two models is better?
+Or which one explains the data better?</p>
+<p>Here’s an R implementation of the preferential attachment model. It generates a network by looking at every node, and then sorting the other nodes by the distance to that node, and then sampling
+connections with a sampling weight of <span class="math inline">\(\exp( -\beta \, \, \Vert u-v \Vert )\)</span>.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="likelihood-free-bayesian-inference.html#cb212-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb212-2"><a href="likelihood-free-bayesian-inference.html#cb212-2" tabindex="-1"></a></span>
+<span id="cb212-3"><a href="likelihood-free-bayesian-inference.html#cb212-3" tabindex="-1"></a>spatial_network <span class="ot">&lt;-</span> <span class="cf">function</span>(n, beta, nei) {</span>
+<span id="cb212-4"><a href="likelihood-free-bayesian-inference.html#cb212-4" tabindex="-1"></a>  <span class="co"># Create n x n lattice coordinates</span></span>
+<span id="cb212-5"><a href="likelihood-free-bayesian-inference.html#cb212-5" tabindex="-1"></a>  grid_size <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">sqrt</span>(n))</span>
+<span id="cb212-6"><a href="likelihood-free-bayesian-inference.html#cb212-6" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>grid_size, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span>grid_size)[<span class="dv">1</span><span class="sc">:</span>n, ]</span>
+<span id="cb212-7"><a href="likelihood-free-bayesian-inference.html#cb212-7" tabindex="-1"></a>  dist_matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">dist</span>(coords))</span>
+<span id="cb212-8"><a href="likelihood-free-bayesian-inference.html#cb212-8" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="fu">make_empty_graph</span>(n, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb212-9"><a href="likelihood-free-bayesian-inference.html#cb212-9" tabindex="-1"></a>  </span>
+<span id="cb212-10"><a href="likelihood-free-bayesian-inference.html#cb212-10" tabindex="-1"></a>  <span class="co"># Keep trying random pairs until we have enough edges</span></span>
+<span id="cb212-11"><a href="likelihood-free-bayesian-inference.html#cb212-11" tabindex="-1"></a>  <span class="cf">while</span> (<span class="fu">ecount</span>(g) <span class="sc">&lt;</span> nei<span class="sc">*</span>n) {</span>
+<span id="cb212-12"><a href="likelihood-free-bayesian-inference.html#cb212-12" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="fu">sample</span>(n, <span class="dv">1</span>)</span>
+<span id="cb212-13"><a href="likelihood-free-bayesian-inference.html#cb212-13" tabindex="-1"></a>    </span>
+<span id="cb212-14"><a href="likelihood-free-bayesian-inference.html#cb212-14" tabindex="-1"></a>    <span class="co"># Find nodes not yet connected to i</span></span>
+<span id="cb212-15"><a href="likelihood-free-bayesian-inference.html#cb212-15" tabindex="-1"></a>    neighbors <span class="ot">&lt;-</span> <span class="fu">neighbors</span>(g, i)</span>
+<span id="cb212-16"><a href="likelihood-free-bayesian-inference.html#cb212-16" tabindex="-1"></a>    connected <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n <span class="sc">%in%</span> <span class="fu">c</span>(i,<span class="fu">neighbors</span>(g, i) )</span>
+<span id="cb212-17"><a href="likelihood-free-bayesian-inference.html#cb212-17" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">all</span>(connected) ) <span class="cf">next</span></span>
+<span id="cb212-18"><a href="likelihood-free-bayesian-inference.html#cb212-18" tabindex="-1"></a>    </span>
+<span id="cb212-19"><a href="likelihood-free-bayesian-inference.html#cb212-19" tabindex="-1"></a>    candidates <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="sc">!</span>connected)</span>
+<span id="cb212-20"><a href="likelihood-free-bayesian-inference.html#cb212-20" tabindex="-1"></a>    d <span class="ot">&lt;-</span> dist_matrix[i, candidates]</span>
+<span id="cb212-21"><a href="likelihood-free-bayesian-inference.html#cb212-21" tabindex="-1"></a>    j <span class="ot">&lt;-</span> <span class="fu">sample</span>(candidates, <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">exp</span>(<span class="sc">-</span>d<span class="sc">/</span>beta))</span>
+<span id="cb212-22"><a href="likelihood-free-bayesian-inference.html#cb212-22" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">add_edges</span>(g, <span class="fu">c</span>(i, j))</span>
+<span id="cb212-23"><a href="likelihood-free-bayesian-inference.html#cb212-23" tabindex="-1"></a>  }</span>
+<span id="cb212-24"><a href="likelihood-free-bayesian-inference.html#cb212-24" tabindex="-1"></a>  <span class="fu">V</span>(g)<span class="sc">$</span>x <span class="ot">&lt;-</span> coords<span class="sc">$</span>x; <span class="fu">V</span>(g)<span class="sc">$</span>y <span class="ot">&lt;-</span> coords<span class="sc">$</span>y</span>
+<span id="cb212-25"><a href="likelihood-free-bayesian-inference.html#cb212-25" tabindex="-1"></a>  <span class="fu">return</span>(g)</span>
+<span id="cb212-26"><a href="likelihood-free-bayesian-inference.html#cb212-26" tabindex="-1"></a>}</span>
+<span id="cb212-27"><a href="likelihood-free-bayesian-inference.html#cb212-27" tabindex="-1"></a></span>
+<span id="cb212-28"><a href="likelihood-free-bayesian-inference.html#cb212-28" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">spatial_network</span>(<span class="at">n =</span> <span class="dv">176</span>, <span class="at">beta =</span> <span class="fl">0.2</span>, <span class="at">nei =</span> <span class="dv">3</span>)</span>
+<span id="cb212-29"><a href="likelihood-free-bayesian-inference.html#cb212-29" tabindex="-1"></a></span>
+<span id="cb212-30"><a href="likelihood-free-bayesian-inference.html#cb212-30" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="fu">V</span>(g)<span class="sc">$</span>x, <span class="fu">V</span>(g)<span class="sc">$</span>y)),</span>
+<span id="cb212-31"><a href="likelihood-free-bayesian-inference.html#cb212-31" tabindex="-1"></a>     <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="sci_files/figure-html/geoattach-1.png" width="672" /></p>
+<p>The parameter <span class="math inline">\(\beta\)</span> basically tells me how strongly close connections are
+favored with respect to far away connections.</p>
+<p>So there’s a different model, and I could certainly come up with, and this would give
+me a network that looks a bit like this.</p>
+<p>At first sight, the preferential attachment model looks like it’s more realistic.
+First of all, it’s 2D, and second of all, it doesn’t allow connections like this to
+be very easily formed, and it might actually be difficult in a real physical situation.
+And now maybe you can come with yet another hypothesis about how this network could have
+been generated.
+And then we would want to do model selection in order to see which of these hypotheses
+is most consistent with the data here.
+Okay, so that’s like inference, model selection, similar questions as before, but now just
+the models are different.</p>
+<p>Now we have simulations that create something.
+And so they are often used with complex data structures like this, right?
+There are no linear regression models for networks, as far as I’m aware, at least.
+If you have DNA sequences, text, structured data, XML, whatever, it’s often easier to
+make generative models or simulation models in order to model your data than to make some
+statistical model, right?
+But the question is…
+The questions that we have are the same ones, right?
+We still have parameters, and we still want to know their values, and we still want to
+be quantifying the uncertainty.
+Okay, so that sets the stage for what we’re trying to do, and now the question is how
+do we do this, right?
+So we have no loss function, and we don’t have a likelihood function, certainly, but
+we still want to fit this model somehow to data.</p>
+</div>
+<div id="the-bayesian-version-of-fitting" class="section level3 hasAnchor" number="8.2.9">
+<h3><span class="header-section-number">8.2.9</span> The Bayesian version of “fitting”<a href="likelihood-free-bayesian-inference.html#the-bayesian-version-of-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Okay, so now let’s look at how the Bayesian frameworks helps us to do this.
+And first of all, we need to talk about the concept of fitting and what that means in
+the Bayesian framework.
+So what is Bayesian statistics about?
+Bayesian statistics is basically about trying to compute this thing here, which is the so-called
+posterior distribution:</p>
+<p><span class="math display">\[
+P( \theta \mid X )
+\]</span></p>
+<p>In other words, in the Bayesian world, inference is the following problem:</p>
+<ul>
+<li>Given: data <span class="math inline">\(X\)</span>, model <span class="math inline">\(M_\theta\)</span></li>
+<li>Wanted: parameters <span class="math inline">\(\theta\)</span> such that <span class="math inline">\(M_\theta\)</span> “fits” <span class="math inline">\(X\)</span>.</li>
+</ul>
+<p>In our previous approaches, we have a probability of the parameters conditioned on the data.
+In our previous approaches, we typically do the opposite.
+We have our parameters that we plug into the model, and then we want to know what is the
+probability of the data given those parameters, right?
+So Bayesian statistics is switching that.
+It also means, if you remember vaguely the first week, we talked about that there’s two
+different interpretations of probability.
+We have the so-called aleatorial interpretation and the epistemic interpretation, right?
+So aleatorial was that we were talking about chances, repeating experiments and so on.
+That’s what we believe probabilities are.
+But here, it’s the so-called epistemic interpretation, which means this is not about the chance that the parameter has this value.
+It either has the value or it doesn’t, right?
+It’s about our certainty or belief that the parameter has this value.
+So here we are saying probability, but what we really mean is belief.
+And we believe that, so first of all, when we start the experiment, we have maybe some prior belief.
+And then by observing data, this belief hopefully changes.
+If you’re a scientist, then we should change our opinions based on the data that we observe.
+And that’s basically what is modeled by Bayesian statistics.</p>
+<p>Bayesian statistics therefore corresponds to a very different philosophy, even a different interpretation of what probability actually is. Many people find this attractive, as it seems to fit how we “intuitively” think about science.
+And when often people who don’t know much about statistics and probability are confronted with the results of experiments,
+then they tend to interpret them in this way.</p>
+<p>So you tend very much to read a p-value, for example, as the probability that the null hypothesis is true, which it isn’t.
+But this would be a Bayesian interpretation.
+And it looks like Bayesian statistics fit
+that kind of intuition better.</p>
+<p>A problem with Bayesian statistics is that it’s normally very difficult to compute the posterior distribution analytically.
+In most cases, we have no way to compute these posteriors except for very simple cases.
+So we typically need to use simulation in order to do Bayesian statistics.
+Methods like Markov chain Monte Carlo (MCMC), for example.
+This means that fitting a Bayesian model could easily take half an hour even if its likelihood version could be computed in milliseconds.
+In that sense it’s a bit more technically demanding than frequentist approaches.</p>
+<p>Did any of you in your courses fit models or estimate posteriors?
+Did you use something like Stan or what did you use?</p>
+<blockquote>
+<p>Jax</p>
+</blockquote>
+<p>Jax is an example of a probabilistic programming languages where you can write down your model
+and then all of the sampling and so on happens under the hood, typically.
+But you will have experience that this can take some time in some cases, right?</p>
+<blockquote>
+<p>Yeah.</p>
+</blockquote>
+<p>So that’s the big issue.
+Okay, so what this thing doesn’t have, like so in a likelihood approach,
+you’re typically using the parameters that explain the data best.
+So that’s the fitting, right?
+So we have given the data set and now we’re trying to fit our parameters to the data set.
+It’s often the first step in likelihood-based inference and also in loss-based inference.
+So here in the Bayesian concept,
+that seems okay.
+It seems weird that we would fit, we don’t fit the parameters to the data.
+We want our data to inform the parameters.
+So there is no such thing as fitting, really, in Bayesian statistics.
+That’s the first thing that is very different.
+What we do have is the posterior distribution itself,
+which can give us, if we want to, we can take something from the posterior distribution
+and use that.
+That’s our fit, right?</p>
+</div>
+<div id="recap-of-the-bayes-formula" class="section level3 hasAnchor" number="8.2.10">
+<h3><span class="header-section-number">8.2.10</span> Recap of the Bayes formula<a href="likelihood-free-bayesian-inference.html#recap-of-the-bayes-formula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>But first, let’s recap the Bayes formula:</p>
+<p><span class="math display">\[
+\underbrace{P( \theta \mid X )}_{\text{posterior}} = \frac{\overbrace{P(X \mid \theta)}^{\text{likelihood}} \, \overbrace{P(\theta)}^{\text{prior}}}{\underbrace{P(X)}_{\text{marginal probability}}}
+\]</span></p>
+<p>The <em>prior</em> is given.</p>
+<p>Most often we don’t know the <em>marginal</em>, which isn’t a problem in practice.</p>
+<p>The <em>likelihood</em> is dependent on our model. Some models have very complex (or unknown) likelihood functions.</p>
+<p>We’ve seen this before (in the first lecture).
+This is the Bayesian formula and this is how Bayesian inference is typically done.
+So we want to get this thing here on the left.
+And so what we do is we start with our <em>prior distribution</em>.
+We then combine this with our <em>likelihood function</em> from the model.
+And then we have this thing called the <em>marginal probability</em>,
+which is the probability of the data that often we don’t have.
+And that’s often one of the reasons that we need to do simulations.
+That’s because we can’t really compute this thing.</p>
+<p>So likelihood is in here, right?
+So if you have a model that has a likelihood function,
+then you can do Bayesian statistics as well if you want to.
+You also need to add a prior, right?
+But let’s say any of the likelihood-based models that we have discussed so far,
+linear regression, logistic regression, they have a Bayesian.
+There are Bayesian versions of them.</p>
+<p>So you can just use the same model, add a prior to the model, and then,
+and then plug it into your favorite Jax or Stan
+or whatever framework and then you can do Bayesian statistics.
+So it doesn’t seem that this is gonna help us much, right?
+Because it looks like the Bayesian framework
+is actually more restrictive than loss-based framework here
+because we need a likelihood function
+for the Bayesian framework.</p>
+</div>
+</div>
+<div id="approximate-bayesian-computation-abc" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Approximate Bayesian Computation (ABC)<a href="likelihood-free-bayesian-inference.html#approximate-bayesian-computation-abc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For understanding why Bayesian inference helps with
+simulation models,
+we look at this 1984 quote by Donald Rubin (from this
+article: <a href="http://www.jstor.org/stable/2240995" class="uri">http://www.jstor.org/stable/2240995</a>)
+Donald Rubin has made many contributions,
+ranging from missing data analysis to EM algorithm.
+And he also kind of introduced in passing
+the idea of approximate Bayesian computation.
+The quote reads:</p>
+<div class="float">
+<img src="assets/rubin-abc-1984.png" alt="Rubin’s “simple description” of the Bayes rule" />
+<div class="figcaption">Rubin’s “simple description” of the Bayes rule</div>
+</div>
+<p>In this article, Rubin proposes explanations for
+why don’t people use Bayesian statistics so much —
+maybe it’s too complicated.
+So we need to come up with a simpler way
+to explain what Bayesian statistics is.</p>
+<p>Rubin proposes an explanation
+in terms of a sampling procedure.
+What he says here is this:</p>
+<ol style="list-style-type: decimal">
+<li>Sample <span class="math inline">\(\theta_1, \ldots, \theta_n\)</span> from the prior <span class="math inline">\(P( \theta )\)</span>.</li>
+<li>Sample corresponding <span class="math inline">\(x_1, \ldots, x_n\)</span> from <span class="math inline">\(P( X \mid \theta )\)</span>.</li>
+<li>Remove all <span class="math inline">\(\theta_i\)</span> where <span class="math inline">\(x_i \neq x\)</span>.</li>
+</ol>
+<p>To repeat: First we draw values from the prior.
+Then, we generate data from our model
+given these parameters and then we remove —
+we reject, we throw away — the samples
+that look different from our real data.</p>
+<p>That’s basically what the Bayesian formula does, right?
+So you sample,
+you put the samples into your model
+and you throw away the data
+that doesn’t look like your data
+and that’s the Bayesian formula.</p>
+<p>So it takes a while to digest that
+so we should look at this in more detail
+and simpler words maybe.
+So the Bayesian formula has three different terms:
+the prior, the likelihood, and marginal probability.
+Each of the terms can be mapped to one step in Rubin’s
+procedure like this:</p>
+<p><span class="math display">\[
+\underbrace{P( \theta \mid X )}_{\text{posterior}} = \frac{\overbrace{P(X \mid \theta)}^{2.} \, \overbrace{P(\theta)}^{1.}}{\underbrace{P(X)}_{3.}}
+\]</span></p>
+<p>So the first step is we sample from the prior.
+That corresponds to term 1, giving
+the probability
+that the <span class="math inline">\(\theta\)</span> comes out of the prior.</p>
+<p>The second thing we do
+is that we plug our parameters into the model
+and we generate data from the model.
+That’s what we do in term 2.</p>
+<p>And then the third step
+is that we throw away
+the data that doesn’t look like the X
+that we’re interested in
+and that’s basically the dividing by this P of X.
+What that basically does
+is restricting your sample size space
+to only the Xs that you want. This corresponds to term 3 in the formula.</p>
+<p>So this is literally what the formula means,
+but now interpreted in terms of simulation.
+And the only thing you need to be able to do to follow
+these steps is that you can sample from the prior and from
+your model.
+That’s all! There’s no likelihood mentioned in Rubin’s algorithm.
+The only thing that we need to be able to do
+is generate data
+and then we can evaluate the Bayes formula.</p>
+<p>So, this algorithm is actually literally also a recipe
+for computing a posterior.
+It’s not a very efficient recipe — that’s why it’s typically not
+used in something like Stan or JAX —
+but it is a possible recipe.</p>
+<p>The reason that we don’t use this recipe in Stan, JAX or similar
+is<br />
+we often actually do have a likelihood function
+and then we can use,
+for instance, MCMC, which is way more efficient than this.
+The reason that the above method is very inefficient
+is that most of the samples I’m generating
+might look very different from my data,
+so I have to throw most of them away.
+And in reality it might mean
+throwing something like 99% of my data away,
+or more …
+So it can be computationally quite demanding.</p>
+<p>But if you don’t have a likelihood function,
+we can still use Rubin’s procedure — and
+so this is something that we can do
+with <em>any</em> simulation model!
+We can go through these steps
+and generate samples from the posterior distribution.</p>
+<div id="example-estimating-a-proportion" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Example: Estimating a proportion<a href="likelihood-free-bayesian-inference.html#example-estimating-a-proportion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Okay, so let’s show how this works using our earlier example.
+We said, yeah, we want to have
+a kind of more meaningful estimate of the proportion,
+than zero, right?</p>
+<p>So let’s say we make a new political party,
+— why not? —
+called the data science party (DSP)
+and we’re going to participate in the upcoming election.
+As a part of that, we’re going to ask people
+if they would want to vote for the DSP.
+We ask 10 people, and they all say no, we won’t.</p>
+<p>Now the question is,
+what can we infer from that information
+about the “true” fraction of DSP voters in the population?</p>
+<p>We have seen before how that would work — or rather, wouldn’t work –
+in a bootstrapping approach. So let’s now try the Bayesian approach.</p>
+<p>In the Bayesian approach, we first have to decide for a prior
+— specify our initial hypothesis
+about the distribution of this proportion.</p>
+<p>What we typically do if we don’t know anything is that we
+impose a so-called <em>uniform prior</em>. In this case, that would mean
+specifying that the underlying fraction <span class="math inline">\(\theta\)</span>
+is uniformly distributed between 0 and 1.
+Anywhere between zero and 100% of the people
+are going to vote for us, and that’s all we know.</p>
+<p>We could also make a better prior,
+because it’s actually very unlikely
+that 100% of the people are going to vote for us.
+So in this case, it might also be justified to
+use a prior that puts more weight
+on small numbers.
+But let’s just pretend we know nothing at all,
+and use the uniform prior.</p>
+<p>Let’s see how we can now implement Rubin’s algorithm.
+We start by generating samples of the parameter
+<span class="math inline">\(\theta\)</span>,
+from our prior, which here just means now sampling
+from a uniform distribution.
+Let’s generate 500 values for theta:</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="likelihood-free-bayesian-inference.html#cb213-1" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">runif</span>( <span class="dv">500</span> )</span></code></pre></div>
+<p>And now we are using these to sample
+from a binomial distribution.
+The binomial distribution throws a coin 10 times in this case,
+and then counts how many times it lands one side.
+This would be the success probability.
+OK?
+So we’re throwing 500 coins, and each of these coins
+has a success probability coming from the prior
+that we just generated.
+So this is our simulation here:</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="likelihood-free-bayesian-inference.html#cb214-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rbinom</span>( <span class="dv">500</span>, <span class="dv">10</span>, theta )</span></code></pre></div>
+<p>This simulation flips <span class="math inline">\(500 \times 10 = 5,000\)</span>
+coins in total, in batches of 10 coins.
+And each of the 10 coins in a batch are thrown according
+to the corresponding value in <code>theta</code> that we have generated before.</p>
+<p>And now we just make a plot, how that looks like:</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="likelihood-free-bayesian-inference.html#cb215-1" tabindex="-1"></a><span class="fu">par</span>( <span class="at">mfcol=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) )</span>
+<span id="cb215-2"><a href="likelihood-free-bayesian-inference.html#cb215-2" tabindex="-1"></a><span class="fu">plot</span>( theta, X, <span class="at">pch=</span><span class="dv">19</span>, </span>
+<span id="cb215-3"><a href="likelihood-free-bayesian-inference.html#cb215-3" tabindex="-1"></a>    <span class="at">col=</span><span class="fu">c</span>(<span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">25</span>),</span>
+<span id="cb215-4"><a href="likelihood-free-bayesian-inference.html#cb215-4" tabindex="-1"></a>    <span class="fu">rgb</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">25</span>))[<span class="dv">1</span><span class="sc">+</span>(X<span class="sc">==</span><span class="dv">0</span>)] )</span>
+<span id="cb215-5"><a href="likelihood-free-bayesian-inference.html#cb215-5" tabindex="-1"></a>beeswarm<span class="sc">::</span><span class="fu">beeswarm</span>( theta[X<span class="sc">==</span><span class="dv">0</span>] )</span>
+<span id="cb215-6"><a href="likelihood-free-bayesian-inference.html#cb215-6" tabindex="-1"></a>beeswarm<span class="sc">::</span><span class="fu">bxplot</span>( theta[X<span class="sc">==</span><span class="dv">0</span>], <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="sci_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p>This would be the entire data set that we generated.
+So we have uniformly distributed fractions on the bottom here.
+And here for each fraction, we can
+see how many of the 10 coins landed one side, right?</p>
+<p>So if our fraction of people that would vote for us is low,
+then chances are that most likely 0 or 1 person in our sample
+would say that they’ll vote for us.</p>
+<p>But if the chance of people voting for us is super high,
+then we might get more likely something like 10 or 9 people
+saying they’ll vote for us.</p>
+<p>So this is how the first two steps of Rubin’s algorithm work.
+The final step is to “throw away” all the data that
+doesn’t look like what we observed.
+What we observed was that nobody wanted to vote for us,
+so we need to keep the <code>theta</code> where <code>X==0</code>, highlighted in red
+in the plot above.</p>
+<p>This subset of <code>theta</code> values — the “slice” of the sample
+where <code>X==0</code> — is our posterior distribution.</p>
+<p>That’s the Bayesian method in a nutshell.
+It’s really quite intuitive to think about it in this way.
+You simulate from your prior, which you
+can define in whatever way you want.
+Then you plug your prior into your model.
+You simulate from your model, generating the vector <code>X</code> in our case.
+And then you throw away all the samples from the prior
+that did not generate data that looked like the data you observed.
+And what remains is the posterior distribution.</p>
+<p>In contrast to frequentist inference, where we <em>fit</em> parameters to datasets, here we always get entire <em>distributions</em> of parameters.
+But if you wanted to compress this distribution to one value, you could use for example the mean, the median, or the mode of this posterior distribution. Here, that would give us something like approximately 5%
+of the people might be voting for us.
+But it could also be 10% and also 0%.</p>
+<p>Coincidentally, 5% is half of 1 tenth, right?
+And that’s not a coincidence, actually, because you can in this case also do the Bayesian calculation analytically.
+And then the <em>mean</em> of the posterior that you will get would be</p>
+<p><span class="math display">\[
+\frac{k+1}{n+2}
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of people out of <span class="math inline">\(n\)</span> we asked who said they’d vote for us, while the posterior <em>mode</em> we would get would be</p>
+<p><span class="math display">\[
+\frac{k}{n}
+\]</span></p>
+<p>That means if we’d ask 10 people and found no one, the posterior mean
+would tell us that maybe we can still hope that 5% would actually vote for us – we can’t confidently rule out values lower than 10% based on our observation.</p>
+<blockquote>
+<p>What’s your criteria for how you throw away the data that doesn’t fit?</p>
+</blockquote>
+<p>Here we have discrete data, so we just use equality.
+We observed <span class="math inline">\(k=0\)</span>, so we’re just throwing away everything other than <span class="math inline">\(k=0\)</span>.</p>
+<p>But, it’s not always that easy — actually, that’s maybe the hardest thing about approximate Bayesian computation.</p>
+<p>For continuous variables — like, say, these <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\sigma\)</span> value from our FRC network example – the observation <span class="math inline">\(X\)</span> could
+be any real number.
+And if I’ve observed <span class="math inline">\(\sigma=6.53\)</span>, then a chance
+to get exactly 6.53 out of my simulation
+is going to be super tiny.</p>
+<p>So in reality, we need to actually do something like this: we <em>approximate</em>
+<span class="math display">\[ P( \theta | X = x ) \approx  P( \theta | d(X,x) &lt; \epsilon ) \]</span>
+for some distance <span class="math inline">\(d\)</span> and small threshold <span class="math inline">\(\epsilon\)</span>.</p>
+<p>This approximation is what leads us to call Rubin’s algorithm <em>Approximate Bayesian Computation</em> (ABC).</p>
+<p>We need to define some distance function <span class="math inline">\(d\)</span> between the data
+and the simulation result.
+And then we need to set some threshold <span class="math inline">\(\epsilon\)</span> that specifies
+the most we want to deviate from the data.</p>
+<p>Under certain restrictions for <span class="math inline">\(d\)</span> – it has to be a <em>sufficient statistic</em> – as <span class="math inline">\(\epsilon \to 0\)</span> and the number of samples goes to infinity, the ABC algorithm outputs the true Bayesian posterior.</p>
+<p>In practice, the choice of <span class="math inline">\(\epsilon\)</span> is also determined,
+by our computational resources. For instance,
+if we need to do 10 million simulations to get even just one
+dataset that “passes” with a small <span class="math inline">\(\epsilon\)</span> ,
+then we might have to increase the <span class="math inline">\(\epsilon\)</span>
+for computational reasons. Despite this, ABC is still a state-of-the-art method for so-called “simulation-based inference”. There are now other methods where we’re
+trying to use deep learning to do this a bit more efficiently, for example by “interpolating” in some sense between the generated samples.</p>
+<p>To summarize, ABC is both a way to think about how Bayesian inference itself works — this is how it was first introduced — and a practical method for simulation-based inference. The only requirements for using ABC are that (1) I can specify a prior distribution for my parameters (which could be a uniform prior over some reasonable range), (2) I can simulate data from the model I’m fitting. You could also use ABC for loss-based or likelihood-based statistical models, but that would be very inefficient, and you’d be better off using “proper” Bayesian inference, perhaps based on a “probabilistic programming language” like Stan or JAX.</p>
+<p><em>(Break)</em></p>
+</div>
+</div>
+<div id="student-contribution" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Student contribution<a href="likelihood-free-bayesian-inference.html#student-contribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A student showed the website <a href="https://statdist.ksmzn.com" class="uri">https://statdist.ksmzn.com</a>, where you can view all kinds of probability distributions. Thank you! As an example, I showed the Beta distribution. The Beta distribution generalizes the uniform distribution (which corresponds to the special case where both parameters are 1). If we change the shape, we could for example put more weight on smaller values. For any Bayesian estimation of a fraction (as in our example above), the posterior distribution can be analytically determined (it is also a Beta distribution).</p>
+</div>
+<div id="abc-continued" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> ABC (continued)<a href="likelihood-free-bayesian-inference.html#abc-continued" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Since
+two of you asked me the same question during the break,
+I thought I might clarify something once again.
+When we looked at the plot above, the number on the Y axis
+was the number of people out of 10 that said they would vote for the
+DSP (or, to use our earlier example, the number of mistakes ChatGPT made when asked 10 questions). We can get therefore get the posterior distribution by selecting the <span class="math inline">\(\theta\)</span> values for which <span class="math inline">\(X=0\)</span>. If, instead, we had found 4 out of 10 people who want to vote for us (or, if ChatGPT got 4 out of 10 questions wrong), then we’d have selected the <span class="math inline">\(\theta\)</span> values for which <span class="math inline">\(X=4\)</span></p>
+<p>So, the ABC algorithm in some sense doesn’t only generate the posterior <em>we</em> need — it actually generates all possible posteriors. I could have used the data shown in the plot above to generate posteriors for <em>all</em> possible values of <span class="math inline">\(X\)</span>. That’s
+why it’s a shame that we in fact throw all these
+other data away — but they’re, unfortunately, not consistent with what we observed. But
+if we wanted to perform,
+“thought experiments”, like “what would we
+have said if ChatGPT had made one mistake?”
+then we can also get that from the same result.</p>
+<div id="example-customer-churn-data" class="section level3 hasAnchor" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Example: Customer churn data<a href="likelihood-free-bayesian-inference.html#example-customer-churn-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now let’s look at a slightly more
+realistic example.
+We talked before
+about the survival models,
+and then we used this kind of data,
+and I made it smaller,
+so to make the example smaller, but
+this was this customer churn
+example, where we
+observed customers of some streaming
+service for 200 days, and then we
+watch as they cancel
+our subscription:</p>
+<table>
+<thead>
+<tr class="header">
+<th>days</th>
+<th>fee (€)</th>
+<th>age</th>
+<th>free_trial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>12</td>
+<td>16</td>
+<td>25</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td>9</td>
+<td>19</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>45</td>
+<td>16</td>
+<td>28</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>71</td>
+<td>9</td>
+<td>35</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>95</td>
+<td>9</td>
+<td>38</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>142</td>
+<td>9</td>
+<td>41</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>156</td>
+<td>9</td>
+<td>52</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>200+</td>
+<td>9</td>
+<td>45</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>And the question was,
+do people who did a free trial
+in the beginning actually maybe stay
+longer?
+And are more
+loyal to our streaming service?
+So last time
+when we looked at this data, we fitted
+the Cox proportional hazards
+model to this data, which is
+a model that has only a so-called partial likelihood
+because it doesn’t model the actual data,
+it only models the
+order of the data. We only
+look the
+<em>ranks</em> of the dropout times by sorting the customers
+by the time they quit,
+but we didn’t really use the dropout times.</p>
+<p>If we wanted to do a better job, and we want to
+model the actual data, we might again consider
+a simulation model.</p>
+<p>So here we’re now going to do the following:</p>
+<p>We do the following:</p>
+<ul>
+<li>Randomly generate 8 customer churn times, by sampling from some prior, and sort them</li>
+<li>Here, we flip a coin every day with success probability <span class="math inline">\(p\)</span>. In case of “success”, customer cancels.</li>
+<li>Compare the <span class="math inline">\(i\)</span>th simulated time to the <span class="math inline">\(i\)</span>th real time</li>
+<li>Keep the sample if the overall absolute differences between (a) sample mean and simulated mean and (2) sample standard deviation and simulated standard deviation are both small.</li>
+</ul>
+<p>If the probability <span class="math inline">\(p\)</span> is high,
+for instance, 0.5,
+you would cancel in two days on average.
+If <span class="math inline">\(p=0.01\)</span>, you would cancel in 100 days on average.
+So by tweaking this p,
+we can make our model fit the data that we have.</p>
+<p>This simple model could be fitted using maximum likelihood as well in this simple case (perhaps try this as an exercise)! But I want to show how this works
+in a Bayesian framework using ABC.</p>
+<p>Let’s write the code. We start with the times at which the customer’s canceled:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="likelihood-free-bayesian-inference.html#cb216-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">34</span>,<span class="dv">45</span>,<span class="dv">71</span>,<span class="dv">95</span>,<span class="dv">145</span>,<span class="dv">156</span>,<span class="dv">200</span>)</span></code></pre></div>
+<p>The last time is a bit special because it is
+just end time of our experiment.
+We cannot actually distinguish this customer from
+anyone else who stayed for more than 200 days.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="likelihood-free-bayesian-inference.html#cb217-1" tabindex="-1"></a>churn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<p>Now let’s define our
+distance function. Here as well, we need to take care of
+the fact that we can’t distinguish anything beyond 200 days.
+So we’ll just truncate every simulated churn time larger than
+200 to 200 days. To compare the simulated and real data vectors,
+we summarize them using their means and standard deviations.
+This is called <em>moments matching</em> – mean and variance are the
+first two moments, and we could also have looked at the third
+moment (skewness) and the fourth moment (kurtosis), for example,
+but our dataset is a bit small for that.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="likelihood-free-bayesian-inference.html#cb218-1" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="cf">function</span>( x ){</span>
+<span id="cb218-2"><a href="likelihood-free-bayesian-inference.html#cb218-2" tabindex="-1"></a>    x[x<span class="sc">&gt;</span><span class="fu">max</span>(X)] <span class="ot">&lt;-</span> <span class="fu">max</span>(X)</span>
+<span id="cb218-3"><a href="likelihood-free-bayesian-inference.html#cb218-3" tabindex="-1"></a>    <span class="fu">abs</span>(<span class="fu">c</span>( <span class="fu">mean</span>(x)<span class="sc">-</span><span class="fu">mean</span>(X), <span class="fu">sd</span>(x)<span class="sc">-</span><span class="fu">sd</span>(X) ))</span>
+<span id="cb218-4"><a href="likelihood-free-bayesian-inference.html#cb218-4" tabindex="-1"></a>}</span></code></pre></div>
+<p>I’m using the absolute difference
+between the simulated and the real moments here.
+I could do this in all sorts of different ways:
+use the squared distance, or Huber loss;
+or ignore the standard deviation.
+These are the choices I need to make when implementing ABC.</p>
+<p>Here we have a 2D distance function,
+where the first dimension
+is the absolute difference in mean,
+and the second is the absolute difference
+in standard deviation.
+And we want both of them to be small
+so that we accept the sample.
+Here, let’s use a single <span class="math inline">\(\epsilon\)</span> value of 10.
+I could also use different epsilons here
+for the different dimensions if I wanted to.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="likelihood-free-bayesian-inference.html#cb219-1" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="dv">10</span></span></code></pre></div>
+<p>So 10 means that our simulated data’s mean
+has to be at most 10 away from the actual mean,
+and the simulated data’s standard deviation
+has to be at most 10 away from the actual standard deviation.
+If that happens, then we are going to accept the sample,
+and if it doesn’t happen,
+then we are going to reject the sample.</p>
+<p>Now we have to define our prior.
+Here we’ll just use a uniform prior
+between 1 and 300 days
+it will take to cancel on average – I’m using
+300 because the largest value
+in the data is 200, and I want to go a bit beyond that:</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="likelihood-free-bayesian-inference.html#cb220-1" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">300</span> )</span></code></pre></div>
+<p>And the model is simply, so this coin-flipping thing
+is what we call a geometric distribution.
+So I’m not gonna flip the coins, actually.
+I’m just gonna use a sample from a geometric distribution,
+and this means flip eight coins
+and tell me how many of them are successful.
+So this is my simulation model:</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="likelihood-free-bayesian-inference.html#cb221-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(m){ <span class="fu">rgeom</span>( <span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span>m) }</span></code></pre></div>
+<p>Now let’s implement the model itself.
+In this while loop,
+I’m going to do the <em>rejection sampling</em> of ABC.
+I’m generating a sample from my prior.
+I want all of the dimensions of the distance functions
+to be smaller than <span class="math inline">\(\epsilon\)</span>.
+And if that happens, if all the distances
+are smaller than <span class="math inline">\(\epsilon\)</span>, I will add my sample
+to my posterior.
+And otherwise, I’m just gonna sample
+from the next thing.
+And that’s it!</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="likelihood-free-bayesian-inference.html#cb222-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span>; </span>
+<span id="cb222-2"><a href="likelihood-free-bayesian-inference.html#cb222-2" tabindex="-1"></a>dists <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="dv">0</span>, <span class="at">nrow=</span>N, <span class="at">ncol=</span><span class="dv">2</span> )</span>
+<span id="cb222-3"><a href="likelihood-free-bayesian-inference.html#cb222-3" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span>; posterior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, N)</span>
+<span id="cb222-4"><a href="likelihood-free-bayesian-inference.html#cb222-4" tabindex="-1"></a><span class="cf">while</span>( i <span class="sc">&lt;=</span> N ){</span>
+<span id="cb222-5"><a href="likelihood-free-bayesian-inference.html#cb222-5" tabindex="-1"></a>    s <span class="ot">&lt;-</span> <span class="fu">prior</span>()</span>
+<span id="cb222-6"><a href="likelihood-free-bayesian-inference.html#cb222-6" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">all</span>( <span class="fu">dist</span>( <span class="fu">model</span>( s ) ) <span class="sc">&lt;</span> epsilon ) ){</span>
+<span id="cb222-7"><a href="likelihood-free-bayesian-inference.html#cb222-7" tabindex="-1"></a>        posterior[i] <span class="ot">&lt;-</span> s; i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span>;    </span>
+<span id="cb222-8"><a href="likelihood-free-bayesian-inference.html#cb222-8" tabindex="-1"></a>    }</span>
+<span id="cb222-9"><a href="likelihood-free-bayesian-inference.html#cb222-9" tabindex="-1"></a>}</span></code></pre></div>
+<p>That’s the entire ABC scheme. Let’s look at the resulting
+posterior distribution:</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="likelihood-free-bayesian-inference.html#cb223-1" tabindex="-1"></a><span class="fu">hist</span>( posterior, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">301</span>) )</span></code></pre></div>
+<p><img src="sci_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>The ABC algorithm says that, most likely, the “most likely” churn time of customers (i.e., the <em>mode</em> of the posterior) would be somewhere around 100.
+The <em>mean</em> of the posterior is probably higher
+because it’s a skewed distribution.
+You could also look at the median.</p>
+<p>These would be summaries of the posterior.
+But the posterior itself doesn’t only give us a notion of model fit,
+but also we get the uncertainty immediately.
+Uncertainty quantification is always baked into Bayesian inference.
+There’s no way to fit a Bayesian model
+without having also some kind of confidence interval —
+which, in Bayesian terminology, would be called a
+<em>credibility interval</em>, because it would allow interpretations such as
+“I believe, with 95% certainty, that the real parameter is
+between these two numbers”.
+In the Bayesian world, this is a valid statement, and
+we can only do this because we started from a <em>prior</em>. If I’m
+not willing to do that, I can’t make this kind of inference
+(since Bayes’ rule shows that the posterior depends on the prior
+when the model and the marginal likelihood are fixed).</p>
+<p>It’s also important to point out that since ABC is itself a randomized algorithm (most Bayesian inference algorithm are), the posterior itself
+might look different if I just re-ran the code above. It may not change that much here since I used 1,000 samples, but it could be quite unstable with lower numbers of samples (say, 100)</p>
+<p>Typically, I want to have several hundreds of samples
+to base my posterior on.
+This is a bit similar to how we need to use “enough” replicates to get confidence intervals when we bootstrap.</p>
+<p>The algorithm above ran quite quickly, but if I decided to use a much smaller <span class="math inline">\(\epsilon\)</span>, it could actually take quite long (as most samples would be rejected), and if I’m not careful it might even turn into something like an infinite loop. Normally, in a real implementation of ABC I would add some guardrail, such as throwing an error message when 10,000 samples in a row were rejected, for example.</p>
+</div>
+</div>
+<div id="sequential-monte-carlo-abc-abc-smc" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Sequential Monte Carlo ABC (ABC-SMC)<a href="likelihood-free-bayesian-inference.html#sequential-monte-carlo-abc-abc-smc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are better versions of ABC than the simple one introduced above, and I want to briefly motivate and look into one improvement.</p>
+<p>What we just looked at was a simple example
+with one parameter. Imagine having 10 parameters,
+and having to put priors on all of the 10 parameters, and sampling a 10-dimensional space.
+How likely would it be that you hit something
+that generates the correct data? Very unlikely.</p>
+<p>So if your problem becomes harder and your simulation
+model becomes more complex, ABC is going to get really super expensive.
+There are different ways to make it more efficient.
+One is the so-called sequential Monte Carlo (SMC) version of ABC, which I quickly want to show. A pseudocode would be:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>Draw <span class="math inline">\(\theta_{0,1}, \ldots \theta_{0,N}\)</span> from <span class="math inline">\(P(\theta)\)</span> accepting at <span class="math inline">\(\epsilon_0\)</span><br></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(j \gets 1\)</span> <br></td>
+</tr>
+<tr class="odd">
+<td><strong>For each</strong> <span class="math inline">\(j \in \{1,\ldots,T\}\)</span> <strong>do</strong>:<br></td>
+</tr>
+<tr class="even">
+<td>   <span class="math inline">\(k \gets 1\)</span><br></td>
+</tr>
+<tr class="odd">
+<td>  <strong>While</strong> <span class="math inline">\(k &lt; N\)</span> <strong>do</strong>:<br></td>
+</tr>
+<tr class="even">
+<td>    Draw <span class="math inline">\(\theta^*\)</span> uniformly from <span class="math inline">\(\theta_1, \ldots, \theta_N\)</span> <br></td>
+</tr>
+<tr class="odd">
+<td>    <span class="math inline">\(\theta^* \gets \theta^* + \mathcal{N}(0,\Sigma)\)</span> <br></td>
+</tr>
+<tr class="even">
+<td>    <strong>If</strong> <span class="math inline">\(\theta^*\)</span> is accepted at <span class="math inline">\(\epsilon_j\)</span>:<br></td>
+</tr>
+<tr class="odd">
+<td>      <span class="math inline">\(\theta_{k,j} \gets \theta^* \ , \ k \gets k +1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>ABC-SMC basically consists of multiple <em>rounds</em> of the standard ABC algorithm. The idea is that in the first round, we
+start with a very loose <span class="math inline">\(\epsilon\)</span>, something that
+isn’t too difficult to attain. And then we use the posterior of the first round as a prior for the second round, adding a bit of noise to the posterior elements. In each round, we reduce our <span class="math inline">\(\epsilon\)</span>, and in this way, we get incrementally closer to “good” samples.</p>
+<p>This algorithm can be much more effective than what we
+had before (the special case <span class="math inline">\(t=1\)</span> of ABC-SMC). By “honing in” progressively on “good” regions of the parameter space, we don’t need to use such a low value of <span class="math inline">\(\epsilon\)</span> in the beginning and we won’t therefore have to throw so many samples away.</p>
+<p>ABC-SMC still provably approximates the true posterior distribution (see <a href="https://www.pnas.org/doi/10.1073/pnas.0607208104" class="uri">https://www.pnas.org/doi/10.1073/pnas.0607208104</a>).</p>
+<p>Here’s an ABC-SMC version of the same example as before –
+same data, same distance function, but now we start with a higher <span class="math inline">\(\epsilon\)</span> and do 3 rounds of ABC-SMC. In each round, we divide our <span class="math inline">\(\epsilon\)</span> by two. So we go down from 16 to 8, and then from 8 to 4.
+And our new prior in each round is the previous posterior plus some noise.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="likelihood-free-bayesian-inference.html#cb224-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">34</span>,<span class="dv">45</span>,<span class="dv">71</span>,<span class="dv">95</span>,<span class="dv">145</span>,<span class="dv">156</span>,<span class="dv">200</span>)</span>
+<span id="cb224-2"><a href="likelihood-free-bayesian-inference.html#cb224-2" tabindex="-1"></a>churn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb224-3"><a href="likelihood-free-bayesian-inference.html#cb224-3" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="cf">function</span>( x ){</span>
+<span id="cb224-4"><a href="likelihood-free-bayesian-inference.html#cb224-4" tabindex="-1"></a>    x[x<span class="sc">&gt;</span><span class="fu">max</span>(X)] <span class="ot">&lt;-</span> <span class="fu">max</span>(X)</span>
+<span id="cb224-5"><a href="likelihood-free-bayesian-inference.html#cb224-5" tabindex="-1"></a>    <span class="fu">abs</span>(<span class="fu">c</span>( <span class="fu">mean</span>(x)<span class="sc">-</span><span class="fu">mean</span>(X), <span class="fu">sd</span>(x)<span class="sc">-</span><span class="fu">sd</span>(X) ))</span>
+<span id="cb224-6"><a href="likelihood-free-bayesian-inference.html#cb224-6" tabindex="-1"></a>}</span>
+<span id="cb224-7"><a href="likelihood-free-bayesian-inference.html#cb224-7" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span>; epsilon <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb224-8"><a href="likelihood-free-bayesian-inference.html#cb224-8" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">runif</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">300</span> )</span>
+<span id="cb224-9"><a href="likelihood-free-bayesian-inference.html#cb224-9" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(meanchurn){ <span class="fu">rgeom</span>( <span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span>meanchurn ) }</span>
+<span id="cb224-10"><a href="likelihood-free-bayesian-inference.html#cb224-10" tabindex="-1"></a><span class="fu">par</span>( <span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>) )</span>
+<span id="cb224-11"><a href="likelihood-free-bayesian-inference.html#cb224-11" tabindex="-1"></a><span class="cf">for</span>( j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> ){</span>
+<span id="cb224-12"><a href="likelihood-free-bayesian-inference.html#cb224-12" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb224-13"><a href="likelihood-free-bayesian-inference.html#cb224-13" tabindex="-1"></a>    new_posterior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="cn">NA</span>, N )</span>
+<span id="cb224-14"><a href="likelihood-free-bayesian-inference.html#cb224-14" tabindex="-1"></a>    <span class="cf">while</span>( i <span class="sc">&lt;=</span> N ){</span>
+<span id="cb224-15"><a href="likelihood-free-bayesian-inference.html#cb224-15" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">prior</span>()</span>
+<span id="cb224-16"><a href="likelihood-free-bayesian-inference.html#cb224-16" tabindex="-1"></a>        <span class="cf">if</span>( <span class="fu">all</span>( <span class="fu">dist</span>( <span class="fu">model</span>( s ) ) <span class="sc">&lt;</span> epsilon ) ){</span>
+<span id="cb224-17"><a href="likelihood-free-bayesian-inference.html#cb224-17" tabindex="-1"></a>            new_posterior[i] <span class="ot">&lt;-</span> s; i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span>;    </span>
+<span id="cb224-18"><a href="likelihood-free-bayesian-inference.html#cb224-18" tabindex="-1"></a>        }</span>
+<span id="cb224-19"><a href="likelihood-free-bayesian-inference.html#cb224-19" tabindex="-1"></a>    }</span>
+<span id="cb224-20"><a href="likelihood-free-bayesian-inference.html#cb224-20" tabindex="-1"></a>    epsilon <span class="ot">&lt;-</span> epsilon <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb224-21"><a href="likelihood-free-bayesian-inference.html#cb224-21" tabindex="-1"></a>    posterior <span class="ot">&lt;-</span> new_posterior</span>
+<span id="cb224-22"><a href="likelihood-free-bayesian-inference.html#cb224-22" tabindex="-1"></a>    <span class="fu">hist</span>( posterior, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">300</span>), <span class="at">main=</span><span class="fu">paste</span>(<span class="st">&quot;round&quot;</span>,j))</span>
+<span id="cb224-23"><a href="likelihood-free-bayesian-inference.html#cb224-23" tabindex="-1"></a>    prior <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">sample</span>(posterior,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">1</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb224-24"><a href="likelihood-free-bayesian-inference.html#cb224-24" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="sci_files/figure-html/abcchurn_smc-1.png" width="672" /></p>
+<p>We can generally observed two things happen over ABC-SMC iterations. First, the posterior starts out more “flat” / “uniform” and then get more “peaky” in later iterations. Second, as we lower the <span class="math inline">\(\epsilon\)</span>, at some point it becomes harder and harder to find “good” samples. In practice, we need to decide to stop lowering <span class="math inline">\(\epsilon\)</span> at some point, for example if the acceptance rate drops too much.</p>
+<p>Compared to standard ABC, ABC-SMC has an additional parameter: the amount of noise to add to the samples from the posterior of the previous round. Good choices for this parameter depend on the data units.
+Here, our units are days, so having a standard deviation of one
+means that the noise is on the order of a day — a reasonably small unit. It’s important that we don’t jump from one end
+to the parameter space to the other, but it’s also important that the noise we introduce can actually move a “bad” parameter meaningfully towards a “good” parameter.</p>
+<p>But on the other hand, ABC-SMC isn’t extremely sensitive to this choice, and asymptotically it works for all possible choices — so the parameter <span class="math inline">\(\sigma\)</span> (standard deviation of the noise) should more be thought of as mainly affecting the algorithm’s performance, not the correctness like <span class="math inline">\(\epsilon\)</span>.</p>
+<p>So this was ABC-SMC,
+a more efficient version of ABC that’s a bit, but not much, more difficult to implement. If you like Python, nice implementations of ABC versions can be found in the pyABC package (<a href="https://pyabc.readthedocs.io/en/latest/" class="uri">https://pyabc.readthedocs.io/en/latest/</a>), which interestingly is made not too far away from here at the University of Bonn.</p>
+</div>
+<div id="model-selection-using-abc" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Model selection using ABC<a href="likelihood-free-bayesian-inference.html#model-selection-using-abc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can now do fitting and parameter uncertainty quantification in the Bayesian context — they happen to be the same thing. What’s still lacking now is model selection.</p>
+<p>There are, mirroring the earlier lecture on model selection, two different approaches to Bayesian model selection.</p>
+<div id="nested-models" class="section level3 hasAnchor" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Nested models<a href="likelihood-free-bayesian-inference.html#nested-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One is for the case of <em>nested models</em>,
+where one model is a more complex version of the other.
+We already know that we have model selection for free
+if we can do inference, because we can just ask, can we exclude
+that this parameter is actually unnecessary?</p>
+<p>Let’s, for example, make a different model for the churn data
+where we have two parameters:
+one is simply the basal churn time <span class="math inline">\(\theta_1\)</span>
+and the other, <span class="math inline">\(\theta_2\)</span>, is the difference between people
+who do and did not get this free trial. This is a new
+parameter compared to the earlier model.</p>
+<p>Now we ask: is it necessary
+to have this <span class="math inline">\(\theta_2 \neq 0\)</span>? Because, by setting
+<span class="math inline">\(\theta_2=0\)</span>, we get our old model back.</p>
+<p>That’s
+the same approach that we took last week
+when we took two different models
+and one was a special case of the other
+and now we’re just doing parameter
+inference to decide if we need that
+additional parameter or not.</p>
+<p>Since we can already do uncertainty quantification, we can also do this type of model selection. Let’s look at the below code, which is almost the same as the one above. The only difference is that now we have two parameters, so we have a uniform prior, and the posteriors and priors are therefore now matrices instead of vectors. But you can see
+that the code doesn’t change all that much
+because of that.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="likelihood-free-bayesian-inference.html#cb225-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">34</span>,<span class="dv">45</span>,<span class="dv">71</span>,<span class="dv">95</span>,<span class="dv">145</span>,<span class="dv">156</span>,<span class="dv">200</span>)</span>
+<span id="cb225-2"><a href="likelihood-free-bayesian-inference.html#cb225-2" tabindex="-1"></a>churn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb225-3"><a href="likelihood-free-bayesian-inference.html#cb225-3" tabindex="-1"></a>freetrial <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb225-4"><a href="likelihood-free-bayesian-inference.html#cb225-4" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="cf">function</span>( x ){</span>
+<span id="cb225-5"><a href="likelihood-free-bayesian-inference.html#cb225-5" tabindex="-1"></a>    x[x<span class="sc">&gt;</span><span class="fu">max</span>(X)] <span class="ot">&lt;-</span> <span class="fu">max</span>(X)</span>
+<span id="cb225-6"><a href="likelihood-free-bayesian-inference.html#cb225-6" tabindex="-1"></a>    <span class="fu">abs</span>(<span class="fu">c</span>( <span class="fu">mean</span>(x)<span class="sc">-</span><span class="fu">mean</span>(X), <span class="fu">sd</span>(x)<span class="sc">-</span><span class="fu">sd</span>(X) ))</span>
+<span id="cb225-7"><a href="likelihood-free-bayesian-inference.html#cb225-7" tabindex="-1"></a>}</span>
+<span id="cb225-8"><a href="likelihood-free-bayesian-inference.html#cb225-8" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span>; epsilon <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb225-9"><a href="likelihood-free-bayesian-inference.html#cb225-9" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">c</span>(<span class="fu">runif</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">300</span> ),<span class="fu">runif</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">100</span>,<span class="dv">100</span>))</span>
+<span id="cb225-10"><a href="likelihood-free-bayesian-inference.html#cb225-10" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(th){ <span class="fu">rgeom</span>(<span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span>th[<span class="dv">1</span>])<span class="sc">+</span>th[<span class="dv">2</span>]<span class="sc">*</span>freetrial }</span>
+<span id="cb225-11"><a href="likelihood-free-bayesian-inference.html#cb225-11" tabindex="-1"></a><span class="fu">par</span>( <span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>) )</span>
+<span id="cb225-12"><a href="likelihood-free-bayesian-inference.html#cb225-12" tabindex="-1"></a><span class="cf">for</span>( j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> ){</span>
+<span id="cb225-13"><a href="likelihood-free-bayesian-inference.html#cb225-13" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb225-14"><a href="likelihood-free-bayesian-inference.html#cb225-14" tabindex="-1"></a>    new_posterior <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="cn">NA</span>, <span class="at">nrow=</span>N, <span class="at">ncol=</span><span class="dv">2</span> )</span>
+<span id="cb225-15"><a href="likelihood-free-bayesian-inference.html#cb225-15" tabindex="-1"></a>    <span class="cf">while</span>( i <span class="sc">&lt;=</span> N ){</span>
+<span id="cb225-16"><a href="likelihood-free-bayesian-inference.html#cb225-16" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">prior</span>()</span>
+<span id="cb225-17"><a href="likelihood-free-bayesian-inference.html#cb225-17" tabindex="-1"></a>        <span class="cf">if</span>( <span class="fu">all</span>( <span class="fu">dist</span>( <span class="fu">model</span>( s ) ) <span class="sc">&lt;</span> epsilon ) ){</span>
+<span id="cb225-18"><a href="likelihood-free-bayesian-inference.html#cb225-18" tabindex="-1"></a>            new_posterior[i,] <span class="ot">&lt;-</span> s; i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb225-19"><a href="likelihood-free-bayesian-inference.html#cb225-19" tabindex="-1"></a>        }</span>
+<span id="cb225-20"><a href="likelihood-free-bayesian-inference.html#cb225-20" tabindex="-1"></a>    }</span>
+<span id="cb225-21"><a href="likelihood-free-bayesian-inference.html#cb225-21" tabindex="-1"></a>    epsilon <span class="ot">&lt;-</span> epsilon <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb225-22"><a href="likelihood-free-bayesian-inference.html#cb225-22" tabindex="-1"></a>    posterior <span class="ot">&lt;-</span> new_posterior</span>
+<span id="cb225-23"><a href="likelihood-free-bayesian-inference.html#cb225-23" tabindex="-1"></a>    <span class="fu">plot</span>( posterior )</span>
+<span id="cb225-24"><a href="likelihood-free-bayesian-inference.html#cb225-24" tabindex="-1"></a>    prior <span class="ot">&lt;-</span> <span class="cf">function</span>() posterior[<span class="fu">sample</span>(N,<span class="dv">1</span>),]<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">2</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb225-25"><a href="likelihood-free-bayesian-inference.html#cb225-25" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="sci_files/figure-html/abcchurn_smc_ms-1.png" width="672" /></p>
+<p>Now we have a 2D parameter space, where the
+X dimension is still the base churn rate
+and the Y dimension is the difference between
+people with and without the free trial. What can we conclude now from these results – did it help us to include this additional parameter to model the difference between people who did and did not
+take the free trial?</p>
+<blockquote>
+<p>The difference goes through zero to point so maybe we’re not sure</p>
+</blockquote>
+<p>Exactly, a lot of these samples have a negative difference between the groups
+a lot of others have a positive difference between the groups. The interpretation of a negative difference would be that
+it’s better not to have a free trial, whereas the interpretation of a positive difference would be the opposite. Based on this, we should be skeptical if we have enough data to say that there is a difference (we have only 8 customers, after all).</p>
+<p>This way of doing model selection is very similar to how we would do it if we bootstrapped an inference procedure for a likelihood- or loss-based model.</p>
+</div>
+<div id="non-nested-models-1" class="section level3 hasAnchor" number="8.7.2">
+<h3><span class="header-section-number">8.7.2</span> Non-nested models<a href="likelihood-free-bayesian-inference.html#non-nested-models-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There’s also another approach, to model selection,
+which also works if the models are not nested, and is
+actually really simple.</p>
+<p>We basically index our models using a number,
+and add this number as another parameter.</p>
+<p>In our example with the two customer churn models, I’d combine
+them to a single model that has three parameters:</p>
+<ul>
+<li><span class="math inline">\(\theta_1\)</span> is still the base churn rate.</li>
+<li><span class="math inline">\(\theta_2\)</span> is the free trial difference</li>
+<li><span class="math inline">\(\theta_3\)</span> is an integer that indicates if the second parameter is actually used. If <span class="math inline">\(\theta_3=1\)</span>, we’ll actually use the supplied value of <span class="math inline">\(\theta_2\)</span>; if <span class="math inline">\(\theta_3=0\)</span>, we’ll just have a zero difference.</li>
+</ul>
+<p>You could also think of this as approach as combining several simulation into one “meta simulation” where the first thing we do is generate a random number that decides which model we’re actually going to run.</p>
+<p>And now I can do model selection by looking at the marginal posterior distribution for that third parameter!
+So model selection in this sense is no different from any other Bayesian approach. Let’s implement this in code, which again, looks very, very similar to the earlier approach:</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="likelihood-free-bayesian-inference.html#cb226-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">34</span>,<span class="dv">45</span>,<span class="dv">71</span>,<span class="dv">95</span>,<span class="dv">145</span>,<span class="dv">156</span>,<span class="dv">200</span>)</span>
+<span id="cb226-2"><a href="likelihood-free-bayesian-inference.html#cb226-2" tabindex="-1"></a>churn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb226-3"><a href="likelihood-free-bayesian-inference.html#cb226-3" tabindex="-1"></a>freetrial <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb226-4"><a href="likelihood-free-bayesian-inference.html#cb226-4" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="cf">function</span>( x ){</span>
+<span id="cb226-5"><a href="likelihood-free-bayesian-inference.html#cb226-5" tabindex="-1"></a>    x[x<span class="sc">&gt;</span><span class="fu">max</span>(X)] <span class="ot">&lt;-</span> <span class="fu">max</span>(X)</span>
+<span id="cb226-6"><a href="likelihood-free-bayesian-inference.html#cb226-6" tabindex="-1"></a>    <span class="fu">abs</span>(<span class="fu">c</span>( <span class="fu">mean</span>(x)<span class="sc">-</span><span class="fu">mean</span>(X), <span class="fu">sd</span>(x)<span class="sc">-</span><span class="fu">sd</span>(X) ))</span>
+<span id="cb226-7"><a href="likelihood-free-bayesian-inference.html#cb226-7" tabindex="-1"></a>}</span>
+<span id="cb226-8"><a href="likelihood-free-bayesian-inference.html#cb226-8" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span>; epsilon <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb226-9"><a href="likelihood-free-bayesian-inference.html#cb226-9" tabindex="-1"></a></span>
+<span id="cb226-10"><a href="likelihood-free-bayesian-inference.html#cb226-10" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">300</span>),<span class="fu">runif</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">100</span>,<span class="dv">100</span>),<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb226-11"><a href="likelihood-free-bayesian-inference.html#cb226-11" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(th){ <span class="fu">rgeom</span>(<span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span>th[<span class="dv">1</span>])<span class="sc">+</span>th[<span class="dv">2</span>]<span class="sc">*</span>freetrial<span class="sc">*</span>th[<span class="dv">3</span>] }</span>
+<span id="cb226-12"><a href="likelihood-free-bayesian-inference.html#cb226-12" tabindex="-1"></a></span>
+<span id="cb226-13"><a href="likelihood-free-bayesian-inference.html#cb226-13" tabindex="-1"></a><span class="fu">par</span>( <span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>) )</span>
+<span id="cb226-14"><a href="likelihood-free-bayesian-inference.html#cb226-14" tabindex="-1"></a><span class="cf">for</span>( j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> ){</span>
+<span id="cb226-15"><a href="likelihood-free-bayesian-inference.html#cb226-15" tabindex="-1"></a>    i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb226-16"><a href="likelihood-free-bayesian-inference.html#cb226-16" tabindex="-1"></a>    new_posterior <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="cn">NA</span>, <span class="at">nrow=</span>N, <span class="at">ncol=</span><span class="dv">3</span> )</span>
+<span id="cb226-17"><a href="likelihood-free-bayesian-inference.html#cb226-17" tabindex="-1"></a>    <span class="cf">while</span>( i <span class="sc">&lt;=</span> N ){</span>
+<span id="cb226-18"><a href="likelihood-free-bayesian-inference.html#cb226-18" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">prior</span>()</span>
+<span id="cb226-19"><a href="likelihood-free-bayesian-inference.html#cb226-19" tabindex="-1"></a>        <span class="cf">if</span>( <span class="fu">all</span>( <span class="fu">dist</span>( <span class="fu">model</span>( s ) ) <span class="sc">&lt;</span> epsilon ) ){</span>
+<span id="cb226-20"><a href="likelihood-free-bayesian-inference.html#cb226-20" tabindex="-1"></a>            new_posterior[i,] <span class="ot">&lt;-</span> s; i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb226-21"><a href="likelihood-free-bayesian-inference.html#cb226-21" tabindex="-1"></a>        }</span>
+<span id="cb226-22"><a href="likelihood-free-bayesian-inference.html#cb226-22" tabindex="-1"></a>    }</span>
+<span id="cb226-23"><a href="likelihood-free-bayesian-inference.html#cb226-23" tabindex="-1"></a>    epsilon <span class="ot">&lt;-</span> epsilon <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb226-24"><a href="likelihood-free-bayesian-inference.html#cb226-24" tabindex="-1"></a>    posterior <span class="ot">&lt;-</span> new_posterior</span>
+<span id="cb226-25"><a href="likelihood-free-bayesian-inference.html#cb226-25" tabindex="-1"></a>    <span class="fu">hist</span>( posterior[,<span class="dv">3</span>] )</span>
+<span id="cb226-26"><a href="likelihood-free-bayesian-inference.html#cb226-26" tabindex="-1"></a>    prior <span class="ot">&lt;-</span> <span class="cf">function</span>() posterior[<span class="fu">sample</span>(N,<span class="dv">1</span>),]<span class="sc">+</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">2</span>,<span class="at">sd=</span><span class="dv">1</span>),<span class="dv">0</span>)</span>
+<span id="cb226-27"><a href="likelihood-free-bayesian-inference.html#cb226-27" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="sci_files/figure-html/abcchurn_smc_ms_2-1.png" width="672" /></p>
+<p>The code only shows the posterior distribution for <span class="math inline">\(\theta_3\)</span>, which is the model that we use.
+On the left, we have the model without the churn risk difference.
+And on the right, we have the model with the difference.
+So what does our posterior distribution tell us?
+Can we make a choice between these two models?</p>
+<blockquote>
+<p>It does not matter because they are the same.</p>
+</blockquote>
+<p>It looks like they’re roughly the same, right?
+We created a total of 250 accepted samples, and about half of these came from the first model, while the other half came from the second model.
+If one model was much better than the other,
+it would be more successful in creating “good” samples than the other model, and its index should therefore show up more frequently in the posterior distribution.
+But that’s clearly not the case here,
+So we have to conclude that we can’t really decide
+which model is better.</p>
+<p>Now we know how everything works in the (ABC version of the) Bayesian framework:</p>
+<ul>
+<li>Parameter inference and “fitting”,</li>
+<li>Model selection for nested models,</li>
+<li>Model selection for non-nested models.</li>
+</ul>
+<p>One could argue that these things are quite easy to achieve in the Bayesian framework — we managed to go through all this in one lecture, even though the frequentist methodology took multiple weeks to cover! The reason is that it’s conceptually much simpler: all you have to do is simulate, that’s it.
+But it can also very computationally expensive: while a Wald test takes a few milliseconds, an ABC inference even of a moderately complex model can easily take a few hours.</p>
+</div>
+<div id="example-inferring-the-rewiring-probability-in-the-watts-strogatz-model" class="section level3 hasAnchor" number="8.7.3">
+<h3><span class="header-section-number">8.7.3</span> Example: inferring the rewiring probability in the Watts-Strogatz model<a href="likelihood-free-bayesian-inference.html#example-inferring-the-rewiring-probability-in-the-watts-strogatz-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s now go back
+to the more realistic example
+that we discussed earlier: the Watts-Strogatz network model.
+We want to ask: which parameter of this model
+best explains the FRC network data shown above?</p>
+<p>Now we can use ABC to answer this question. Here we sample
+from the Watts-Strogatz model,
+generate a graph,
+and then we compute the <span class="math inline">\(\sigma\)</span> measure
+and compare that to 6.7,
+which is what the authors of the FRC paper observed.
+That way we can build a posterior distribution
+for this parameter <span class="math inline">\(p\)</span> of the Watts-Strogatz model.</p>
+<p>We’ll use the code below to do that. But beware: it takes a bit of time to run. We’ll therefore only ask for 10 posterior samples, and make sure we stop after 500 attempts. One reason why this is taking long is that, interestingly, computing the function <span class="math inline">\(\sigma\)</span> itself requires doing a simulation (the function simulates “random” networks with the same number of nodes and edges, and compares the observed clustering coefficient and path length to those).</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="likelihood-free-bayesian-inference.html#cb227-1" tabindex="-1"></a><span class="fu">library</span>(igraph); <span class="fu">library</span>( manynet )</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;manynet&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:igraph&#39;:
+## 
+##     as_edgelist, is_acyclic, is_connected, is_directed, is_weighted,
+##     print_all</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="likelihood-free-bayesian-inference.html#cb230-1" tabindex="-1"></a><span class="co"># Watts-Strogatz model</span></span>
+<span id="cb230-2"><a href="likelihood-free-bayesian-inference.html#cb230-2" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">c</span>(); trials <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb230-3"><a href="likelihood-free-bayesian-inference.html#cb230-3" tabindex="-1"></a><span class="cf">while</span>( <span class="fu">length</span>(posterior) <span class="sc">&lt;</span> <span class="dv">10</span> <span class="sc">&amp;&amp;</span> trials <span class="sc">&lt;</span> <span class="dv">500</span> ){</span>
+<span id="cb230-4"><a href="likelihood-free-bayesian-inference.html#cb230-4" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb230-5"><a href="likelihood-free-bayesian-inference.html#cb230-5" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim=</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei=</span><span class="dv">4</span>, <span class="at">p=</span>p )</span>
+<span id="cb230-6"><a href="likelihood-free-bayesian-inference.html#cb230-6" tabindex="-1"></a>    sigma <span class="ot">&lt;-</span> <span class="fu">net_smallworld</span>( g, <span class="at">method=</span><span class="st">&quot;sigma&quot;</span> )</span>
+<span id="cb230-7"><a href="likelihood-free-bayesian-inference.html#cb230-7" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">abs</span>( sigma <span class="sc">-</span> <span class="fl">6.7</span> ) <span class="sc">&lt;</span> <span class="dv">2</span> ){</span>
+<span id="cb230-8"><a href="likelihood-free-bayesian-inference.html#cb230-8" tabindex="-1"></a>        posterior <span class="ot">&lt;-</span> <span class="fu">c</span>(posterior, p)</span>
+<span id="cb230-9"><a href="likelihood-free-bayesian-inference.html#cb230-9" tabindex="-1"></a>    }</span>
+<span id="cb230-10"><a href="likelihood-free-bayesian-inference.html#cb230-10" tabindex="-1"></a>    trials <span class="ot">&lt;-</span> trials<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb230-11"><a href="likelihood-free-bayesian-inference.html#cb230-11" tabindex="-1"></a>}</span>
+<span id="cb230-12"><a href="likelihood-free-bayesian-inference.html#cb230-12" tabindex="-1"></a><span class="fu">hist</span>(posterior, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="sci_files/figure-html/dorunit-1.png" width="672" /></p>
+</div>
+<div id="recap-2" class="section level3 hasAnchor" number="8.7.4">
+<h3><span class="header-section-number">8.7.4</span> Recap<a href="likelihood-free-bayesian-inference.html#recap-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While we were waiting for the simulation above to finish, we discussed that we covered the following topics:</p>
+<ul>
+<li>The Bayes formula can be interpreted in terms of a simulation</li>
+<li>That simulation is the Approximate Bayesian Computation (ABC) method</li>
+<li>We never just “fit” a Bayesian model without also doing inference</li>
+<li>ABC can be used for parameter inference</li>
+<li>ABC can also be used for model selection</li>
+</ul>
+</div>
+<div id="student-contribution-1" class="section level3 hasAnchor" number="8.7.5">
+<h3><span class="header-section-number">8.7.5</span> Student contribution<a href="likelihood-free-bayesian-inference.html#student-contribution-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A student showed a video from the channel “Veritasium” about the small-world model, The video explains simulations they performed, using a different “preferential attachment” model, to test the hypothesis that you really do know every other person in the world through six contacts <a href="https://www.youtube.com/watch?v=CYlon2tvywA" class="uri">https://www.youtube.com/watch?v=CYlon2tvywA</a>. Thanks! I warmly recommend this video to anyone interested in the topic of network science. It shows another, different, simulation model for networks, which is also implemented in the <code>igraph</code> package so you could implement this easily with ABC.</p>
+<p>Making simulation models is fun, and now you can do inference on them just like with statistical models! I hope some of you will use this to get creative and try to explain your data in interesting ways.</p>
+</div>
+</div>
+<div id="test-your-knowledge-1" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Test your knowledge<a href="likelihood-free-bayesian-inference.html#test-your-knowledge-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>(This is not a possible exam question, as it involves programming. Still, I recommend doing this to deepen your understanding of ABC and model selection.) In the lecture, we did not get to answer the question: Which network simulation model explains the FRC data better, Watts-Strogatz or preferential attachment? Combine the two provided algorithms with model selection based on ABC-SMC to answer this question.</p></li>
+<li><p>Explain the relationship between Rubin’s three-step sampling procedure for Bayesian inference and the three terms in the Bayes formula. Which step corresponds to which term?</p></li>
+<li><p>Which of the following statements about Approximate Bayesian Computation is correct?</p>
+<ul>
+<li>ABC requires a likelihood function to be computed analytically</li>
+<li>ABC is generally more computationally efficient than Wald tests</li>
+<li>ABC can be applied to any model from which we can simulate data</li>
+<li>ABC asymptotically converges to the exact posterior distribution for any choice of <span class="math inline">\(\epsilon\)</span></li>
+</ul></li>
+<li><p>In our course, we discussed three types of statistical models: likelihood-based, loss-based, and simulation-based. For simulation-based models, why is it problematic to use standard numerical optimizers even if we could compute an averaged loss over many simulation runs?</p></li>
+<li><p>Suppose you are using ABC with a uniform prior between 0 and 100 for a parameter, and you set epsilon too large. What problem might this cause for your posterior distribution? Conversely, what problem might occur if epsilon is set too small?</p></li>
+<li><p>In Bayesian statistics, <span class="math inline">\(P(\theta \mid X)\)</span> would stands for an <em>epistemic</em> probability: the <em>belief</em> that the parameter <span class="math inline">\(\theta\)</span> has a certain value. Is there a corresponding <em>aleatorial</em> (frequentist) interpretation of <span class="math inline">\(P(\theta \mid X)\)</span>? If so, please describe this interpretation. If not, explain why not. Limit your answer to 2-3 sentences.</p></li>
+<li><p>Suppose that we use ABC to compare two nested simulation models, where one contains an additional parameter <span class="math inline">\(\theta_2\)</span> that models a ratio between two numbers that are supposed to be equal in a simpler version of the same model. How would the posterior distribution for <span class="math inline">\(\theta_2\)</span> have to look like for us to conclude that the parameter is necessary to describe the data?</p></li>
+<li><p>Explain briefly why we can’t use the sandwich estimator or the Wald test to perform parameter inference for non-deterministic simulation models.</p></li>
+<li><p>In the ABC-SMC algorithm, we add some noise to the elements of the posterior that we use as the prior for the next round. Which problem would we get if we did not do this? (Think about what would happen if we did many rounds of ABC-SMC)</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="selecting-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
