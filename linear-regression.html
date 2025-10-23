@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-10-12" />
+<meta name="date" content="2025-10-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -680,11 +680,11 @@ stands for draw a <strong>r</strong>andom number.
 So if I want to draw a random number
 with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-regression.html#cb4-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">1</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.5955584</code></pre>
+<pre><code>## [1] 2.366071</code></pre>
 <p>I can also generate multiple random numbers at once like this:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="linear-regression.html#cb6-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">10</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>##  [1]  1.7257251  1.4903751  2.3202514  0.4425677 -0.6023282  1.6132253
-##  [7]  1.5340418 -0.6127407  0.5231777  0.1682720</code></pre>
+<pre><code>##  [1]  2.9872336  0.7471037  2.4640785  0.9793641 -0.4552336 -0.3551242
+##  [7]  1.5944227  1.4614560  0.2735420  1.4879315</code></pre>
 <p>If 0.24 were the probability to get a <span class="math inline">\(0\)</span> from this, approximately 24% of these values should be 0, which is clearly not the case.</p>
 <p>In fact, even if we generate very many random numbers, we’ll be unable to ever exactly hit 0. We’ll almost always be ever so slightly off.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="linear-regression.html#cb8-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">rnorm</span>( <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )<span class="sc">==</span><span class="dv">0</span>)</span></code></pre></div>
@@ -695,7 +695,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <p>Yes, we’re going to do something like that. But before we go there, consider what would happen in the <em>discrete</em> case, which you may be more used to thinking about.</p>
 <p>Let’s take the binomial distribution: We repeat an experiment (like a coin flip) <span class="math inline">\(n\)</span> times, and the success probability each time is <span class="math inline">\(p\)</span>. Then the number of successes (which is at least 0 and at most <span class="math inline">\(n\)</span>) has a <em>binomial distribution</em>. Let’s generate some random numbers from a binomial distribution for fair coin flips:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="linear-regression.html#cb10-1" tabindex="-1"></a><span class="fu">rbinom</span>( <span class="dv">10</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
-<pre><code>##  [1] 1 3 2 0 0 2 2 2 1 1</code></pre>
+<pre><code>##  [1] 2 2 1 1 3 1 0 3 2 1</code></pre>
 <p>For example, in my first example, two of my three coin flips ended up with me “winning” (which I need to define beforehand as one side of the coin).</p>
 <p>Like any probability model, the binomial distribution also has a density function. Let’s check its value for two wins in the setting above:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="linear-regression.html#cb12-1" tabindex="-1"></a><span class="fu">dbinom</span>( <span class="dv">2</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
@@ -704,7 +704,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="linear-regression.html#cb14-1" tabindex="-1"></a><span class="fu">table</span>( <span class="fu">rbinom</span>( <span class="dv">1000</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> ) ) </span></code></pre></div>
 <pre><code>## 
 ##   0   1   2   3 
-## 146 368 370 116</code></pre>
+## 123 363 375 139</code></pre>
 <p>The percentage of experiments with 2 wins is 38.6%, indeed close to what I was expecting!</p>
 <p>So, we have an important distinction between discrete and continuous variables when it comes to probability density functions:</p>
 <ul>
@@ -721,7 +721,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="linear-regression.html#cb16-1" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="fl">1e6</span>, <span class="dv">1</span>, <span class="dv">1</span> )</span></code></pre></div>
 <p>Now let’s ask: how many of these are between 0 and 1?</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="linear-regression.html#cb17-1" tabindex="-1"></a><span class="fu">mean</span>( <span class="dv">0</span> <span class="sc">&lt;=</span> s <span class="sc">&amp;</span> s <span class="sc">&lt;=</span> <span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.341316</code></pre>
+<pre><code>## [1] 0.340282</code></pre>
 <p>Approximately 34%. Now let’s verify that this matches what we get by integrating the density function <span class="math display">\[{\cal{N}(1,1)}\]</span>. We can’t do that analytically, but in R we have the integral available using the function <code>pnorm</code> command. For example, we can get the integral</p>
 <p><span class="math display">\[\int_{x=-\infty}^{1} {\cal N}(1,1)\]</span></p>
 <p>by typing</p>
