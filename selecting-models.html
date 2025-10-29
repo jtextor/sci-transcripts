@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-10-23" />
+<meta name="date" content="2025-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-1"><i class="fa fa-check"></i><b>2.2</b> Linear regression</a></li>
 <li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#how-is-a-linear-regression-model-mathematically-defined"><i class="fa fa-check"></i><b>2.3</b> How is a linear regression model mathematically defined?</a></li>
 <li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#recap-on-probability-distributions"><i class="fa fa-check"></i><b>2.4</b> Recap on probability distributions</a></li>
-<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distribution"><i class="fa fa-check"></i><b>2.5</b> Some example normal distribution</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distributions"><i class="fa fa-check"></i><b>2.5</b> Some example normal distributions</a></li>
 <li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#conditional-probability-distributions"><i class="fa fa-check"></i><b>2.6</b> Conditional probability distributions</a></li>
 <li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#generative-versus-discriminative-models"><i class="fa fa-check"></i><b>2.7</b> Generative versus discriminative models</a></li>
 <li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#defining-linear-regression-as-a-conditional-probability-model"><i class="fa fa-check"></i><b>2.8</b> Defining linear regression as a conditional probability model</a></li>
@@ -1868,7 +1868,7 @@ AIC_m = 2\,\text{nLL}_{m} + 2 p
 <p>where <span class="math inline">\(p\)</span> is the number of parameters of the model.</p>
 <p>The additional term <span class="math inline">\(2p\)</span> has the effect that it “punishes” model complexity. Adding new parameters to an already correct model will therefore lead to a lower <span class="math inline">\(\text{nLL}_{m}\)</span>, but not necessary a lower <span class="math inline">\(AIC_m\)</span>.</p>
 <p>The AIC difference between two models is in fact an estimation of the <em>out-of-sample deviance</em>. That is, if</p>
-<p><span class="math display">\[\Delta \text{AIC} = 2\, \text{nLL}_{m} - 2p - (2\, \text{nLL}_{m^*} - 2p^*) \approx
+<p><span class="math display">\[\Delta \text{AIC} = 2\, \text{nLL}_{m} + 2p - (2\, \text{nLL}_{m^*} + 2p^*) \approx
 2\, \hat{\text{nLL}}_{m} -  2\, \hat{\text{nLL}}_{m^*}
 \]</span></p>
 <p>where <span class="math inline">\(\hat{\text{nLL}}_{m}\)</span> is the negative log-likelihood one would expect from evaluating the model on a new sample of the same size.</p>
@@ -2050,7 +2050,7 @@ So based on this,
 I would pick the model that has the weight
 rather than the model that has the MPG
 because it assigns a higher likelihood to my data, right?</p>
-<p>Let’s look again at the entire model fit (without cross-validation) for the “better” mpg model:</p>
+<p>Let’s look again at the entire model fit (without cross-validation) for both models:</p>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="selecting-models.html#cb199-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>( x, th ) <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>th[<span class="dv">1</span>]<span class="sc">-</span>th[<span class="dv">2</span>]<span class="sc">*</span>x))</span>
 <span id="cb199-2"><a href="selecting-models.html#cb199-2" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>( x, y, th ){ <span class="fu">sum</span>( </span>
 <span id="cb199-3"><a href="selecting-models.html#cb199-3" tabindex="-1"></a> <span class="sc">-</span> y<span class="sc">*</span><span class="fu">log</span>( <span class="fu">model</span>( x, th ) ) <span class="sc">-</span> (<span class="dv">1</span><span class="sc">-</span>y)<span class="sc">*</span><span class="fu">log</span>( (<span class="dv">1</span><span class="sc">-</span><span class="fu">model</span>( x, th )) )</span>

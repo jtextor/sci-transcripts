@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-10-23" />
+<meta name="date" content="2025-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-1"><i class="fa fa-check"></i><b>2.2</b> Linear regression</a></li>
 <li class="chapter" data-level="2.3" data-path="linear-regression.html"><a href="linear-regression.html#how-is-a-linear-regression-model-mathematically-defined"><i class="fa fa-check"></i><b>2.3</b> How is a linear regression model mathematically defined?</a></li>
 <li class="chapter" data-level="2.4" data-path="linear-regression.html"><a href="linear-regression.html#recap-on-probability-distributions"><i class="fa fa-check"></i><b>2.4</b> Recap on probability distributions</a></li>
-<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distribution"><i class="fa fa-check"></i><b>2.5</b> Some example normal distribution</a></li>
+<li class="chapter" data-level="2.5" data-path="linear-regression.html"><a href="linear-regression.html#some-example-normal-distributions"><i class="fa fa-check"></i><b>2.5</b> Some example normal distributions</a></li>
 <li class="chapter" data-level="2.6" data-path="linear-regression.html"><a href="linear-regression.html#conditional-probability-distributions"><i class="fa fa-check"></i><b>2.6</b> Conditional probability distributions</a></li>
 <li class="chapter" data-level="2.7" data-path="linear-regression.html"><a href="linear-regression.html#generative-versus-discriminative-models"><i class="fa fa-check"></i><b>2.7</b> Generative versus discriminative models</a></li>
 <li class="chapter" data-level="2.8" data-path="linear-regression.html"><a href="linear-regression.html#defining-linear-regression-as-a-conditional-probability-model"><i class="fa fa-check"></i><b>2.8</b> Defining linear regression as a conditional probability model</a></li>
@@ -393,9 +393,9 @@ Most of you should have prior experience with linear regression.
 Who has never heard of linear regression before?
 <em>(no one)</em>.
 Looks like you’ve all heard of linear regression before. That’s good.</p>
-<p>You may have encountered linear regression in various Bachelor courses, including “Data Analysis”, “Data Mining”, and “AI”. All of these cover some of the topics we’ll cover here in more depth. I’ll try not too repeat too much, but I’ll go through some of the basic materials we’ll need in the beginning
+<p>You may have encountered linear regression in various Bachelor courses, including “Data Analysis”, “Data Mining”, and “AI”. All of these cover some of the topics we’ll cover here in more depth. I’ll try not to repeat too much, but I’ll go through some of the basic materials we’ll need in the beginning
 just to make sure we’re all on the same page.</p>
-<p>What I won’t do is introduce probability theory from the beginning once again. If your background in probability theory is notvery solid – maybe because some earlier courses didn’t go that well for you – I recommend this online class from MIT: <a href="https://www.youtube.com/watch?v=1uW3qMFA9Ho&amp;list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6" class="uri">https://www.youtube.com/watch?v=1uW3qMFA9Ho&amp;list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6</a> which I think
+<p>What I won’t do is introduce probability theory from the beginning once again. If your background in probability theory is not very solid – maybe because some earlier courses didn’t go that well for you – I recommend this online class from MIT: <a href="https://www.youtube.com/watch?v=1uW3qMFA9Ho&amp;list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6" class="uri">https://www.youtube.com/watch?v=1uW3qMFA9Ho&amp;list=PLUl4u3cNGP60hI9ATjSFgLZpbNJ7myAg6</a> which I think
 really nicely covers the basic concepts of probability theory. The teacher is very good.</p>
 <p>Our first question in this class today is this one:</p>
 </div>
@@ -493,8 +493,8 @@ Indeed, one requirement is that the integral over the whole distribution should 
 <p>Good example. A number of people can’t be negative. If we were to use a normal distribution as a model of numbers of people, we’d in principle allow this number to be negative.</p>
 <p>But in practice, it could be that even if we model the number of people in this building with a normal distribution, the chance to actually get a negative number might be very small. For example, suppose we use a normal distribution with a mean of 600 and a standard deviation of 100. The chance to get a value of less than 0 is less then one in <span class="math inline">\(10^9\)</span>. That probability is so small that we may well decide we’re OK with this anyway.</p>
 </div>
-<div id="some-example-normal-distribution" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Some example normal distribution<a href="linear-regression.html#some-example-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="some-example-normal-distributions" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Some example normal distributions<a href="linear-regression.html#some-example-normal-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now let’s move on to statistical models, and let’s start by recalling the perhaps best-known one: the normal distribution.</p>
 <p>We often write the normal distribution with a calligraphic <span class="math inline">\({\cal N}\)</span>. Let’s recall the formula, which you may have seen many times:</p>
 <p><span class="math display">\[
@@ -546,7 +546,7 @@ P(x,y)
 <p>Such a model is called the <em>joint distribution</em> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <p>And then there’s a second kind of probability model that looks like this:</p>
 <p><span class="math display">\[
-P( x \mid y )
+P( y \mid x )
 \]</span></p>
 <p>Does anyone recognize what this is?</p>
 <blockquote>
@@ -554,7 +554,7 @@ P( x \mid y )
 </blockquote>
 <p>Yes! For those of us who need a reminder, let’s recall its definition:</p>
 <p><span class="math display">\[
-P( x \mid y ) = \frac{P(x,y)}{P(y)}
+P( y \mid x ) = \frac{P(x,y)}{P(x)}
 \]</span></p>
 <p>The conditional distribution models the probability of <span class="math inline">\(Y\)</span> <em>after</em> <span class="math inline">\(X\)</span> has already been observed. We know what the value of <span class="math inline">\(X\)</span> is, and we ask: how does that change our belief (for epistemic probability) or the chance (for aleatorial probability) that <span class="math inline">\(Y\)</span> will occur?
 For discrete events, we can compute this by taking the joint probability that X and Y both happen, and dividing that
@@ -565,14 +565,14 @@ Whether that’s a regression model, deep neural network, or some other machine 
 <div id="generative-versus-discriminative-models" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Generative versus discriminative models<a href="linear-regression.html#generative-versus-discriminative-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There’s another useful way to distinguish two models of the type
-<span class="math inline">\(P(x,y)\)</span> and <span class="math inline">\(P(x \mid y)\)</span>, which we’ll talk about now.</p>
+<span class="math inline">\(P(x,y)\)</span> and <span class="math inline">\(P(y \mid x)\)</span>, which we’ll talk about now.</p>
 <p>In the last three years, one kind of AI model became very powerful and popular – the so-called <em>generative AI</em> model. And generative models are models of the form</p>
 <p><span class="math display">\[P(x)\]</span></p>
 <p>where <span class="math display">\[x\]</span> could be a vector of very high dimension (if there are two dimensions, we could again write <span class="math inline">\(P(x,y)\)</span> instead). The reason such models are called “generative” is that we can generally simulate data from them.</p>
 <p>On the other hand, a model of the form</p>
 <p><span class="math display">\[P( y \mid x )\]</span></p>
 <p>is called a <em>discriminative</em> model.
-For example, when we’re trying to build a classifier, we would typically reach for a model o this second kind – such as a logistic regression model – rather than of the first kind (e.g., Naive Bayes).</p>
+For example, when we’re trying to build a classifier, we would typically reach for a model of this second kind – such as a logistic regression model – rather than of the first kind (e.g., Naive Bayes).</p>
 <p>There’s an intuitive explanation for this general preference for discriminative models for prediction and classification. Thinking back about the definition of conditional probability,</p>
 <p><span class="math display">\[
 P( x \mid y ) = \frac{P(x,y)}{P(y)}
@@ -604,7 +604,7 @@ P( y \mid x  ) = \frac{P(x,y)}{P(x)}
 \]</span></p>
 <p>In other words, if we have a generative model, we can generally use that to make a discriminative model!</p>
 <p>For example, I could take ChatGPT and turn it into a classifier. But it does not work the other way around: I can’t take a discriminative model and then make it generative.
-For instance, I have a classifier of cats versus dogs, I can’t use that to make new pictures of cats and dogs.
+For instance, if I have a classifier of cats versus dogs, I can’t use that to make new pictures of cats and dogs.
 But if I have a generative model that makes pictures of cats and dogs, it’ll generally be easy to transform that to something that classifies cats versus dogs.
 For example, we could look at the inner layers of a network, extract them, and feed them to a regression model.</p>
 <p>In that sense, generative models are more powerful than discriminative ones.
@@ -613,11 +613,11 @@ And that’s why a common view in machine learning has been that we don’t use 
 <blockquote>
 <p>Does this mean that we can in theory easily make an AI that would check, for example, student reports that use chat GPT?</p>
 </blockquote>
-<p>It’s possible in theory to build an AI that detects ChatGPT-written reports by training a classifier on latent representations of AI vs. human text. But in practice it wouldn’t be reliable because the classifier operates in what we call an <em>adversarial</em> context: students will actively adjust their text until it passes. AI models are generally very vulnerable to such attacks. In image classification models, for instance, adversarially changing just a few pixels could make a pig get classified as an airplane. Therefore, while AI detectors can be built in principle, they will won’t be reliable as they are too easy to fool.</p>
+<p>It’s possible in theory to build an AI that detects ChatGPT-written reports by training a classifier on latent representations of AI vs. human text. But in practice it wouldn’t be reliable because the classifier operates in what we call an <em>adversarial</em> context: students will actively adjust their text until it passes. AI models are generally very vulnerable to such attacks. In image classification models, for instance, adversarially changing just a few pixels could make a pig get classified as an airplane. Therefore, while AI detectors can be built in principle, they won’t be reliable as they are too easy to fool.</p>
 <blockquote>
 <p>There’s the saying when a measure becomes a target, it ceases to be a good measure.</p>
 </blockquote>
-<p>That’s <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart’s law</a>. For example, if you’ rank people by a metric, they’ll attempt to game that metric.
+<p>That’s <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart’s law</a>. For example, if you rank people by a metric, they’ll attempt to game that metric.
 If you judge me on how many papers I publish, I’ll going to make sure my name goes on papers just for that reason. Likewise, If I run an AI detector on your work, you’ll find out about it and find some way to fool it. So that’s not something I believe can be done.</p>
 </div>
 <div id="defining-linear-regression-as-a-conditional-probability-model" class="section level2 hasAnchor" number="2.8">
@@ -672,19 +672,19 @@ with mean 1 and standard deviation 1.</p>
 <p>You can see if I change the mean,
 the whole curve shifts.</p>
 <p>Now let’s ask again: what does a value like <code>dnorm( 0, mean=1, sd=1 )</code> (=0.24, the value of the red curve at 0), mean exactly?</p>
-<p>We’re assuming here that <span class="math inline">\(X\)</span> is a real number. There are a lot of real numbers – incountably infinitely many ones, in fact. So the value 0.24 can’t be a probability. For any number drawn at random from the real line (no matter the distribution, as long as it’s positive everywhere), the chance that this number is <em>exactly</em> 0 is 0.</p>
-<p>Let’s convince ourselves that’s ture by doing some simulations in R.
+<p>We’re assuming here that <span class="math inline">\(X\)</span> is a real number. There are a lot of real numbers – uncountably infinitely many ones, in fact. So the value 0.24 can’t be a probability. For any number drawn at random from the real line (no matter the distribution, as long as it’s positive everywhere), the chance that this number is <em>exactly</em> 0 is 0.</p>
+<p>Let’s convince ourselves that’s true by doing some simulations in R.
 In R, I can sample from random distributions
 using functions that start with the letter r, which
 stands for draw a <strong>r</strong>andom number.
 So if I want to draw a random number
 with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-regression.html#cb4-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">1</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 2.366071</code></pre>
+<pre><code>## [1] 0.6673608</code></pre>
 <p>I can also generate multiple random numbers at once like this:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="linear-regression.html#cb6-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">10</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>##  [1]  2.9872336  0.7471037  2.4640785  0.9793641 -0.4552336 -0.3551242
-##  [7]  1.5944227  1.4614560  0.2735420  1.4879315</code></pre>
+<pre><code>##  [1]  0.38581758  1.75710845  1.93551758  0.83436499 -0.15673720  2.64571496
+##  [7] -0.13361866 -0.00465624  0.92474990  1.14277215</code></pre>
 <p>If 0.24 were the probability to get a <span class="math inline">\(0\)</span> from this, approximately 24% of these values should be 0, which is clearly not the case.</p>
 <p>In fact, even if we generate very many random numbers, we’ll be unable to ever exactly hit 0. We’ll almost always be ever so slightly off.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="linear-regression.html#cb8-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">rnorm</span>( <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )<span class="sc">==</span><span class="dv">0</span>)</span></code></pre></div>
@@ -695,7 +695,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <p>Yes, we’re going to do something like that. But before we go there, consider what would happen in the <em>discrete</em> case, which you may be more used to thinking about.</p>
 <p>Let’s take the binomial distribution: We repeat an experiment (like a coin flip) <span class="math inline">\(n\)</span> times, and the success probability each time is <span class="math inline">\(p\)</span>. Then the number of successes (which is at least 0 and at most <span class="math inline">\(n\)</span>) has a <em>binomial distribution</em>. Let’s generate some random numbers from a binomial distribution for fair coin flips:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="linear-regression.html#cb10-1" tabindex="-1"></a><span class="fu">rbinom</span>( <span class="dv">10</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
-<pre><code>##  [1] 2 2 1 1 3 1 0 3 2 1</code></pre>
+<pre><code>##  [1] 2 1 1 1 1 3 1 1 0 1</code></pre>
 <p>For example, in my first example, two of my three coin flips ended up with me “winning” (which I need to define beforehand as one side of the coin).</p>
 <p>Like any probability model, the binomial distribution also has a density function. Let’s check its value for two wins in the setting above:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="linear-regression.html#cb12-1" tabindex="-1"></a><span class="fu">dbinom</span>( <span class="dv">2</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
@@ -704,7 +704,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="linear-regression.html#cb14-1" tabindex="-1"></a><span class="fu">table</span>( <span class="fu">rbinom</span>( <span class="dv">1000</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> ) ) </span></code></pre></div>
 <pre><code>## 
 ##   0   1   2   3 
-## 123 363 375 139</code></pre>
+## 128 365 378 129</code></pre>
 <p>The percentage of experiments with 2 wins is 38.6%, indeed close to what I was expecting!</p>
 <p>So, we have an important distinction between discrete and continuous variables when it comes to probability density functions:</p>
 <ul>
@@ -721,8 +721,8 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="linear-regression.html#cb16-1" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="fl">1e6</span>, <span class="dv">1</span>, <span class="dv">1</span> )</span></code></pre></div>
 <p>Now let’s ask: how many of these are between 0 and 1?</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="linear-regression.html#cb17-1" tabindex="-1"></a><span class="fu">mean</span>( <span class="dv">0</span> <span class="sc">&lt;=</span> s <span class="sc">&amp;</span> s <span class="sc">&lt;=</span> <span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.340282</code></pre>
-<p>Approximately 34%. Now let’s verify that this matches what we get by integrating the density function <span class="math display">\[{\cal{N}(1,1)}\]</span>. We can’t do that analytically, but in R we have the integral available using the function <code>pnorm</code> command. For example, we can get the integral</p>
+<pre><code>## [1] 0.341867</code></pre>
+<p>Approximately 34%. Now let’s verify that this matches what we get by integrating the density function <span class="math display">\[{\cal{N}(1,1)}\]</span>. We can’t do that analytically, but in R we have the integral available using the function <code>pnorm</code>. For example, we can get the integral</p>
 <p><span class="math display">\[\int_{x=-\infty}^{1} {\cal N}(1,1)\]</span></p>
 <p>by typing</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-regression.html#cb19-1" tabindex="-1"></a><span class="fu">pnorm</span>( <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span> )</span></code></pre></div>
@@ -755,7 +755,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <p><img src="sci_files/figure-html/binomplot2-1.png" width="672" /></p>
 <p>From the density plot, it’s easier to see:</p>
 <ul>
-<li>That the distribution is symmetric</li>
+<li>That the distribution is (roughly) symmetric</li>
 <li>That the distribution’s peak (most likely value) is at 15</li>
 <li>That the distribution does not have very heavy tails (very small and very large values are unlikely)</li>
 </ul>
@@ -767,7 +767,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 and a probability distribution?</p>
 <p>The answer is: there are many
 different probability distributions, with both the Normal and the Laplace distribution being examples.</p>
-<p>From this plots, we can see that</p>
+<p>From these plots, we can see that</p>
 <ul>
 <li>The Laplace distribution is “peakier”, it has a “sharp” peak whereas the Normal distribution has a “round” peak</li>
 <li>The Laplace distribution has heavier tails:
@@ -781,7 +781,7 @@ the normal distribution rather than the Laplace distribution, gamma distribution
 <blockquote>
 <p>Is it some of the assumption you take based on the data?</p>
 </blockquote>
-<p>It’s an assumption, yet, but there’s generally no reason to believe a normal distribution works best. In fact, we can also make a regression models with Laplace errors, Cauchy distributed errors etc. But when we talk about “the” regression model,
+<p>It’s an assumption, yes, but there’s generally no reason to believe a normal distribution works best. In fact, we can also make a regression model with Laplace errors, Cauchy distributed errors etc. But when we talk about “the” regression model,
 we typically refer to a model with normally distributed errors.</p>
 <p>Another question asked during the break was: does the regression function need to be linear? In fact it doesn’t – the linear model is more flexible than you may think, and we’ll return to that point later.</p>
 <div id="linear-regression-as-conditional-expectation" class="section level3 hasAnchor" number="2.10.1">
@@ -851,7 +851,7 @@ without any other information.
 And I need to make a prediction without using any other information. Plus, someone’s going to punish me for being wrong.</p>
 <p>Let’s call my prediction <span class="math inline">\(\mu\)</span>. I need to choose which value of <span class="math inline">\(\mu\)</span> I use. Let’s say I choose <span class="math inline">\(\mu=600\)</span>. A <em>loss function</em> is a way to measure how good this prediction is.</p>
 <p>We could think of different possible loss functions. But we heard before of a loss function
-called the squared error, so let’s start with that. Loss functions are often written using <span class="math inline">\(L\)</span>, and they are a function of my prediction any the actual observation. For example, the <em>squared loss</em> is</p>
+called the squared error, so let’s start with that. Loss functions are often written using <span class="math inline">\(L\)</span>, and they are a function of my prediction and the actual observation. For example, the <em>squared loss</em> is</p>
 <p><span class="math display">\[
 L( \mu, x ) = (x - \mu)^2
 \]</span></p>
@@ -934,8 +934,8 @@ and the absolute error leads to the median.</p>
 <p>Let’s consider why the mean absolute error leads to the median. To optimize the sum of absolute errors</p>
 <p><span class="math display">\[\sum_{i=1}^n| x_i - \mu |\]</span></p>
 <p>we’ll again consider the derivative</p>
-<p><span class="math display">\[\frac{\delta}{\delta \mu}\sum_{i=0}^n| x_i - \mu |=
-\sum_{i=0}^n \text{sign}(x_i - \mu) \]</span></p>
+<p><span class="math display">\[\frac{\delta}{\delta \mu}\sum_{i=1}^n| x_i - \mu |=
+\sum_{i=1}^n \text{sign}(x_i - \mu) \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
 \text{sign}(x) = \begin{cases}
@@ -947,13 +947,13 @@ and the absolute error leads to the median.</p>
 <p><em>(This is technically not a derivative because the point at 0 is not continuous – it’s one of the possible “subgradients”)</em>
 Note that the expression <span class="math display">\[\text{sign}(x_i - \mu)\]</span> looks a bit like a <em>zero-one-loss</em>: if I get my “prediction” <span class="math inline">\(\mu\)</span> right, then I am not punished, but if I get it wrong, I get punished the same no matter how far I’m off. Now, the condition</p>
 <p><span class="math display">\[
-\sum_{i=0}^n \text{sign}(x_i - \mu) = 0
+\sum_{i=1}^n \text{sign}(x_i - \mu) = 0
 \]</span></p>
 <p>is satisfied if exactly as many predictions are too low (<span class="math inline">\(\mu &lt; x_i\)</span>) as are too high (<span class="math inline">\(\mu &gt; x_i\)</span>). This is exactly what using the median for <span class="math inline">\(\mu\)</span> achieves. For example, suppose my samples are</p>
 <p><span class="math display">\[ x_1 = 1, x_2 = 2, x_3 = 9 \]</span></p>
 <p>Then I must use <span class="math display">\[\mu=2\]</span> to get the minimum loss</p>
 <p><span class="math display">\[
-\sum_{i=0}^n \text{sign}(x_i - \mu) = -1 + 0 + 1 = 0
+\sum_{i=1}^n \text{sign}(x_i - \mu) = -1 + 0 + 1 = 0
 \]</span></p>
 <p>and no other value for <span class="math inline">\(\mu\)</span> will achieve this.</p>
 <p>On the other hand, suppose we have</p>
@@ -994,7 +994,7 @@ random draw falls between 0 and 1?</p></li>
 <p><span class="math display">\[
     \sum_i L( \theta, x ) = \sum_i (x_i-\theta)^2
   \]</span></p>
-<p>over a the sample <span class="math inline">\(x_1, \ldots x_n\)</span>. What will the resulting value of <span class="math inline">\(\theta\)</span> be?</p>
+<p>over the sample <span class="math inline">\(x_1, \ldots x_n\)</span>. What will the resulting value of <span class="math inline">\(\theta\)</span> be?</p>
 <ol start="7" style="list-style-type: decimal">
 <li>The linear regression model
 <span class="math display">\[ P(y|x) = {\cal N}(\beta x + \alpha, \sigma)\]</span> has three parameters <span class="math inline">\(\alpha, \beta, \sigma\)</span>. Explain the meaning of each parameter, and explain why <span class="math inline">\(\sigma\)</span> might be considered a “nuisance parameter.”</li>

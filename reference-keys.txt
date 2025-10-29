@@ -24,7 +24,7 @@ on-the-difference-between-this-course-and-others-in-the-master
 linear-regression-1
 how-is-a-linear-regression-model-mathematically-defined
 recap-on-probability-distributions
-some-example-normal-distribution
+some-example-normal-distributions
 conditional-probability-distributions
 generative-versus-discriminative-models
 defining-linear-regression-as-a-conditional-probability-model
