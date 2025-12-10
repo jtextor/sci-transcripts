@@ -873,4 +873,7 @@ Another reason squared loss is often preferred is that it can often be minimized
  7. The linear regression model 
  $$ P(y|x) = {\cal N}(\beta x + \alpha, \sigma)$$  has three parameters $\alpha, \beta, \sigma$. Explain the meaning of each parameter, and explain why $\sigma$ might be considered a "nuisance parameter."
 
+## Further understanding
+If any topics within regression (or statistics in general) are still unclear, you can take a look at this youtube account: https://www.youtube.com/@zedstatistics/videos. This youtuber made several videos on regression, especially the video "Learn Statistical Regression in 40 mins! My best video ever. Legit." talks you through the process really nice.
+
 
