@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Linear regression | Statistical and Causal Inference</title>
   <meta name="description" content="2 Linear regression | Statistical and Causal Inference" />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Linear regression | Statistical and Causal Inference" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-10-29" />
+<meta name="date" content="2025-12-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -388,6 +388,8 @@ and that you can formulate specific research questions.</p>
 </div>
 <div id="linear-regression-1" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Linear regression<a href="linear-regression.html#linear-regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Interesting playlist about various concepts in Linear Regression and Linear Models by StatQuest with Josh Starmer:
+<a href="https://www.youtube.com/watch?v=2AQKmw14mHM&amp;list=PLblh5JKOoLUIzaEkCLIUxQFjPIlapw8nU" class="uri">https://www.youtube.com/watch?v=2AQKmw14mHM&amp;list=PLblh5JKOoLUIzaEkCLIUxQFjPIlapw8nU</a></p>
 <p>Today we’re going to cover the topic of linear regression.
 Most of you should have prior experience with linear regression.
 Who has never heard of linear regression before?
@@ -680,11 +682,11 @@ stands for draw a <strong>r</strong>andom number.
 So if I want to draw a random number
 with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-regression.html#cb4-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">1</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.6673608</code></pre>
+<pre><code>## [1] 2.15943</code></pre>
 <p>I can also generate multiple random numbers at once like this:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="linear-regression.html#cb6-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">10</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>##  [1]  0.38581758  1.75710845  1.93551758  0.83436499 -0.15673720  2.64571496
-##  [7] -0.13361866 -0.00465624  0.92474990  1.14277215</code></pre>
+<pre><code>##  [1]  0.4479281  2.8085331  0.3478210  0.7614268 -1.1567373  1.9722594
+##  [7]  0.8715012  1.8628656  2.1923006 -0.1139708</code></pre>
 <p>If 0.24 were the probability to get a <span class="math inline">\(0\)</span> from this, approximately 24% of these values should be 0, which is clearly not the case.</p>
 <p>In fact, even if we generate very many random numbers, we’ll be unable to ever exactly hit 0. We’ll almost always be ever so slightly off.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="linear-regression.html#cb8-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">rnorm</span>( <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )<span class="sc">==</span><span class="dv">0</span>)</span></code></pre></div>
@@ -695,7 +697,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <p>Yes, we’re going to do something like that. But before we go there, consider what would happen in the <em>discrete</em> case, which you may be more used to thinking about.</p>
 <p>Let’s take the binomial distribution: We repeat an experiment (like a coin flip) <span class="math inline">\(n\)</span> times, and the success probability each time is <span class="math inline">\(p\)</span>. Then the number of successes (which is at least 0 and at most <span class="math inline">\(n\)</span>) has a <em>binomial distribution</em>. Let’s generate some random numbers from a binomial distribution for fair coin flips:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="linear-regression.html#cb10-1" tabindex="-1"></a><span class="fu">rbinom</span>( <span class="dv">10</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
-<pre><code>##  [1] 2 1 1 1 1 3 1 1 0 1</code></pre>
+<pre><code>##  [1] 0 0 1 0 0 0 1 1 2 1</code></pre>
 <p>For example, in my first example, two of my three coin flips ended up with me “winning” (which I need to define beforehand as one side of the coin).</p>
 <p>Like any probability model, the binomial distribution also has a density function. Let’s check its value for two wins in the setting above:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="linear-regression.html#cb12-1" tabindex="-1"></a><span class="fu">dbinom</span>( <span class="dv">2</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
@@ -704,7 +706,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="linear-regression.html#cb14-1" tabindex="-1"></a><span class="fu">table</span>( <span class="fu">rbinom</span>( <span class="dv">1000</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> ) ) </span></code></pre></div>
 <pre><code>## 
 ##   0   1   2   3 
-## 128 365 378 129</code></pre>
+## 100 383 382 135</code></pre>
 <p>The percentage of experiments with 2 wins is 38.6%, indeed close to what I was expecting!</p>
 <p>So, we have an important distinction between discrete and continuous variables when it comes to probability density functions:</p>
 <ul>
@@ -721,7 +723,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="linear-regression.html#cb16-1" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="fl">1e6</span>, <span class="dv">1</span>, <span class="dv">1</span> )</span></code></pre></div>
 <p>Now let’s ask: how many of these are between 0 and 1?</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="linear-regression.html#cb17-1" tabindex="-1"></a><span class="fu">mean</span>( <span class="dv">0</span> <span class="sc">&lt;=</span> s <span class="sc">&amp;</span> s <span class="sc">&lt;=</span> <span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.341867</code></pre>
+<pre><code>## [1] 0.339503</code></pre>
 <p>Approximately 34%. Now let’s verify that this matches what we get by integrating the density function <span class="math display">\[{\cal{N}(1,1)}\]</span>. We can’t do that analytically, but in R we have the integral available using the function <code>pnorm</code>. For example, we can get the integral</p>
 <p><span class="math display">\[\int_{x=-\infty}^{1} {\cal N}(1,1)\]</span></p>
 <p>by typing</p>
