@@ -856,6 +856,10 @@ This also means that, if the Wald and sandwich estimates are very different, it 
 
 In statistical software packages, you sometimes get reported "robust standard errors" for a fitted model, in addition to the standard Wald estimates. This often refers to Sandwich estimators. 
 
+### Complementary Material 
+
+There is a nice Python package that helps with optimizing maximum-likelihood and least-squares fits, it is called [iminuit](https://scikit-hep.org/iminuit/ "iminuit"). I used this during another course and I thought it would be worth sharing here, as it provides a straightforward way to fit models by simply defining your own fit or likelihood function in Python.
+
 ## Recap
 
 We covered three methods today to estimate parameter uncertainty in statistical models:
