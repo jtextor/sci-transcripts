@@ -412,6 +412,14 @@ So, yeah, so that's one example where
 we're using a methodology that we've talked about so far,
 doesn't really give us a meaning for that.
 
+#### Student Contribution
+3blue1brown actually has a good video that starts with a very similar case 
+to the 10 right answers of ChatGPT. In his video he talks about sellers with different amount 
+of reviews and ratings on amazon and which one to choose given the number of reviews and approval rating. 
+Although the series should consist of three videos, the last one was never made and the second 
+one is about PDFs so maybe less relevant here, but still an interesting addition to the course.
+Link: https://www.youtube.com/watch?v=8idr1WZ1A7Q
+
 ### Bayesian inference in a simulation setting
 
 So, another example is indeed simulation models.
