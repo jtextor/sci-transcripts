@@ -86,6 +86,7 @@ toy-example
 wald-test-for-the-labeling-data
 sandwich-estimation
 sandwich-estimator-for-maximum-likelihood
+complementary-material
 recap-1
 test-your-knowledge
 selecting-models

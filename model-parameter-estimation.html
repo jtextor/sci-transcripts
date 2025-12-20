@@ -268,7 +268,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6.2" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#wald-test-for-the-labeling-data"><i class="fa fa-check"></i><b>6.6.2</b> Wald test for the labeling data</a></li>
 </ul></li>
 <li class="chapter" data-level="6.7" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimation"><i class="fa fa-check"></i><b>6.7</b> Sandwich estimation</a></li>
-<li class="chapter" data-level="6.8" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood"><i class="fa fa-check"></i><b>6.8</b> Sandwich estimator for maximum likelihood</a></li>
+<li class="chapter" data-level="6.8" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood"><i class="fa fa-check"></i><b>6.8</b> Sandwich estimator for maximum likelihood</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#complementary-material"><i class="fa fa-check"></i><b>6.8.1</b> Complementary Material</a></li>
+</ul></li>
 <li class="chapter" data-level="6.9" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#recap-1"><i class="fa fa-check"></i><b>6.9</b> Recap</a></li>
 <li class="chapter" data-level="6.10" data-path="model-parameter-estimation.html"><a href="model-parameter-estimation.html#test-your-knowledge"><i class="fa fa-check"></i><b>6.10</b> Test your knowledge</a></li>
 </ul></li>
@@ -1038,6 +1041,10 @@ H^{-1} \left( \sum_{i}\rho&#39;(x_i,\hat{\theta}) \, \rho&#39;(x_i,\hat{\theta})
 <li>You want to investigate the difference between the two since you’re suspicious about the validity of your model.</li>
 </ul>
 <p>In statistical software packages, you sometimes get reported “robust standard errors” for a fitted model, in addition to the standard Wald estimates. This often refers to Sandwich estimators.</p>
+<div id="complementary-material" class="section level3 hasAnchor" number="6.8.1">
+<h3><span class="header-section-number">6.8.1</span> Complementary Material<a href="model-parameter-estimation.html#complementary-material" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There is a nice Python package that helps with optimizing maximum-likelihood and least-squares fits, it is called <a href="https://scikit-hep.org/iminuit/" title="iminuit">iminuit</a>. I used this during another course and I thought it would be worth sharing here, as it provides a straightforward way to fit models by simply defining your own fit or likelihood function in Python.</p>
+</div>
 </div>
 <div id="recap-1" class="section level2 hasAnchor" number="6.9">
 <h2><span class="header-section-number">6.9</span> Recap<a href="model-parameter-estimation.html#recap-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
