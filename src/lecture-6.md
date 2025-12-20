@@ -866,6 +866,7 @@ because we need a likelihood function
 for the Bayesian framework.
 
 ## Approximate Bayesian Computation (ABC)
+> For a gentle hands-on introduction to implementing ABC from scratch, see "An intro to ABC – approximate Bayesian computation" by Umberto Picchini: https://www.maths.lu.se/fileadmin/maths/forskning_research/InferPartObsProcess/abc_slides.pdf
 
 For understanding why Bayesian inference helps with 
 simulation models,
