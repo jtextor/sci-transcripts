@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-12-20" />
+<meta name="date" content="2026-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -512,7 +512,7 @@ Indeed, one requirement is that the integral over the whole distribution should 
 <span id="cb1-2"><a href="linear-regression.html#cb1-2" tabindex="-1"></a><span class="fu">plot</span>( x, <span class="fu">dnorm</span>( x, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span> ), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span>
 <span id="cb1-3"><a href="linear-regression.html#cb1-3" tabindex="-1"></a><span class="fu">lines</span>( x, <span class="fu">dnorm</span>( x, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> ), <span class="at">col=</span><span class="dv">2</span> )</span>
 <span id="cb1-4"><a href="linear-regression.html#cb1-4" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="dv">1</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/normplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/normplot-1.png" alt="" width="672" /></p>
 <p>We also sometimes omit the argument <span class="math inline">\(x\)</span> and simply write it as</p>
 <p><span class="math display">\[
 {\cal N}( \mu, \sigma ) =
@@ -528,7 +528,7 @@ Indeed, one requirement is that the integral over the whole distribution should 
 \]</span></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="linear-regression.html#cb2-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length.out=</span><span class="dv">100</span> ) </span>
 <span id="cb2-2"><a href="linear-regression.html#cb2-2" tabindex="-1"></a><span class="fu">plot</span>( x, VGAM<span class="sc">::</span><span class="fu">dlaplace</span>( x, <span class="dv">0</span>, <span class="dv">1</span> ), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/laplaceplot2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/laplaceplot2-1.png" alt="" width="672" /></p>
 <p>There are many other distributions including the uniform distribution, geometric distribution,
 gamma distribution, beta distribution and so forth.
 You’ve maybe heard about some of these.</p>
@@ -673,7 +673,7 @@ with mean 1 and standard deviation 1.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="linear-regression.html#cb3-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length.out=</span><span class="dv">100</span> ) </span>
 <span id="cb3-2"><a href="linear-regression.html#cb3-2" tabindex="-1"></a><span class="fu">plot</span>( x, <span class="fu">dnorm</span>( x, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span> ), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span>
 <span id="cb3-3"><a href="linear-regression.html#cb3-3" tabindex="-1"></a><span class="fu">lines</span>( x, <span class="fu">dnorm</span>( x, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> ), <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/normplot2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/normplot2-1.png" alt="" width="672" /></p>
 <p>You can see if I change the mean,
 the whole curve shifts.</p>
 <p>Now let’s ask again: what does a value like <code>dnorm( 0, mean=1, sd=1 )</code> (=0.24, the value of the red curve at 0), mean exactly?</p>
@@ -685,11 +685,11 @@ stands for draw a <strong>r</strong>andom number.
 So if I want to draw a random number
 with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-regression.html#cb4-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">1</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.4843484</code></pre>
+<pre><code>## [1] 1.683628</code></pre>
 <p>I can also generate multiple random numbers at once like this:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="linear-regression.html#cb6-1" tabindex="-1"></a><span class="fu">rnorm</span>( <span class="dv">10</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )</span></code></pre></div>
-<pre><code>##  [1] -0.37374099  0.19244524  3.84213426  0.09041666  2.00729253  0.61783198
-##  [7]  0.54345801  2.07332155 -0.32833239  1.08317444</code></pre>
+<pre><code>##  [1]  1.0306052  1.7973037  0.4691455  1.6441909  1.9259056 -0.1058127
+##  [7]  1.4605930  1.6096489  1.0815701  1.4567245</code></pre>
 <p>If 0.24 were the probability to get a <span class="math inline">\(0\)</span> from this, approximately 24% of these values should be 0, which is clearly not the case.</p>
 <p>In fact, even if we generate very many random numbers, we’ll be unable to ever exactly hit 0. We’ll almost always be ever so slightly off.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="linear-regression.html#cb8-1" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">rnorm</span>( <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="dv">1</span>, <span class="at">sd=</span><span class="dv">1</span> )<span class="sc">==</span><span class="dv">0</span>)</span></code></pre></div>
@@ -700,7 +700,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <p>Yes, we’re going to do something like that. But before we go there, consider what would happen in the <em>discrete</em> case, which you may be more used to thinking about.</p>
 <p>Let’s take the binomial distribution: We repeat an experiment (like a coin flip) <span class="math inline">\(n\)</span> times, and the success probability each time is <span class="math inline">\(p\)</span>. Then the number of successes (which is at least 0 and at most <span class="math inline">\(n\)</span>) has a <em>binomial distribution</em>. Let’s generate some random numbers from a binomial distribution for fair coin flips:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="linear-regression.html#cb10-1" tabindex="-1"></a><span class="fu">rbinom</span>( <span class="dv">10</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
-<pre><code>##  [1] 0 1 1 1 1 1 1 2 3 1</code></pre>
+<pre><code>##  [1] 3 2 1 1 1 1 1 3 1 1</code></pre>
 <p>For example, in my first example, two of my three coin flips ended up with me “winning” (which I need to define beforehand as one side of the coin).</p>
 <p>Like any probability model, the binomial distribution also has a density function. Let’s check its value for two wins in the setting above:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="linear-regression.html#cb12-1" tabindex="-1"></a><span class="fu">dbinom</span>( <span class="dv">2</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> )</span></code></pre></div>
@@ -709,7 +709,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="linear-regression.html#cb14-1" tabindex="-1"></a><span class="fu">table</span>( <span class="fu">rbinom</span>( <span class="dv">1000</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">prob=</span><span class="fl">0.5</span> ) ) </span></code></pre></div>
 <pre><code>## 
 ##   0   1   2   3 
-## 118 379 379 124</code></pre>
+## 128 349 386 137</code></pre>
 <p>The percentage of experiments with 2 wins is 38.6%, indeed close to what I was expecting!</p>
 <p>So, we have an important distinction between discrete and continuous variables when it comes to probability density functions:</p>
 <ul>
@@ -726,7 +726,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="linear-regression.html#cb16-1" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="fl">1e6</span>, <span class="dv">1</span>, <span class="dv">1</span> )</span></code></pre></div>
 <p>Now let’s ask: how many of these are between 0 and 1?</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="linear-regression.html#cb17-1" tabindex="-1"></a><span class="fu">mean</span>( <span class="dv">0</span> <span class="sc">&lt;=</span> s <span class="sc">&amp;</span> s <span class="sc">&lt;=</span> <span class="dv">1</span> )</span></code></pre></div>
-<pre><code>## [1] 0.341473</code></pre>
+<pre><code>## [1] 0.34185</code></pre>
 <p>Approximately 34%. Now let’s verify that this matches what we get by integrating the density function <span class="math display">\[{\cal{N}(1,1)}\]</span>. We can’t do that analytically, but in R we have the integral available using the function <code>pnorm</code>. For example, we can get the integral</p>
 <p><span class="math display">\[\int_{x=-\infty}^{1} {\cal N}(1,1)\]</span></p>
 <p>by typing</p>
@@ -752,12 +752,12 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="linear-regression.html#cb23-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span>; p <span class="ot">&lt;-</span> <span class="fl">0.3</span>; k <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n</span>
 <span id="cb23-2"><a href="linear-regression.html#cb23-2" tabindex="-1"></a><span class="fu">plot</span>(k, <span class="fu">dbinom</span>(k,n,p), <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;steelblue&quot;</span>,</span>
 <span id="cb23-3"><a href="linear-regression.html#cb23-3" tabindex="-1"></a>      <span class="at">xlab=</span><span class="st">&quot;k&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;P(X=k)&quot;</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/binomplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/binomplot-1.png" alt="" width="672" /></p>
 <p>I would also argue that density plots are easier to interpret than plots of integrals of densities, which look like this:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="linear-regression.html#cb24-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span>; p <span class="ot">&lt;-</span> <span class="fl">0.3</span>; k <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n</span>
 <span id="cb24-2"><a href="linear-regression.html#cb24-2" tabindex="-1"></a><span class="fu">plot</span>(k, <span class="fu">pbinom</span>(k,n,p), <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;steelblue&quot;</span>,</span>
 <span id="cb24-3"><a href="linear-regression.html#cb24-3" tabindex="-1"></a>      <span class="at">xlab=</span><span class="st">&quot;k&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;P(X=k)&quot;</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/binomplot2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/binomplot2-1.png" alt="" width="672" /></p>
 <p>From the density plot, it’s easier to see:</p>
 <ul>
 <li>That the distribution is (roughly) symmetric</li>
@@ -767,7 +767,7 @@ with a normal distribution, I use <code>rnorm</code> like this:</p>
 <p>To illustrate this point even more, I also want to show for comparison the Laplace distribution.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="linear-regression.html#cb25-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length.out=</span><span class="dv">100</span> ) </span>
 <span id="cb25-2"><a href="linear-regression.html#cb25-2" tabindex="-1"></a><span class="fu">plot</span>( x, VGAM<span class="sc">::</span><span class="fu">dlaplace</span>( x, <span class="dv">0</span>, <span class="dv">1</span> ), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/laplaceplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/laplaceplot-1.png" alt="" width="672" /></p>
 <p>I’m showing this because someone asked: what’s the difference between a normal distribution
 and a probability distribution?</p>
 <p>The answer is: there are many
@@ -819,7 +819,7 @@ the expectations could be a bit harder
 to see from a plot. <em>(For example, the expectation of a chi-square distribution with 3 degrees of freedom is 3, which is not so obvious from its plot:)</em></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="linear-regression.html#cb26-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="at">by=</span>.<span class="dv">1</span>)</span>
 <span id="cb26-2"><a href="linear-regression.html#cb26-2" tabindex="-1"></a><span class="fu">plot</span>( x, <span class="fu">dchisq</span>( x, <span class="dv">3</span> ), <span class="at">t=</span><span class="st">&#39;l&#39;</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/chisq-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/chisq-1.png" alt="" width="672" /></p>
 <p>The general definition of the expectation also works for conditional expectations, i.e.,</p>
 <p><span class="math display">\[
 E[ y \mid x ] = \int \, P(y \mid x) \, y \, \, dy
@@ -974,7 +974,7 @@ Note that the expression <span class="math display">\[\text{sign}(x_i - \mu)\]</
 <span id="cb27-7"><a href="linear-regression.html#cb27-7" tabindex="-1"></a><span class="fu">par</span>( <span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) )</span>
 <span id="cb27-8"><a href="linear-regression.html#cb27-8" tabindex="-1"></a><span class="fu">plot</span>( mu, <span class="fu">sqloss</span>(mu), <span class="at">type=</span><span class="st">&#39;l&#39;</span>)</span>
 <span id="cb27-9"><a href="linear-regression.html#cb27-9" tabindex="-1"></a><span class="fu">plot</span>( mu, <span class="fu">absloss</span>(mu), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/sqva-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/sqva-1.png" alt="" width="672" /></p>
 <p>From this comparison, we can see two of the <em>technical</em> reasons that squared loss is often preferred over absolute loss:</p>
 <ul>
 <li>It is smooth (continuous everywhere)</li>

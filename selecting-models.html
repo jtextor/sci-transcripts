@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-12-20" />
+<meta name="date" content="2026-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -643,7 +643,7 @@ data scientists even they wonder what’s even the difference between accuracy a
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="selecting-models.html#cb145-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb145-2"><a href="selecting-models.html#cb145-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="dv">1</span>, <span class="dv">50</span> ); y <span class="ot">&lt;-</span> <span class="fl">0.2</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>( <span class="dv">50</span>, <span class="at">sd=</span><span class="dv">10</span> )</span>
 <span id="cb145-3"><a href="selecting-models.html#cb145-3" tabindex="-1"></a><span class="fu">plot</span>( x, y )</span></code></pre></div>
-<p><img src="sci_files/figure-html/acccorr-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/acccorr-1.png" alt="" width="672" /></p>
 <p>Here I set <span class="math inline">\(\alpha=0.2\)</span>, but it could have been any other value. Now
 let’s fit this function to our data:</p>
 <p><span class="math display">\[
@@ -656,7 +656,7 @@ E[Y] = \alpha X^2
 <span id="cb146-2"><a href="selecting-models.html#cb146-2" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(th) <span class="fu">mean</span>((y<span class="sc">-</span><span class="fu">mdl</span>(x,th))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb146-3"><a href="selecting-models.html#cb146-3" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="dv">1</span> )</span>
 <span id="cb146-4"><a href="selecting-models.html#cb146-4" tabindex="-1"></a><span class="fu">plot</span>( x, y ); <span class="fu">lines</span>( x, <span class="fu">mdl</span>(x,fit<span class="sc">$</span>estimate), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/acccorrfit-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/acccorrfit-1.png" alt="" width="672" /></p>
 <p>This is, in some sense, our “dream scenario” in inference: the process that generates the data is exactly captured by the model that
 we’re fitting. So we know that the model is correct. We can also see that the model is in fact very accurate: all predictions are very close to the data.</p>
 </div>
@@ -674,7 +674,7 @@ the model less accurate, but still correct?</p>
 <span id="cb147-3"><a href="selecting-models.html#cb147-3" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(th) <span class="fu">mean</span>((y<span class="sc">-</span><span class="fu">mdl</span>(x,th))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb147-4"><a href="selecting-models.html#cb147-4" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="dv">1</span> )</span>
 <span id="cb147-5"><a href="selecting-models.html#cb147-5" tabindex="-1"></a><span class="fu">plot</span>( x, y ); <span class="fu">lines</span>( x, <span class="fu">mdl</span>(x,fit<span class="sc">$</span>estimate), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/acccorrfit2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/acccorrfit2-1.png" alt="" width="672" /></p>
 <p>I didn’t change the model — it’s still the correct model — but now the accuracy
 is indeed much lower. So this is an example of a model that is correct but not very accurate</p>
 <blockquote>
@@ -702,7 +702,7 @@ assignments it’s like over 99%</p>
 <span id="cb148-5"><a href="selecting-models.html#cb148-5" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(th) <span class="fu">mean</span>((y<span class="sc">-</span><span class="fu">mdl</span>(x,th))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb148-6"><a href="selecting-models.html#cb148-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )</span>
 <span id="cb148-7"><a href="selecting-models.html#cb148-7" tabindex="-1"></a><span class="fu">lines</span>( x, <span class="fu">mdl</span>(x,fit<span class="sc">$</span>estimate), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/acccorr2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/acccorr2-1.png" alt="" width="672" /></p>
 <p>I know now that the model is incorrect because I know that this model I’m fitting is not
 the one used to generate the data. But in fact, the accuracy of the model is actually
 not bad. This model is in fact more accurate than the correct model in the previous example,
@@ -847,7 +847,7 @@ We have this plot here.</p>
 <span id="cb155-5"><a href="selecting-models.html#cb155-5" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) )</span>
 <span id="cb155-6"><a href="selecting-models.html#cb155-6" tabindex="-1"></a><span class="fu">plot</span>( x, y<span class="sc">-</span><span class="fu">mdl</span>(x,fit<span class="sc">$</span>estimate), <span class="at">ylab=</span><span class="st">&quot;residual&quot;</span>)</span>
 <span id="cb155-7"><a href="selecting-models.html#cb155-7" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">h=</span><span class="dv">0</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/rrplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/rrplot-1.png" alt="" width="672" /></p>
 <p>So I think this is the plot that you were referring to.
 So what you say is that there is this kind of curve shape.
 So the thing is, the regression model itself,
@@ -962,7 +962,7 @@ about the residuals from the predictors. Fitting a squared model shows that ther
 <span id="cb156-7"><a href="selecting-models.html#cb156-7" tabindex="-1"></a><span class="fu">plot</span>( x, res, <span class="at">ylab=</span><span class="st">&quot;residual&quot;</span> )</span>
 <span id="cb156-8"><a href="selecting-models.html#cb156-8" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">h=</span><span class="dv">0</span> )</span>
 <span id="cb156-9"><a href="selecting-models.html#cb156-9" tabindex="-1"></a><span class="fu">lines</span>( x, <span class="fu">predict</span>( <span class="fu">lm</span>( res <span class="sc">~</span> <span class="fu">poly</span>( x, <span class="dv">2</span> ) ) ), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/rrplot2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/rrplot2-1.png" alt="" width="672" /></p>
 <p>This is, indeed, a common strategy to “test” the quality of regression model fits.</p>
 <div id="the-wald-wolfowitz-runs-test" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> The Wald-Wolfowitz runs test<a href="selecting-models.html#the-wald-wolfowitz-runs-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1095,7 +1095,7 @@ which are both not in a true model:</p>
 <span id="cb165-5"><a href="selecting-models.html#cb165-5" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(th) <span class="fu">mean</span>((y<span class="sc">-</span><span class="fu">mdl</span>(x,th))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb165-6"><a href="selecting-models.html#cb165-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>) )</span>
 <span id="cb165-7"><a href="selecting-models.html#cb165-7" tabindex="-1"></a><span class="fu">lines</span>( x, <span class="fu">mdl</span>(x,fit<span class="sc">$</span>estimate), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/acccorr3456-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/acccorr3456-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="selecting-models.html#cb166-1" tabindex="-1"></a><span class="dv">1</span>  <span class="sc">-</span> fit<span class="sc">$</span>minimum <span class="sc">/</span> <span class="fu">mean</span>( ( y <span class="sc">-</span> <span class="fu">mean</span>(y) )<span class="sc">^</span><span class="dv">2</span> )</span></code></pre></div>
 <pre><code>## [1] 0.7372662</code></pre>
 <p>Let’s see how this compares to a fit without the extra term:</p>
@@ -1707,7 +1707,7 @@ It’s automated but gets a very low probability
 assigned by this model.
 And also this one.</p>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="selecting-models.html#cb189-1" tabindex="-1"></a><span class="fu">with</span>( mtcars, beeswarm<span class="sc">::</span><span class="fu">beeswarm</span>( <span class="fu">model</span>( wt, fit<span class="sc">$</span>estimate ) <span class="sc">~</span> am ) )</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" /></p>
 <p>So if you want to convert this to a confusion matrix,
 what you would have to do is we would
 have to decide on a threshold where we say, OK,
@@ -1741,7 +1741,7 @@ Which we are now going to look at.</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="selecting-models.html#cb190-1" tabindex="-1"></a><span class="fu">with</span>( mtcars, <span class="fu">plot</span>(pROC<span class="sc">::</span><span class="fu">roc</span>( am <span class="sc">~</span> <span class="fu">model</span>( wt, fit<span class="sc">$</span>estimate ) ), <span class="at">print.auc=</span><span class="cn">TRUE</span>) )</span></code></pre></div>
 <pre><code>## Setting levels: control = 0, case = 1</code></pre>
 <pre><code>## Setting direction: controls &lt; cases</code></pre>
-<p><img src="sci_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672" /></p>
 <p>This curve shows the trade-off between specificity and sensitivity.
 If I use a threshold that is very high,
 then the specificity is super high,
@@ -1810,11 +1810,11 @@ And then we draw the AUC curve.</p>
 <span id="cb193-4"><a href="selecting-models.html#cb193-4" tabindex="-1"></a>    p_pred[i] <span class="ot">&lt;-</span> <span class="fu">predict</span>( fit, <span class="at">newdata=</span>mtcars[i,] )</span>
 <span id="cb193-5"><a href="selecting-models.html#cb193-5" tabindex="-1"></a>}</span>
 <span id="cb193-6"><a href="selecting-models.html#cb193-6" tabindex="-1"></a>beeswarm<span class="sc">::</span><span class="fu">beeswarm</span>( p_pred <span class="sc">~</span> mtcars<span class="sc">$</span>am )</span></code></pre></div>
-<p><img src="sci_files/figure-html/logregfit2preds-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/logregfit2preds-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="selecting-models.html#cb194-1" tabindex="-1"></a><span class="fu">plot</span>(pROC<span class="sc">::</span><span class="fu">roc</span>( mtcars<span class="sc">$</span>am <span class="sc">~</span> p_pred ), <span class="at">print.auc=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Setting levels: control = 0, case = 1</code></pre>
 <pre><code>## Setting direction: controls &lt; cases</code></pre>
-<p><img src="sci_files/figure-html/logregfit2preds-2.png" width="672" /></p>
+<p><img src="sci_files/figure-html/logregfit2preds-2.png" alt="" width="672" /></p>
 <p>And again, we can see that the AUC is lower, right?
 It used to be 0.933, and now it’s down to 0.891, because it’s evaluated
 on held-out data.
@@ -2042,7 +2042,7 @@ So they’re not nested.</p>
 <span id="cb197-19"><a href="selecting-models.html#cb197-19" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;am ~ wt: nLL =&quot;</span>, <span class="fu">sum</span>( nll_test_wt ), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb197-20"><a href="selecting-models.html#cb197-20" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;am ~ mpg: nLL =&quot;</span>, <span class="fu">sum</span>( nll_test_mpg ), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb197-21"><a href="selecting-models.html#cb197-21" tabindex="-1"></a>} )</span></code></pre></div>
-<p><img src="sci_files/figure-html/logregfit2preds223-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/logregfit2preds223-1.png" alt="" width="672" /></p>
 <pre><code>## am ~ wt: nLL = 13.37083 
 ## am ~ mpg: nLL = 16.9909</code></pre>
 <p>So the negative log likelihood

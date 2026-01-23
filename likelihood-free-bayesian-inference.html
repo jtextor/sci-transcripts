@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-12-20" />
+<meta name="date" content="2026-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -989,7 +989,7 @@ This would be, this is even in the package as a function,
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="likelihood-free-bayesian-inference.html#cb209-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="fl">0.1</span>)</span>
 <span id="cb209-2"><a href="likelihood-free-bayesian-inference.html#cb209-2" tabindex="-1"></a></span>
 <span id="cb209-3"><a href="likelihood-free-bayesian-inference.html#cb209-3" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout_in_circle,  <span class="at">vertex.label =</span> <span class="cn">NA</span>,  <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/wattsstrogatz-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/wattsstrogatz-1.png" alt="" width="672" /></p>
 <p>We can check here what happens when we change that probability.
 For this example, the probability of rewiring
 is set to <span class="math inline">\(p=0.1\)</span>, and it gives you quite many rewiring connections.
@@ -998,13 +998,13 @@ I would expect basically the circle structure
 is completely gone:</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="likelihood-free-bayesian-inference.html#cb210-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="fl">0.9</span>)</span>
 <span id="cb210-2"><a href="likelihood-free-bayesian-inference.html#cb210-2" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout_in_circle,  <span class="at">vertex.label =</span> <span class="cn">NA</span>,  <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/wattsstrogatz2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/wattsstrogatz2-1.png" alt="" width="672" /></p>
 <p>And if I set <span class="math inline">\(p\)</span>
 to a smaller value, like 0.01, for instance,
 then you have only a few extra connections:</p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="likelihood-free-bayesian-inference.html#cb211-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">sample_smallworld</span>(<span class="at">dim =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">176</span>, <span class="at">nei =</span> <span class="dv">4</span>, <span class="at">p =</span> <span class="fl">0.01</span>)</span>
 <span id="cb211-2"><a href="likelihood-free-bayesian-inference.html#cb211-2" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> layout_in_circle,  <span class="at">vertex.label =</span> <span class="cn">NA</span>,  <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/wattsstrogatz3-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/wattsstrogatz3-1.png" alt="" width="672" /></p>
 <p>The parameter <span class="math inline">\(p\)</span> basically controls
 the local versus global connectivity in this network.</p>
 <p>Now we have the simulation model,
@@ -1074,7 +1074,7 @@ connections with a sampling weight of <span class="math inline">\(\exp( -\beta \
 <span id="cb212-29"><a href="likelihood-free-bayesian-inference.html#cb212-29" tabindex="-1"></a></span>
 <span id="cb212-30"><a href="likelihood-free-bayesian-inference.html#cb212-30" tabindex="-1"></a><span class="fu">plot</span>(g, <span class="at">layout =</span> <span class="fu">as.matrix</span>(<span class="fu">cbind</span>(<span class="fu">V</span>(g)<span class="sc">$</span>x, <span class="fu">V</span>(g)<span class="sc">$</span>y)),</span>
 <span id="cb212-31"><a href="likelihood-free-bayesian-inference.html#cb212-31" tabindex="-1"></a>     <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/geoattach-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/geoattach-1.png" alt="" width="672" /></p>
 <p>The parameter <span class="math inline">\(\beta\)</span> basically tells me how strongly close connections are
 favored with respect to far away connections.</p>
 <p>So there’s a different model, and I could certainly come up with, and this would give
@@ -1375,7 +1375,7 @@ to the corresponding value in <code>theta</code> that we have generated before.<
 <span id="cb215-4"><a href="likelihood-free-bayesian-inference.html#cb215-4" tabindex="-1"></a>    <span class="fu">rgb</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">25</span>))[<span class="dv">1</span><span class="sc">+</span>(X<span class="sc">==</span><span class="dv">0</span>)] )</span>
 <span id="cb215-5"><a href="likelihood-free-bayesian-inference.html#cb215-5" tabindex="-1"></a>beeswarm<span class="sc">::</span><span class="fu">beeswarm</span>( theta[X<span class="sc">==</span><span class="dv">0</span>] )</span>
 <span id="cb215-6"><a href="likelihood-free-bayesian-inference.html#cb215-6" tabindex="-1"></a>beeswarm<span class="sc">::</span><span class="fu">bxplot</span>( theta[X<span class="sc">==</span><span class="dv">0</span>], <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672" /></p>
 <p>This would be the entire data set that we generated.
 So we have uniformly distributed fractions on the bottom here.
 And here for each fraction, we can
@@ -1665,7 +1665,7 @@ And that’s it!</p>
 <p>That’s the entire ABC scheme. Let’s look at the resulting
 posterior distribution:</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="likelihood-free-bayesian-inference.html#cb223-1" tabindex="-1"></a><span class="fu">hist</span>( posterior, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">301</span>) )</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <p>The ABC algorithm says that, most likely, the “most likely” churn time of customers (i.e., the <em>mode</em> of the posterior) would be somewhere around 100.
 The <em>mean</em> of the posterior is probably higher
 because it’s a skewed distribution.
@@ -1769,7 +1769,7 @@ And our new prior in each round is the previous posterior plus some noise.</p>
 <span id="cb224-22"><a href="likelihood-free-bayesian-inference.html#cb224-22" tabindex="-1"></a>    <span class="fu">hist</span>( posterior, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">300</span>), <span class="at">main=</span><span class="fu">paste</span>(<span class="st">&quot;round&quot;</span>,j))</span>
 <span id="cb224-23"><a href="likelihood-free-bayesian-inference.html#cb224-23" tabindex="-1"></a>    prior <span class="ot">&lt;-</span> <span class="cf">function</span>() <span class="fu">sample</span>(posterior,<span class="dv">1</span>)<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">1</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
 <span id="cb224-24"><a href="likelihood-free-bayesian-inference.html#cb224-24" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="sci_files/figure-html/abcchurn_smc-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/abcchurn_smc-1.png" alt="" width="672" /></p>
 <p>We can generally observed two things happen over ABC-SMC iterations. First, the posterior starts out more “flat” / “uniform” and then get more “peaky” in later iterations. Second, as we lower the <span class="math inline">\(\epsilon\)</span>, at some point it becomes harder and harder to find “good” samples. In practice, we need to decide to stop lowering <span class="math inline">\(\epsilon\)</span> at some point, for example if the acceptance rate drops too much.</p>
 <p>Compared to standard ABC, ABC-SMC has an additional parameter: the amount of noise to add to the samples from the posterior of the previous round. Good choices for this parameter depend on the data units.
 Here, our units are days, so having a standard deviation of one
@@ -1834,7 +1834,7 @@ because of that.</p>
 <span id="cb225-23"><a href="likelihood-free-bayesian-inference.html#cb225-23" tabindex="-1"></a>    <span class="fu">plot</span>( posterior )</span>
 <span id="cb225-24"><a href="likelihood-free-bayesian-inference.html#cb225-24" tabindex="-1"></a>    prior <span class="ot">&lt;-</span> <span class="cf">function</span>() posterior[<span class="fu">sample</span>(N,<span class="dv">1</span>),]<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">2</span>,<span class="at">sd=</span><span class="dv">1</span>)</span>
 <span id="cb225-25"><a href="likelihood-free-bayesian-inference.html#cb225-25" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="sci_files/figure-html/abcchurn_smc_ms-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/abcchurn_smc_ms-1.png" alt="" width="672" /></p>
 <p>Now we have a 2D parameter space, where the
 X dimension is still the base churn rate
 and the Y dimension is the difference between
@@ -1892,7 +1892,7 @@ So model selection in this sense is no different from any other Bayesian approac
 <span id="cb226-25"><a href="likelihood-free-bayesian-inference.html#cb226-25" tabindex="-1"></a>    <span class="fu">hist</span>( posterior[,<span class="dv">3</span>] )</span>
 <span id="cb226-26"><a href="likelihood-free-bayesian-inference.html#cb226-26" tabindex="-1"></a>    prior <span class="ot">&lt;-</span> <span class="cf">function</span>() posterior[<span class="fu">sample</span>(N,<span class="dv">1</span>),]<span class="sc">+</span><span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">2</span>,<span class="at">sd=</span><span class="dv">1</span>),<span class="dv">0</span>)</span>
 <span id="cb226-27"><a href="likelihood-free-bayesian-inference.html#cb226-27" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="sci_files/figure-html/abcchurn_smc_ms_2-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/abcchurn_smc_ms_2-1.png" alt="" width="672" /></p>
 <p>The code only shows the posterior distribution for <span class="math inline">\(\theta_3\)</span>, which is the model that we use.
 On the left, we have the model without the churn risk difference.
 And on the right, we have the model with the difference.
@@ -1952,7 +1952,7 @@ for this parameter <span class="math inline">\(p\)</span> of the Watts-Strogatz 
 <span id="cb230-10"><a href="likelihood-free-bayesian-inference.html#cb230-10" tabindex="-1"></a>    trials <span class="ot">&lt;-</span> trials<span class="sc">+</span><span class="dv">1</span></span>
 <span id="cb230-11"><a href="likelihood-free-bayesian-inference.html#cb230-11" tabindex="-1"></a>}</span>
 <span id="cb230-12"><a href="likelihood-free-bayesian-inference.html#cb230-12" tabindex="-1"></a><span class="fu">hist</span>(posterior, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div>
-<p><img src="sci_files/figure-html/dorunit-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/dorunit-1.png" alt="" width="672" /></p>
 </div>
 <div id="recap-2" class="section level3 hasAnchor" number="8.7.4">
 <h3><span class="header-section-number">8.7.4</span> Recap<a href="likelihood-free-bayesian-inference.html#recap-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>

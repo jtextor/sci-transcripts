@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-12-20" />
+<meta name="date" content="2026-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -404,7 +404,7 @@ fuel efficiency measured in miles per gallon (<em>mpg</em>). 1 mpg is approximat
 <p>Let’s first look at the data, and try to model <em>mpg</em> as a function of engine
 power, measured in “horse power” (<em>hp</em>).</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="extending-linear-regression-models.html#cb48-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( hp, mpg ))</span></code></pre></div>
-<p><img src="sci_files/figure-html/mtcplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/mtcplot-1.png" alt="" width="672" /></p>
 <p>Last week, we extensively discussed <em>loss functions</em>, and we saw how the “standard” linear model uses the sum of squared errors (or equivalently, the mean squared error as in the formula below) as a loss function:</p>
 <p><span class="math display">\[ \text{argmin}_{\theta} \frac{1}{n}\sum_i (y_i - \theta_2 x_i - \theta_1)^2
 \]</span></p>
@@ -490,7 +490,7 @@ and nonlinear versions of the predictors. But first, let’s see how we can
 visualize our regression by adding a regression line to the plot:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="extending-linear-regression-models.html#cb57-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( hp, mpg ))</span>
 <span id="cb57-2"><a href="extending-linear-regression-models.html#cb57-2" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">30.09886</span>, <span class="sc">-</span><span class="fl">0.06823</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/mtcplot12-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/mtcplot12-1.png" alt="" width="672" /></p>
 </div>
 <div id="transforming-variables" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Transforming variables<a href="extending-linear-regression-models.html#transforming-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -536,7 +536,7 @@ very different coefficients. These are now 72 and -24.8, rather than
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="extending-linear-regression-models.html#cb60-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( hp, mpg ))</span>
 <span id="cb60-2"><a href="extending-linear-regression-models.html#cb60-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">50</span>,<span class="dv">300</span>)</span>
 <span id="cb60-3"><a href="extending-linear-regression-models.html#cb60-3" tabindex="-1"></a><span class="fu">lines</span>( x,  <span class="fl">72.64047</span> <span class="sc">-</span><span class="fl">24.78543</span><span class="sc">*</span><span class="fu">log10</span>(x), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/mtcplot123-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/mtcplot123-1.png" alt="" width="672" /></p>
 <p>Not too bad!</p>
 <p>This is called a <em>log-linear</em> model. In fact it doesn’t look linear at all, but remember, it remains linear in the parameters <code>th</code>. This one reason why linear models are much more powerful than many people think. Using a linear model doesn’t necessarily mean fitting a line through data points. Linear models could use spline functions, Fourier series, or other very powerful transformations of the data.</p>
 </div>
@@ -565,7 +565,7 @@ We just need to change our <code>loss_mtcars</code> function to use a different 
 <p>We can also plot this setup:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="extending-linear-regression-models.html#cb63-1" tabindex="-1"></a><span class="fu">with</span>(mtcars, <span class="fu">plot</span>( am, mpg ))</span>
 <span id="cb63-2"><a href="extending-linear-regression-models.html#cb63-2" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">17.147356</span>, <span class="fl">7.244948</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/mtcplot1243423-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/mtcplot1243423-1.png" alt="" width="672" /></p>
 <p>Although this plot may look slightly strange because we have only two different values on our x-axis, this is still a perfectly fine linear model – as before, it remains linear in its parameters.</p>
 <p>What we see here is that the cars with automatic transmission (points on the
 right-hand side) are more efficient than the non-automatic ones on the
@@ -657,7 +657,7 @@ from now!</p>
 <span id="cb66-3"><a href="extending-linear-regression-models.html#cb66-3" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32155130</span>, <span class="sc">-</span><span class="fl">5.35281145</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span>
 <span id="cb66-4"><a href="extending-linear-regression-models.html#cb66-4" tabindex="-1"></a><span class="co"># blue line for am=1</span></span>
 <span id="cb66-5"><a href="extending-linear-regression-models.html#cb66-5" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32155130-0.02361512</span>, <span class="sc">-</span><span class="fl">5.35281145</span>, <span class="at">col=</span><span class="dv">4</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
 <p>And we could summarize our <strong>interpretation</strong> like this: For two cars of the same weight <em>wt</em>, it barely makes a difference if the transmission is automatic or manual, whereas for both automatic and manual cars, each additional 1000 lbs (450 kg) is associated with a decrease in fuel efficiency of 5.35 mpg</p>
 </div>
 <div id="interaction-terms" class="section level2 hasAnchor" number="4.5">
@@ -704,7 +704,7 @@ suggest and impact of transmission type.</p>
 <span id="cb69-3"><a href="extending-linear-regression-models.html#cb69-3" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32155130</span>, <span class="sc">-</span><span class="fl">3.785907</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span>
 <span id="cb69-4"><a href="extending-linear-regression-models.html#cb69-4" tabindex="-1"></a><span class="co"># blue line for am=1</span></span>
 <span id="cb69-5"><a href="extending-linear-regression-models.html#cb69-5" tabindex="-1"></a><span class="fu">abline</span>( <span class="fl">37.32</span> <span class="sc">+</span> <span class="fl">14.88</span>, <span class="sc">-</span><span class="fl">3.79</span> <span class="sc">-</span><span class="fl">5.3</span>, <span class="at">col=</span><span class="dv">4</span>, <span class="at">lwd=</span><span class="dv">4</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/mtcinteractplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/mtcinteractplot-1.png" alt="" width="672" /></p>
 <p>As we can see the slopes are not the same, which means they must cross at some point. For our data, the crossover point means that light manual cars are more efficient than <em>light</em> automatic cars, whereas it’s the opposite for heavy cars: heavy manual cars are <em>less</em> efficient than heavy automatic ones.</p>
 <blockquote>
 <p>Instead of taking the product of

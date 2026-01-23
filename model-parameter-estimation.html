@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-12-20" />
+<meta name="date" content="2026-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -466,7 +466,7 @@ And now we can fit our model by minimizing this loss function, okay? So a simple
 <span id="cb97-4"><a href="model-parameter-estimation.html#cb97-4" tabindex="-1"></a><span class="fu">points</span>( fit1<span class="sc">$</span>e, fit1<span class="sc">$</span>m, <span class="at">col=</span><span class="dv">2</span> )</span>
 <span id="cb97-5"><a href="model-parameter-estimation.html#cb97-5" tabindex="-1"></a><span class="fu">plot</span>( sigma, <span class="fu">loss_mle</span>(sigma,x2), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span>
 <span id="cb97-6"><a href="model-parameter-estimation.html#cb97-6" tabindex="-1"></a><span class="fu">points</span>( fit2<span class="sc">$</span>e, fit2<span class="sc">$</span>m, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/lossland-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/lossland-1.png" alt="" width="672" /></p>
 <p>By looking at the loss landscape, we can build some intuition. In which of these two cases do you think we have more confidence in our estimate?</p>
 <blockquote>
 <p>The plot on the right-hand side.</p>
@@ -496,7 +496,7 @@ And now we can fit our model by minimizing this loss function, okay? So a simple
 <span id="cb98-2"><a href="model-parameter-estimation.html#cb98-2" tabindex="-1"></a>label <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.46</span>, <span class="fl">0.69</span>, <span class="fl">1.2</span>, <span class="fl">1.1</span>, <span class="fl">1.3</span>, <span class="fl">1.7</span>, <span class="dv">1</span>, <span class="fl">0.8</span>, <span class="fl">0.62</span>, <span class="fl">0.54</span>)<span class="sc">/</span><span class="dv">100</span></span>
 <span id="cb98-3"><a href="model-parameter-estimation.html#cb98-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">11</span></span>
 <span id="cb98-4"><a href="model-parameter-estimation.html#cb98-4" tabindex="-1"></a><span class="fu">plot</span>( day, label, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">type=</span><span class="st">&quot;p&quot;</span> ); <span class="fu">abline</span>( <span class="at">v=</span><span class="dv">60</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/deutplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/deutplot-1.png" alt="" width="672" /></p>
 <p>In this data, we can clearly see the initial <em>uplabelling</em> phase until 60 days, when the participant stopped drinking the label. Afterwards, we can see the <em>downlabelling</em> phase. Now, in order to translate such data into estimates of cell lifespans, we’ll make a critical <em>assumption</em>: Cells divide at approximately the same rate at which they die. The justification for this assumption is that otherwise, the number of white blood cells would decrease or increase over time, which we do not expect to happen in a healthy person.</p>
 <p>Our assumption links the two phases; the increase during the uplabelling phase is mainly due to cell division, whereas the decrease during the downlabelling phase is mainly due to cell death.</p>
 <p>Now it’s our turn as data scientists; can we make a statistical model and fit this to the data to infer the death/proliferation rate of the cells?</p>
@@ -575,7 +575,7 @@ and we can get parameter estimates:</p>
 <span id="cb102-3"><a href="model-parameter-estimation.html#cb102-3" tabindex="-1"></a>ls_fit <span class="ot">&lt;-</span> <span class="fu">nlm</span>( loss_nll_bound, <span class="fu">c</span>(.<span class="dv">03</span>, .<span class="dv">01</span>) ) </span>
 <span id="cb102-4"><a href="model-parameter-estimation.html#cb102-4" tabindex="-1"></a><span class="fu">plot</span>( day, label, <span class="at">type=</span><span class="st">&quot;p&quot;</span> )</span>
 <span id="cb102-5"><a href="model-parameter-estimation.html#cb102-5" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">200</span>); <span class="fu">lines</span>( x, <span class="fu">model</span>( x, ls_fit<span class="sc">$</span>estimate ), <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/mlefitplot-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/mlefitplot-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="model-parameter-estimation.html#cb103-1" tabindex="-1"></a>ls_fit<span class="sc">$</span>estimate</span></code></pre></div>
 <pre><code>## [1] 0.03324437 0.01127293</code></pre>
 <p>So this is our best fit. It looks pretty decent! We can clearly see the uplabelling and downlabeling phases. We can also clearly see that it has not yet reached the saturation point <span class="math inline">\(\alpha\)</span> when the labeling stops. According to the model, the label should still have increased if I had kept on labeling for longer.</p>
@@ -662,12 +662,12 @@ We implement a separate function to do a single bootstrap replicate:</p>
 <span id="cb109-4"><a href="model-parameter-estimation.html#cb109-4" tabindex="-1"></a><span class="do">## Perform the bootstrap by calling the </span></span>
 <span id="cb109-5"><a href="model-parameter-estimation.html#cb109-5" tabindex="-1"></a><span class="do">## function above 100 times</span></span>
 <span id="cb109-6"><a href="model-parameter-estimation.html#cb109-6" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">replicate</span>(<span class="dv">100</span>,<span class="fu">ls_fit_bs</span>())) </span></code></pre></div>
-<p><img src="sci_files/figure-html/cellboot3-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/cellboot3-1.png" alt="" width="672" /></p>
 <p>Notice how we get a slightly different model fit each time we do this. Each of these red lines corresponds to a different pair of <span class="math inline">\(\alpha, \beta\)</span> values. Let’s now look at those values directly:</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="model-parameter-estimation.html#cb110-1" tabindex="-1"></a><span class="do">## Make another plot of the bootstrapped parameter </span></span>
 <span id="cb110-2"><a href="model-parameter-estimation.html#cb110-2" tabindex="-1"></a><span class="do">## estimates</span></span>
 <span id="cb110-3"><a href="model-parameter-estimation.html#cb110-3" tabindex="-1"></a><span class="fu">plot</span>( bs, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">xlab=</span><span class="st">&quot;alpha&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;beta&quot;</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" /></p>
 <p>What we can see is that there’s in fact a correlation between the two estimated parameters: if the setpoint estimate <span class="math inline">\(\alpha\)</span> is on the higher end, then this will be compensated by a lower turnover rate, and vice versa. This kind of interdependence between estimated parameters is something that’s found in most models.</p>
 <p>As a last step, we use the collected bootstrap information to get a 95% confidence interval for the parameter we are interested in.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="model-parameter-estimation.html#cb111-1" tabindex="-1"></a><span class="do">## Determine a 95% confidence interval of cell lifetimes</span></span>
@@ -780,7 +780,7 @@ H^{-1} \approx 0.278
 <span id="cb116-4"><a href="model-parameter-estimation.html#cb116-4" tabindex="-1"></a><span class="fu">plot</span>( sigma, <span class="fu">loss_mle</span>(sigma,x1), <span class="at">type=</span><span class="st">&#39;l&#39;</span> )</span>
 <span id="cb116-5"><a href="model-parameter-estimation.html#cb116-5" tabindex="-1"></a><span class="fu">points</span>( f<span class="sc">$</span>e, f<span class="sc">$</span>m, <span class="at">col=</span><span class="dv">2</span> )</span>
 <span id="cb116-6"><a href="model-parameter-estimation.html#cb116-6" tabindex="-1"></a><span class="fu">segments</span>( f<span class="sc">$</span>e<span class="fl">-1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(Hm1), f<span class="sc">$</span>m, f<span class="sc">$</span>e<span class="fl">+1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(Hm1), f<span class="sc">$</span>m, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-30-1.png" alt="" width="672" /></p>
 <p>This looks like a pretty wide confidence interval. Why is it so wide? Well, 3 data points isn’t a massive dataset of course. With more samples, the confidence in our estimate should increase. A rule of thumb is that if I want to decrease the width of a confidence interval by a factor of <span class="math inline">\(k\)</span>, then I need to obtain <span class="math inline">\(k^2\)</span> more samples. For instance, say I want to have a 2x smaller confidence interval, then I should try to get 12 samples instead of 4.</p>
 <p>So, that wraps up our example of how the Wald test based on the Hessian is computed in this toy example.</p>
 </div>
@@ -854,7 +854,7 @@ rely on any packages.</p>
 <span id="cb124-3"><a href="model-parameter-estimation.html#cb124-3" tabindex="-1"></a>   <span class="at">xlab=</span><span class="st">&quot;alpha&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;beta&quot;</span>)</span>
 <span id="cb124-4"><a href="model-parameter-estimation.html#cb124-4" tabindex="-1"></a><span class="co"># 1SD ellipse (~68% confidence)</span></span>
 <span id="cb124-5"><a href="model-parameter-estimation.html#cb124-5" tabindex="-1"></a><span class="fu">lines</span>(ellipse<span class="sc">::</span><span class="fu">ellipse</span>(Hm1, <span class="at">centre=</span>fit<span class="sc">$</span>estimate, <span class="at">level=</span>.<span class="dv">68</span>), <span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-34-1.png" alt="" width="672" /></p>
 <p>This may look familiar to you?
 It looks a bit like the loss landscapes that we visualized earlier in Lecture 2.</p>
 <blockquote>
@@ -1022,7 +1022,7 @@ the derivatives of the element-wise loss functions <span class="math inline">\(\
 <span id="cb144-3"><a href="model-parameter-estimation.html#cb144-3" tabindex="-1"></a><span class="fu">lines</span>(ellipse<span class="sc">::</span><span class="fu">ellipse</span>(vcov_sandwich, <span class="at">centre=</span>fit<span class="sc">$</span>estimate, <span class="at">level=</span>.<span class="dv">68</span>), <span class="at">col=</span><span class="dv">2</span>)</span>
 <span id="cb144-4"><a href="model-parameter-estimation.html#cb144-4" tabindex="-1"></a><span class="fu">lines</span>(ellipse<span class="sc">::</span><span class="fu">ellipse</span>(Hm1, <span class="at">centre=</span>fit<span class="sc">$</span>estimate, <span class="at">level=</span>.<span class="dv">68</span>), <span class="at">col=</span><span class="dv">4</span>)</span>
 <span id="cb144-5"><a href="model-parameter-estimation.html#cb144-5" tabindex="-1"></a><span class="fu">lines</span>(ellipse<span class="sc">::</span><span class="fu">ellipse</span>(Hm1, <span class="at">centre=</span>fit<span class="sc">$</span>estimate, <span class="at">level=</span>.<span class="dv">95</span>), <span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-44-1.png" alt="" width="672" /></p>
 </div>
 <div id="sandwich-estimator-for-maximum-likelihood" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Sandwich estimator for maximum likelihood<a href="model-parameter-estimation.html#sandwich-estimator-for-maximum-likelihood" class="anchor-section" aria-label="Anchor link to header"></a></h2>

@@ -23,7 +23,7 @@
 <meta name="author" content="Johannes Textor" />
 
 
-<meta name="date" content="2025-12-20" />
+<meta name="date" content="2026-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -401,7 +401,7 @@ typed a few extra zeros too much or maybe a Dutch decimal comma was wrongly inte
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="loss-functions-and-regression-models.html#cb28-1" tabindex="-1"></a><span class="fu">with</span>( airquality, </span>
 <span id="cb28-2"><a href="loss-functions-and-regression-models.html#cb28-2" tabindex="-1"></a>  <span class="fu">plot</span>( Temp, Wind, <span class="at">cex=</span>.<span class="dv">5</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span>
 <span id="cb28-3"><a href="loss-functions-and-regression-models.html#cb28-3" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc1-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc1-1.png" alt="" width="672" /></p>
 <p>How is wind speed affected by temperature?</p>
 <p>To already answer this question, let’s use the <code>lm</code> function in base R to add a regression line to this plot – and we’ll make sure later that we understand exactly how it is computed:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="loss-functions-and-regression-models.html#cb29-1" tabindex="-1"></a><span class="fu">with</span>( airquality, {</span>
@@ -410,7 +410,7 @@ typed a few extra zeros too much or maybe a Dutch decimal comma was wrongly inte
 <span id="cb29-4"><a href="loss-functions-and-regression-models.html#cb29-4" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lm</span>( Wind <span class="sc">~</span> Temp )</span>
 <span id="cb29-5"><a href="loss-functions-and-regression-models.html#cb29-5" tabindex="-1"></a>  <span class="fu">abline</span>( m, <span class="at">col=</span><span class="dv">2</span> )</span>
 <span id="cb29-6"><a href="loss-functions-and-regression-models.html#cb29-6" tabindex="-1"></a>} )</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc1lm-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc1lm-1.png" alt="" width="672" /></p>
 <p>As we can see, this <em>regression line</em> appear to fit quite well, as it goes “through” the data.</p>
 <p>Now, let’s add an outlier to this dataset, and see what that does to our regression line.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="loss-functions-and-regression-models.html#cb30-1" tabindex="-1"></a>temp <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Temp; wind <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Wind</span>
@@ -419,7 +419,7 @@ typed a few extra zeros too much or maybe a Dutch decimal comma was wrongly inte
 <span id="cb30-4"><a href="loss-functions-and-regression-models.html#cb30-4" tabindex="-1"></a>    <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span>
 <span id="cb30-5"><a href="loss-functions-and-regression-models.html#cb30-5" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>( wind <span class="sc">~</span> temp )</span>
 <span id="cb30-6"><a href="loss-functions-and-regression-models.html#cb30-6" tabindex="-1"></a><span class="fu">abline</span>( m, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc1lmol-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc1lmol-1.png" alt="" width="672" /></p>
 <p>We can see that this single outlier has a quite big effect on the regression model. We’ll understand better why this is in a moment, but just to give an idea: fitting this linear regression model essentially minimizes a squared loss.</p>
 <p>Regression fitting can be compared to a tug-of-war: each data point pulls on the line, and the line balances these forces. With squared loss, points farther from the line exert disproportionately stronger pulls, since the force grows with the squared distance.
 This means that a single outlier can heavily influence the regression line, In an extreme case, a single point could have more influence than the rest of the data combined.</p>
@@ -428,10 +428,10 @@ This means that a single outlier can heavily influence the regression line, In a
 <span id="cb31-2"><a href="loss-functions-and-regression-models.html#cb31-2" tabindex="-1"></a>temp[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>; wind[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb31-3"><a href="loss-functions-and-regression-models.html#cb31-3" tabindex="-1"></a><span class="fu">plot</span>( temp, wind, <span class="at">cex=</span>.<span class="dv">5</span>, </span>
 <span id="cb31-4"><a href="loss-functions-and-regression-models.html#cb31-4" tabindex="-1"></a>    <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>) )</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc1lmolcook-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc1lmolcook-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="loss-functions-and-regression-models.html#cb32-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>( wind <span class="sc">~</span> temp )</span>
 <span id="cb32-2"><a href="loss-functions-and-regression-models.html#cb32-2" tabindex="-1"></a><span class="fu">plot</span>(m, <span class="at">which=</span><span class="dv">5</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc1lmolcook-2.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc1lmolcook-2.png" alt="" width="672" /></p>
 <p>The Cook’s distance measures how much “pull” each point has (X axis), considering how far it is away from the line (Y axis). Points should fall within the dashed region. Here, we can see very clearly that the outlier we added (data point 1) has much more “pull” than it should have.</p>
 <p>If you see several points with too much leverage, you could see if those are errors and correct them. If there are too many of those, or the data is coming from a source you can’t change (such as a faulty device), you could instead use a different loss.</p>
 </div>
@@ -550,7 +550,7 @@ Fun fact: For two samples where at least one has mean 0, their mean product is 0
 <h2><span class="header-section-number">3.4</span> Example: Linear regression for the air quality data<a href="loss-functions-and-regression-models.html#example-linear-regression-for-the-air-quality-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s revisit our earlier example:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="loss-functions-and-regression-models.html#cb33-1" tabindex="-1"></a><span class="fu">with</span>( airquality, <span class="fu">plot</span>( Temp, Wind, <span class="at">cex=</span>.<span class="dv">5</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>) ) )</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc123-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc123-1.png" alt="" width="672" /></p>
 <p>Can we predict wind speed from temperature?</p>
 <p>In the class, we estimated together that <span class="math inline">\(\alpha \approx 45\)</span> and <span class="math inline">\(\beta \approx -0.5\)</span>.</p>
 <p>Let’s now define this regression problem in terms of a loss function to optimize, and visualize the loss
@@ -563,7 +563,7 @@ values. Where will our guessed point lie?</p>
 <span id="cb34-6"><a href="loss-functions-and-regression-models.html#cb34-6" tabindex="-1"></a>  <span class="fu">contour</span>( a, b, <span class="fu">sqrt</span>( <span class="fu">outer</span>( a, b, loss ) ) )</span>
 <span id="cb34-7"><a href="loss-functions-and-regression-models.html#cb34-7" tabindex="-1"></a>  <span class="fu">points</span>( <span class="dv">45</span>, <span class="sc">-</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="dv">2</span> )</span>
 <span id="cb34-8"><a href="loss-functions-and-regression-models.html#cb34-8" tabindex="-1"></a>} )</span></code></pre></div>
-<p><img src="sci_files/figure-html/airc2loss-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/airc2loss-1.png" alt="" width="672" /></p>
 <p>(Note that we’re visualizing the square root of the loss here because otherwise these numbers get too large to fast; but this doesn’t change the location of the optimum nor the general structure of the landscape.)</p>
 <p>To actually find the best value, we’re going to use a built-in numerical optimizer in r, using the function <code>nlm</code>. Like any numerical optimizer, this requires some initial guess of what the optimal values might be; we could put in our guess from earlier, but for this specific loss function, it doesn’t matter too much and so we’ll start with a much worse guess: <span class="math inline">\(\alpha=\beta=1\)</span>.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="loss-functions-and-regression-models.html#cb35-1" tabindex="-1"></a><span class="fu">with</span>( airquality, {</span>
@@ -598,7 +598,7 @@ optimizer in fact only required six iterations to find the optimum. The loss val
 <span id="cb37-6"><a href="loss-functions-and-regression-models.html#cb37-6" tabindex="-1"></a>  <span class="fu">contour</span>( a, b, <span class="fu">outer</span>( a, b, lossv ) )</span>
 <span id="cb37-7"><a href="loss-functions-and-regression-models.html#cb37-7" tabindex="-1"></a>} )</span>
 <span id="cb37-8"><a href="loss-functions-and-regression-models.html#cb37-8" tabindex="-1"></a><span class="fu">points</span>( <span class="fl">23.23</span>, <span class="sc">-</span><span class="fl">0.17</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/optimlosssll-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/optimlosssll-1.png" alt="" width="672" /></p>
 <p>Now of course the linear regression has an analytical solution, as we saw earlier, so numerical optimization would not have been necessary. Yet, defining a loss function and optimizing it numerically is a general approach that is applicable to many models.</p>
 <p>Beyond fitting, this method raises questions of inference: how confident can we be in the estimated parameters given only a sample of data? A model may return precise numerical results, but those values can shift if the data changes.</p>
 <p>We’ll discuss this in more detail later, but a quick
@@ -664,7 +664,7 @@ loss for larger errors. This transition is controlled by the parameter <span cla
 <span id="cb42-8"><a href="loss-functions-and-regression-models.html#cb42-8" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span>; mu <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by=</span>.<span class="dv">1</span> )</span>
 <span id="cb42-9"><a href="loss-functions-and-regression-models.html#cb42-9" tabindex="-1"></a><span class="fu">plot</span>( mu, <span class="fu">huber</span>( x, mu ), <span class="at">t=</span><span class="st">&#39;l&#39;</span> )</span>
 <span id="cb42-10"><a href="loss-functions-and-regression-models.html#cb42-10" tabindex="-1"></a><span class="fu">lines</span>( mu, <span class="fu">huber</span>( x, mu, <span class="at">delta=</span><span class="dv">3</span> ), <span class="at">t=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">2</span> )</span></code></pre></div>
-<p><img src="sci_files/figure-html/huber-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/huber-1.png" alt="" width="672" /></p>
 <p>You can see that near zero, the Huber loss has a nice, smoothly quadratic shape. And then as you move towards larger values, it becomes linear. As we increase the value of <span class="math inline">\(\delta\)</span>, the Huber loss becomes more like the squared loss.</p>
 <p>When would we use something like the Huber loss? Say we were to build a model that predicts tomorrow’s temperature, for example, and suppose we’re off by a 100 degrees (e.g. we predict 20 degrees but the data says it’s 120). Then a likely explanation could be that the dataset contains an error, since we don’t usually have this kind of temperatures. In such a case, where we have a large dataset in which we can’t rule out outliers but don’t want them to influence our results too much, might want to use something like the Huber loss.</p>
 <p>Let’s now check how the loss landscape looks like for this loss. <em>(In the lecture, I worked my way step by step from the version above to this version below, which required some debugging steps that I won’t repeat here.)</em></p>
@@ -682,7 +682,7 @@ loss for larger errors. This transition is controlled by the parameter <span cla
 <span id="cb43-12"><a href="loss-functions-and-regression-models.html#cb43-12" tabindex="-1"></a><span class="co"># We need to adjust the contour plot to</span></span>
 <span id="cb43-13"><a href="loss-functions-and-regression-models.html#cb43-13" tabindex="-1"></a><span class="co"># better see the optimum</span></span>
 <span id="cb43-14"><a href="loss-functions-and-regression-models.html#cb43-14" tabindex="-1"></a><span class="fu">contour</span>( a, b, <span class="fu">outer</span>( a, b, lossv ), <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>) )</span></code></pre></div>
-<p><img src="sci_files/figure-html/huberlosslandscape-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/huberlosslandscape-1.png" alt="" width="672" /></p>
 <p>We see that the loss landscape has changed quite a bit, especially in terms of the values – note how I use the levels <code>c(50,100,500,1000)</code> in the code above to make the minimum clearly visible.</p>
 <p>Now let’s see if we can find the optimum of our loss function, and plot it onto this loss landscape:</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="loss-functions-and-regression-models.html#cb44-1" tabindex="-1"></a><span class="co"># We need a single argument vector for our minimization below</span></span>
@@ -691,7 +691,7 @@ loss for larger errors. This transition is controlled by the parameter <span cla
 <span id="cb44-4"><a href="loss-functions-and-regression-models.html#cb44-4" tabindex="-1"></a><span class="fu">contour</span>( a, b, <span class="fu">outer</span>( a, b, lossv ), <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>) )</span>
 <span id="cb44-5"><a href="loss-functions-and-regression-models.html#cb44-5" tabindex="-1"></a><span class="fu">points</span>( <span class="fl">23.23</span>, <span class="sc">-</span><span class="fl">0.17</span>, <span class="at">col=</span><span class="dv">2</span> )</span>
 <span id="cb44-6"><a href="loss-functions-and-regression-models.html#cb44-6" tabindex="-1"></a><span class="fu">points</span>(opt<span class="sc">$</span>estimate[<span class="dv">1</span>], opt<span class="sc">$</span>estimate[<span class="dv">2</span>], <span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" /></p>
 <p>We see that the Huber loss optimum is not very different from our least squares optimum that we found earlier. Could we maybe have expected that?</p>
 <blockquote>
 <p>I think maybe there weren’t a lot of outliers</p>
@@ -723,7 +723,7 @@ loss for larger errors. This transition is controlled by the parameter <span cla
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="loss-functions-and-regression-models.html#cb47-1" tabindex="-1"></a><span class="fu">plot</span>( airquality<span class="sc">$</span>Temp, airquality<span class="sc">$</span>Wind )</span>
 <span id="cb47-2"><a href="loss-functions-and-regression-models.html#cb47-2" tabindex="-1"></a><span class="fu">abline</span>( <span class="fu">lm</span>( Wind <span class="sc">~</span> Temp, airquality ), <span class="at">col=</span><span class="dv">2</span> ) <span class="co"># red line: least squares</span></span>
 <span id="cb47-3"><a href="loss-functions-and-regression-models.html#cb47-3" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">a=</span>huber_fit<span class="sc">$</span>estimate[<span class="dv">1</span>], <span class="at">b=</span>huber_fit<span class="sc">$</span>estimate[<span class="dv">2</span>], <span class="at">col=</span><span class="dv">4</span> ) <span class="co"># blue line: Huber</span></span></code></pre></div>
-<p><img src="sci_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="sci_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
 <p>So, this clearly illustrates how the Huber loss is more robust to outliers.
 But is there any downside to using it?</p>
 <p>Recall that we derived the conditional expectation as a predictor that minimizes
