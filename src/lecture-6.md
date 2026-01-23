@@ -1165,9 +1165,14 @@ To summarize, ABC is both a way to think about how Bayesian inference itself wor
 
 _(Break)_
 
-## Student contribution
+## Student contributions
 
-A student showed the website <https://statdist.ksmzn.com>, where you can view all kinds of probability distributions. Thank you! As an example, I showed the Beta distribution. The Beta distribution generalizes the uniform distribution (which corresponds to the special case where both parameters are 1). If we change the shape, we could for example put more weight on smaller values. For any Bayesian estimation of a fraction (as in our example above), the posterior distribution can be analytically determined (it is also a Beta distribution).
+1. A student showed the website <https://statdist.ksmzn.com>, where you can view all kinds of probability distributions. Thank you! As an example, I showed the Beta distribution. The Beta distribution generalizes the uniform distribution (which corresponds to the special case where both parameters are 1). If we change the shape, we could for example put more weight on smaller values. For any Bayesian estimation of a fraction (as in our example above), the posterior distribution can be analytically determined (it is also a Beta distribution).
+
+2. After the discussion above on how ABC relies on rejecting simulations that do not look sufficiently similar to the observed data, I found it helpful to read the following paper:
+Sunnåker et al. (2013). Approximate Bayesian Computation. PLoS Computational Biology.
+Link: <https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1002803&type=printable>
+When trying to implement ABC myself, I found that deciding how to define the rejection criterion (i.e. which aspects of the data to compare and how strict to be) was more difficult than running the algorithm itself. This paper helped me build intuition for why this is the case and how these choices affect the resulting posterior in practice. I found it particularly helpful for understanding the role of summary statistics and the difficulty of choosing them appropriately. Additionally, it describes methods for making and evaluating different choices.
 
 ## ABC (continued)
 
